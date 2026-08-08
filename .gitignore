@@ -1,0 +1,13 @@
+node_modules/
+dist/
+pow-wasm/target/
+*.sqlite3
+*.db
+.env
+.DS_Store
+target/
+origin/
+data/pgdata/
+.claude/
+rule.txt
+AGENTS.md
