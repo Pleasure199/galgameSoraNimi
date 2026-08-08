@@ -26,10 +26,9 @@ export interface Character {
   hair_color: string;
   /** 色系（隐藏字段，仅用于发色 close 判定） */
   hair_color_family: string;
-  /** 难度归属，由 character_difficulties 关系表填充 */
-  difficulties?: string[];
-  is_enabled: boolean | number;
-  created_at: string;
+  /** 难度归属，直接来自角色 JSON 数据集 */
+  difficulties: string[];
+  is_enabled: boolean;
 }
 
 export type FeedbackLevel = 'correct' | 'close' | 'wrong';

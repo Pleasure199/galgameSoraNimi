@@ -4,20 +4,6 @@ import { db } from './knex';
 const REQUIRED_COLUMNS: Record<string, string[]> = {
   users: ['id', 'username', 'password_hash', 'role', 'token_version', 'leaderboard_hidden'],
   app_migrations: ['name', 'applied_at'],
-  characters: [
-    'id',
-    'name',
-    'work',
-    'company',
-    'release_year',
-    'gender',
-    'cv',
-    'hair_color',
-    'hair_color_family',
-    'is_enabled',
-  ],
-  difficulty_levels: ['key', 'sort_order', 'is_enabled'],
-  character_difficulties: ['character_id', 'difficulty_key'],
   games: ['id', 'session_id', 'user_id', 'guest_key', 'guess_times', 'first_guess_character_id', 'status'],
   announcements: ['id', 'title', 'content', 'is_popup'],
 };

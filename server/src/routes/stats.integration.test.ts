@@ -9,7 +9,7 @@ import { db } from '../db/knex';
 import { initDb } from '../db/init';
 import { initRedis } from '../redis';
 import { errorHandler } from '../middleware/common';
-import { initCharacterCache, getCharacter } from '../services/characterCache';
+import { initCharacterCache, getEnabledCharacter } from '../services/characterCache';
 import { invalidateCached } from '../services/queryCache';
 import { allGlobalStatsCacheKeys } from '../services/statsCache';
 
@@ -52,8 +52,7 @@ describe('stats and replay', () => {
     const ownerKey = `stats-owner-${stamp}`;
     const otherKey = `stats-other-${stamp}`;
     const sessionId = `stats-session-${stamp}`;
-    const [characterRow] = await db('characters').select('id').limit(1);
-    const target = getCharacter(Number(characterRow.id))!;
+    const target = getEnabledCharacter(1)!;
     const [gameId] = await db('games')
       .insert({
         session_id: sessionId,
@@ -130,9 +129,8 @@ describe('stats and replay', () => {
   it('counts current and legacy first guesses and excludes invalid character ids', async () => {
     const stamp = Date.now();
     const ownerKey = `first-guess-owner-${stamp}`;
-    const characters = await db('characters').select('id').orderBy('id').limit(2);
-    const favorite = getCharacter(Number(characters[0].id))!;
-    const other = getCharacter(Number(characters[1].id))!;
+    const favorite = getEnabledCharacter(1)!;
+    const other = getEnabledCharacter(2)!;
     const games: Array<{ suffix: string; guesses: unknown[]; firstGuessCharacterId: number | null }> = [
       { suffix: 'current', guesses: [favorite.id], firstGuessCharacterId: favorite.id },
       { suffix: 'legacy', guesses: [{ characterId: favorite.id }], firstGuessCharacterId: null },

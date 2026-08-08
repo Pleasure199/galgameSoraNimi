@@ -1,94 +1,108 @@
-import { db } from '../db/knex';
-import { redis, redisKey, redisPublisher, redisSubscriber } from '../redis';
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 import { Character } from '../types';
 import { DIFFICULTY_LEVELS } from '../difficulties';
 
-const INVALIDATE_CHANNEL = redisKey('characters:invalidate');
-// v1 stored a SHA string and cannot be incremented safely during rolling upgrades.
-const VERSION_KEY = redisKey('characters:revision:v2');
-const REFRESH_DEBOUNCE_MS = 100;
+const CHARACTER_DATA_PATH = path.resolve(__dirname, '../../data/characters.json');
+
+interface CharacterSeed {
+  name: string;
+  work: string;
+  company: string;
+  release_year: number;
+  gender: string;
+  cv: string;
+  hair_color: string;
+  hair_color_family: string;
+  difficulties?: string[];
+  is_enabled?: boolean;
+}
 
 type PublicCharacter = { id: number; name: string };
-type SearchableCharacter = { character: Character; search: string };
 let charactersById = new Map<number, Character>();
 let allCharacters: Character[] = [];
 let charactersByDifficulty = new Map<string, Character[]>();
-let searchableCharacters: SearchableCharacter[] = [];
 let publicList: { version: string; characters: PublicCharacter[] } = {
   version: '1',
   characters: [],
 };
-let refreshPromise: Promise<void> | null = null;
-let refreshTimer: NodeJS.Timeout | null = null;
-let refreshGeneration = 0;
-let pendingVersion: string | null = null;
 
 function normalizeSearch(value: string): string {
   return value.trim().toLocaleLowerCase();
 }
 
-export async function refreshCharacterCache(): Promise<void> {
-  if (refreshPromise) return refreshPromise;
-  refreshPromise = (async () => {
-    let appliedGeneration = -1;
-    while (appliedGeneration !== refreshGeneration) {
-      const requestedGeneration = refreshGeneration;
-      const [rows, memberships, storedVersion] = await Promise.all([
-        db<Character>('characters').orderBy('name'),
-        db('character_difficulties').select('character_id', 'difficulty_key'),
-        redis()?.get(VERSION_KEY) ?? Promise.resolve(null),
-      ]);
-      const hydrated = rows.map((character) => ({ ...character, difficulties: [] as string[] }));
-      const hydratedById = new Map(hydrated.map((character) => [Number(character.id), character]));
-      charactersByDifficulty = new Map(
-        DIFFICULTY_LEVELS
-          .filter((difficulty) => difficulty.isEnabled)
-          .map((difficulty) => [difficulty.key, [] as Character[]])
-      );
-      for (const membership of memberships) {
-        const character = hydratedById.get(Number(membership.character_id));
-        if (!character) continue;
-        const difficultyKey = String(membership.difficulty_key);
-        character.difficulties.push(difficultyKey);
-        if (Boolean(character.is_enabled)) charactersByDifficulty.get(difficultyKey)?.push(character);
-      }
-      allCharacters = hydrated.filter((character) => Boolean(character.is_enabled));
-      charactersById = new Map(hydrated.map((character) => [character.id, character]));
-      searchableCharacters = allCharacters.map((character) => ({
-        character,
-        search: normalizeSearch(`${character.name}\0${character.work}\0${character.cv}`),
-      }));
-      publicList = {
-        version: pendingVersion || storedVersion || String(Date.now()),
-        characters: allCharacters.map((character) => ({ id: character.id, name: character.name })),
-      };
-      pendingVersion = null;
-      appliedGeneration = requestedGeneration;
-    }
-  })().finally(() => {
-    refreshPromise = null;
-  });
-  return refreshPromise;
+function assertString(value: unknown, label: string): string {
+  if (typeof value !== 'string') {
+    throw new Error(`[characters] ${label} must be a string`);
+  }
+  return value;
 }
 
-function scheduleCharacterCacheRefresh(): void {
-  refreshGeneration += 1;
-  if (refreshTimer) clearTimeout(refreshTimer);
-  refreshTimer = setTimeout(() => {
-    refreshTimer = null;
-    void refreshCharacterCache().catch((err) => console.error('[characters] refresh failed', err));
-  }, REFRESH_DEBOUNCE_MS);
-  refreshTimer.unref?.();
+function loadCharacterCatalog(): { version: string; characters: Character[] } {
+  const raw = fs.readFileSync(CHARACTER_DATA_PATH, 'utf8');
+  const seeds = JSON.parse(raw) as CharacterSeed[];
+  if (!Array.isArray(seeds)) {
+    throw new Error('[characters] data file must contain an array');
+  }
+  const difficultyKeys = new Set<string>(DIFFICULTY_LEVELS.map((difficulty) => difficulty.key));
+  const seenNames = new Set<string>();
+  const characters = seeds.map((seed, index) => {
+    const name = assertString(seed.name, `name at index ${index}`).trim();
+    if (!name || seenNames.has(name)) {
+      throw new Error(`[characters] duplicate or missing name at index ${index}`);
+    }
+    seenNames.add(name);
+    if (!Number.isInteger(seed.release_year)) {
+      throw new Error(`[characters] ${name} release_year must be an integer`);
+    }
+    const difficulties = seed.difficulties ?? ['normal'];
+    if (
+      !Array.isArray(difficulties) ||
+      !difficulties.length ||
+      difficulties.some((difficulty) => typeof difficulty !== 'string' || !difficulty.trim())
+    ) {
+      throw new Error(`[characters] ${name} difficulties must be a non-empty string array`);
+    }
+    if (difficulties.some((difficulty) => !difficultyKeys.has(String(difficulty)))) {
+      throw new Error(`[characters] ${name} contains an unknown difficulty`);
+    }
+    return {
+      id: index + 1,
+      name,
+      work: assertString(seed.work, `${name} work`),
+      company: assertString(seed.company, `${name} company`),
+      release_year: seed.release_year,
+      gender: assertString(seed.gender, `${name} gender`),
+      cv: assertString(seed.cv, `${name} cv`),
+      hair_color: assertString(seed.hair_color, `${name} hair_color`),
+      hair_color_family: assertString(seed.hair_color_family, `${name} hair_color_family`),
+      difficulties: difficulties as string[],
+      is_enabled: seed.is_enabled ?? true,
+    };
+  }).sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+  const version = crypto.createHash('sha256').update(raw).digest('hex').slice(0, 16);
+  return { version, characters };
 }
 
 export async function initCharacterCache(): Promise<void> {
-  const client = redis();
-  if (client) {
-    await client.set(VERSION_KEY, '1', { NX: true });
-    const subscriber = redisSubscriber();
-    if (subscriber) await subscriber.subscribe(INVALIDATE_CHANNEL, scheduleCharacterCacheRefresh);
+  const { version, characters } = loadCharacterCatalog();
+  charactersById = new Map(characters.map((character) => [character.id, character]));
+  allCharacters = characters.filter((character) => Boolean(character.is_enabled));
+  charactersByDifficulty = new Map(
+    DIFFICULTY_LEVELS
+      .filter((difficulty) => difficulty.isEnabled)
+      .map((difficulty) => [difficulty.key, [] as Character[]])
+  );
+  for (const character of allCharacters) {
+    for (const difficultyKey of character.difficulties) {
+      charactersByDifficulty.get(difficultyKey)?.push(character);
+    }
   }
-  await refreshCharacterCache();
+  publicList = {
+    version,
+    characters: allCharacters.map((character) => ({ id: character.id, name: character.name })),
+  };
 }
 
 export function getCharacter(id: number): Character | undefined {
@@ -122,54 +136,15 @@ export function searchCachedCharacters(search: string, limit: number): Character
   const normalized = normalizeSearch(search);
   if (!normalized) return allCharacters.slice(0, limit);
   const result: Character[] = [];
-  for (const entry of searchableCharacters) {
-    if (!entry.search.includes(normalized)) continue;
-    result.push(entry.character);
+  for (const character of allCharacters) {
+    const searchable = normalizeSearch(`${character.name}\0${character.work}\0${character.cv}`);
+    if (!searchable.includes(normalized)) continue;
+    result.push(character);
     if (result.length >= limit) break;
   }
   return result;
 }
 
 export async function getPublicCharacterList(): Promise<typeof publicList> {
-  const storedVersion = await redis()?.get(VERSION_KEY);
-  if (storedVersion && storedVersion !== publicList.version) {
-    pendingVersion = storedVersion;
-    refreshGeneration += 1;
-    if (refreshTimer) {
-      clearTimeout(refreshTimer);
-      refreshTimer = null;
-    }
-    await refreshCharacterCache();
-  }
   return publicList;
-}
-
-export async function invalidateCharacterCache(): Promise<void> {
-  const client = redis();
-  let nextVersion = String(Date.now());
-  if (client) {
-    try {
-      nextVersion = String(await client.incr(VERSION_KEY));
-    } catch (err) {
-      console.warn('[characters] cache revision update failed', err instanceof Error
-        ? err.message
-        : err);
-    }
-  }
-  pendingVersion = nextVersion;
-  refreshGeneration += 1;
-  if (refreshTimer) {
-    clearTimeout(refreshTimer);
-    refreshTimer = null;
-  }
-  await refreshCharacterCache();
-  if (client) {
-    try {
-      await redisPublisher()?.publish(INVALIDATE_CHANNEL, nextVersion);
-    } catch (err) {
-      console.warn('[characters] cache invalidation notification failed', err instanceof Error
-        ? err.message
-        : err);
-    }
-  }
 }

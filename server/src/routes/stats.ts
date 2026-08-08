@@ -234,7 +234,6 @@ router.get(
     const owner = ownerFor(req);
     if (!owner) throw new HttpError(400, 'GUEST_KEY_REQUIRED');
     const rows = await db('games as g')
-      .join('characters as c', 'c.id', 'g.target_character_id')
       .where(qualifiedOwner(owner, 'g'))
       .whereNot('g.status', 'playing')
       .orderBy('g.finished_at', 'desc')
@@ -247,15 +246,29 @@ router.get(
         'g.status',
         'g.guess_count as guessCount',
         'g.finished_at as finishedAt',
-        'c.name as answer'
+        'g.target_character_id as targetCharacterId'
       );
-    const hasNext = rows.length > pageSize;
+    const items = rows.flatMap((row) => {
+      const answer = getCharacter(Number(row.targetCharacterId));
+      return answer
+        ? [{
+            type: 'single' as const,
+            id: row.id,
+            mode: row.mode,
+            status: row.status,
+            guessCount: row.guessCount,
+            finishedAt: row.finishedAt,
+            answer: answer.name,
+          }]
+        : [];
+    });
+    const hasNext = items.length > pageSize;
     return res.json({
       type: 'single',
       page,
       pageSize,
       hasNext,
-      items: rows.slice(0, pageSize).map((row) => ({ type: 'single', ...row })),
+      items: items.slice(0, pageSize),
     });
   })
 );

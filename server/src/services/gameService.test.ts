@@ -14,7 +14,7 @@ function makeCharacter(overrides: Partial<Character>): Character {
     hair_color: '红色',
     hair_color_family: 'red',
     is_enabled: true,
-    created_at: '',
+    difficulties: ['normal'],
     ...overrides,
   };
 }

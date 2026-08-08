@@ -19,23 +19,14 @@ afterEach(async () => {
   await Promise.all(instances.splice(0).map((instance) => instance.destroy()));
 });
 
-describe('character schema migration', () => {
-  it('creates the characters schema with difficulty memberships and game columns', async () => {
+describe('schema migration', () => {
+  it('creates the non-character schema with game columns', async () => {
     const instance = memoryDb();
     await ensureSchema(instance);
 
-    expect(await instance.schema.hasTable('characters')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'name')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'work')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'company')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'release_year')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'gender')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'cv')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'hair_color')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'hair_color_family')).toBe(true);
-    expect(await instance.schema.hasColumn('characters', 'is_enabled')).toBe(true);
-    expect(await instance.schema.hasTable('character_difficulties')).toBe(true);
-    expect(await instance.schema.hasTable('difficulty_levels')).toBe(true);
+    expect(await instance.schema.hasTable('characters')).toBe(false);
+    expect(await instance.schema.hasTable('character_difficulties')).toBe(false);
+    expect(await instance.schema.hasTable('difficulty_levels')).toBe(false);
     expect(await instance.schema.hasTable('app_migrations')).toBe(true);
     expect(await instance.schema.hasColumn('games', 'target_character_id')).toBe(true);
     expect(await instance.schema.hasColumn('games', 'guess_times')).toBe(true);
@@ -46,14 +37,9 @@ describe('character schema migration', () => {
     expect(await instance.schema.hasTable('api_tokens')).toBe(false);
     expect(await instance.schema.hasTable('match_records')).toBe(false);
     expect(await instance.schema.hasTable('players')).toBe(false);
-
-    const difficultyRows = await instance('difficulty_levels').select('key', 'sort_order', 'is_enabled');
-    expect(difficultyRows.map((row) => row.key)).toEqual(['beginner', 'easy', 'normal']);
-    expect(difficultyRows.map((row) => row.sort_order)).toEqual([5, 10, 20]);
-    expect(difficultyRows.every((row) => row.is_enabled === 1)).toBe(true);
   });
 
-  it('drops a legacy games table without guest_key and recreates it for characters', async () => {
+  it('drops a legacy games table without guest_key and recreates it', async () => {
     const instance = memoryDb();
     await instance.schema.createTable('games', (table) => {
       table.increments('id').primary();
@@ -71,23 +57,10 @@ describe('character schema migration', () => {
     expect(await instance.schema.hasColumn('games', 'first_guess_character_id')).toBe(true);
     expect(await instance.schema.hasColumn('games', 'guess_times')).toBe(true);
 
-    const [character] = await instance('characters')
-      .insert({
-        name: '牧濑红莉栖',
-        work: 'STEINS;GATE',
-        company: 'MAGES.',
-        release_year: 2009,
-        gender: '女',
-        cv: '今井麻美',
-        hair_color: '红色',
-        hair_color_family: 'red',
-        is_enabled: true,
-      })
-      .returning('id');
     await instance('games').insert({
       session_id: 'post-migration-game',
       guest_key: 'guest',
-      target_character_id: character.id,
+      target_character_id: 1,
       mode: 'easy',
       guesses: '[]',
       guess_times: '[]',
@@ -96,7 +69,7 @@ describe('character schema migration', () => {
       finished_at: instance.fn.now(),
     });
     const game = await instance('games').where({ session_id: 'post-migration-game' }).first();
-    expect(Number(game.target_character_id)).toBe(Number(character.id));
+    expect(Number(game.target_character_id)).toBe(1);
   });
 
   it('adds the popup flag to an existing announcements table', async () => {

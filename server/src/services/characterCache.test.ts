@@ -1,104 +1,55 @@
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { initRedis, redis, redisKey } from '../redis';
-import { db } from '../db/knex';
-import { initDb } from '../db/init';
+import { beforeAll, describe, expect, it } from 'vitest';
 import {
+  getDifficultyCharacters,
+  getEnabledCharacter,
+  getEnabledCharacters,
   getPublicCharacterList,
+  initCharacterCache,
   isDifficultyAvailable,
-  invalidateCharacterCache,
   pickCachedTarget,
-  refreshCharacterCache,
+  searchCachedCharacters,
 } from './characterCache';
 
-beforeAll(async () => {
-  await initDb();
-  await initRedis();
-});
-
-afterAll(async () => {
-  await db('characters').whereLike('name', 'cache-test-%').del();
-});
-
-describe('character cache invalidation', () => {
-  it('does not touch the legacy SHA version key and bumps the v2 revision', async () => {
-    const client = redis()!;
-    await client.set(redisKey('characters:version'), '0123456789abcdef');
-    await client.del(redisKey('characters:revision:v2'));
-    await expect(invalidateCharacterCache()).resolves.toBeUndefined();
-    expect(await client.get(redisKey('characters:version'))).toBe('0123456789abcdef');
-    expect(await client.get(redisKey('characters:revision:v2'))).toBe('1');
+describe('character JSON catalog', () => {
+  beforeAll(async () => {
+    await initCharacterCache();
   });
 
-  it('removes a disabled character before invalidation returns and changes the list version', async () => {
-    const name = `cache-test-${Date.now()}`;
-    const [row] = await db('characters').insert({
-      name,
-      work: '测试',
-      company: '测试',
-      release_year: 2020,
-      gender: '女',
-      cv: '测试',
-      hair_color: '蓝色',
-      hair_color_family: 'blue',
-      is_enabled: true,
-    }).returning('id');
-    const id = Number(typeof row === 'object' ? row.id : row);
+  it('loads every character from characters.json with deterministic ids', async () => {
+    const list = await getPublicCharacterList();
 
-    await refreshCharacterCache();
-    const before = await getPublicCharacterList();
-    expect(before.characters).toContainEqual({ id, name });
-
-    await db('characters').where({ id }).update({ is_enabled: false });
-    await invalidateCharacterCache();
-
-    const after = await getPublicCharacterList();
-    expect(after.version).not.toBe(before.version);
-    expect(after.characters).not.toContainEqual({ id, name });
+    expect(list.version).toMatch(/^[0-9a-f]{16}$/);
+    expect(list.characters).toHaveLength(149);
+    expect(getEnabledCharacter(1)).toMatchObject({
+      id: 1,
+      name: '神尾观铃',
+      work: 'AIR',
+      difficulties: ['normal', 'easy', 'beginner'],
+    });
+    expect(getEnabledCharacters()).toHaveLength(149);
   });
 
-  it('refreshes a stale instance before serving the public list', async () => {
-    const name = `cache-test-cross-instance-${Date.now()}`;
-    const [row] = await db('characters').insert({
-      name,
-      work: '测试',
-      company: '测试',
-      release_year: 2020,
-      gender: '女',
-      cv: '测试',
-      hair_color: '蓝色',
-      hair_color_family: 'blue',
-      is_enabled: true,
-    }).returning('id');
-    const id = Number(typeof row === 'object' ? row.id : row);
-
-    await refreshCharacterCache();
-    expect((await getPublicCharacterList()).characters).toContainEqual({ id, name });
-
-    await db('characters').where({ id }).update({ is_enabled: false });
-    await redis()!.incr(redisKey('characters:revision:v2'));
-
-    expect((await getPublicCharacterList()).characters).not.toContainEqual({ id, name });
-  });
-
-  it('serves targets from the beginner difficulty pool', async () => {
-    const name = `cache-test-beginner-${Date.now()}`;
-    const [row] = await db('characters').insert({
-      name,
-      work: '测试',
-      company: '测试',
-      release_year: 2020,
-      gender: '女',
-      cv: '测试',
-      hair_color: '蓝色',
-      hair_color_family: 'blue',
-      is_enabled: true,
-    }).returning('id');
-    const id = Number(typeof row === 'object' ? row.id : row);
-    await db('character_difficulties').insert({ character_id: id, difficulty_key: 'beginner' });
-
-    await refreshCharacterCache();
-
+  it('builds difficulty pools and targets from the JSON data', () => {
     expect(isDifficultyAvailable('beginner')).toBe(true);
-    expect(pickCachedTarget('beginner')?.difficulties).toContain('beginner');
+    expect(getDifficultyCharacters('beginner')).toContainEqual(
+      expect.objectContaining({ id: 1 })
+    );
+    expect(getDifficultyCharacters('unknown')).toEqual([]);
+
+    const target = pickCachedTarget('beginner');
+    expect(target).not.toBeNull();
+    expect(getDifficultyCharacters('beginner')).toContainEqual(target);
+  });
+
+  it('searches by name, work and cv', () => {
+    expect(searchCachedCharacters('神尾', 10)).toContainEqual(
+      expect.objectContaining({ id: 1 })
+    );
+    expect(searchCachedCharacters('AIR', 10)).toContainEqual(
+      expect.objectContaining({ id: 1 })
+    );
+    expect(searchCachedCharacters('川上とも子', 10)).toContainEqual(
+      expect.objectContaining({ id: 1 })
+    );
   });
 });

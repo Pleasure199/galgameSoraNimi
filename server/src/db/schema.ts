@@ -1,7 +1,6 @@
 import { Knex } from 'knex';
 import { db } from './knex';
 import { userNameFromUsername } from '../services/identityDisplay';
-import { DIFFICULTY_LEVELS } from '../difficulties';
 
 const USER_DISPLAY_ID_BACKFILL_BATCH_SIZE = 1000;
 
@@ -63,31 +62,6 @@ export async function ensureSchema(instance: Knex = db): Promise<void> {
     });
   }
 
-  if (!(await instance.schema.hasTable('characters'))) {
-    await instance.schema.createTable('characters', (t) => {
-      t.increments('id').primary();
-      t.string('name', 64).notNullable().unique();
-      t.string('work', 128).notNullable().defaultTo('');
-      t.string('company', 64).notNullable().defaultTo('');
-      t.integer('release_year').notNullable();
-      t.string('gender', 16).notNullable().defaultTo('');
-      t.string('cv', 64).notNullable().defaultTo('');
-      t.string('hair_color', 32).notNullable().defaultTo('');
-      t.string('hair_color_family', 32).notNullable().defaultTo('');
-      t.boolean('is_enabled').notNullable().defaultTo(true);
-      t.timestamp('created_at').notNullable().defaultTo(instance.fn.now());
-    });
-  }
-  if (instance.client.config.client === 'pg') {
-    await instance.raw('create extension if not exists pg_trgm');
-    await instance.raw(
-      'create index if not exists "characters_name_trgm_idx" on "characters" using gin ("name" gin_trgm_ops)'
-    );
-    await instance.raw(
-      'create index if not exists "characters_work_trgm_idx" on "characters" using gin ("work" gin_trgm_ops)'
-    );
-  }
-
   // 旧版 games 表 user_id 不可空且无 guest_key;检测到旧结构则重建(开发期数据可丢弃)
   if (
     (await instance.schema.hasTable('games')) &&
@@ -101,7 +75,7 @@ export async function ensureSchema(instance: Knex = db): Promise<void> {
       t.string('session_id', 64).nullable();
       t.integer('user_id').nullable().references('id').inTable('users');
       t.string('guest_key', 64).nullable().index();
-      t.integer('target_character_id').notNullable().references('id').inTable('characters');
+      t.integer('target_character_id').notNullable();
       t.string('mode', 16).notNullable().defaultTo('easy');
       t.text('guesses').notNullable().defaultTo('[]');
       t.text('guess_times').notNullable().defaultTo('[]');
@@ -117,30 +91,6 @@ export async function ensureSchema(instance: Knex = db): Promise<void> {
   }
   if (!(await instance.schema.hasColumn('games', 'guess_times'))) {
     await instance.schema.alterTable('games', (t) => t.text('guess_times').notNullable().defaultTo('[]'));
-  }
-  if (!(await instance.schema.hasTable('difficulty_levels'))) {
-    await instance.schema.createTable('difficulty_levels', (t) => {
-      t.string('key', 32).primary();
-      t.integer('sort_order').notNullable().defaultTo(0);
-      t.boolean('is_enabled').notNullable().defaultTo(true);
-      t.timestamp('created_at').notNullable().defaultTo(instance.fn.now());
-    });
-  }
-  await instance('difficulty_levels')
-    .insert(DIFFICULTY_LEVELS.map((difficulty) => ({
-      key: difficulty.key,
-      sort_order: difficulty.sortOrder,
-      is_enabled: difficulty.isEnabled,
-    })))
-    .onConflict('key')
-    .merge(['sort_order', 'is_enabled']);
-  if (!(await instance.schema.hasTable('character_difficulties'))) {
-    await instance.schema.createTable('character_difficulties', (t) => {
-      t.integer('character_id').notNullable().references('id').inTable('characters').onDelete('CASCADE');
-      t.string('difficulty_key', 32).notNullable().references('key').inTable('difficulty_levels').onDelete('CASCADE');
-      t.primary(['character_id', 'difficulty_key']);
-      t.index(['difficulty_key', 'character_id']);
-    });
   }
   if (!(await instance.schema.hasColumn('games', 'first_guess_character_id'))) {
     await instance.schema.alterTable('games', (t) => t.integer('first_guess_character_id').nullable());

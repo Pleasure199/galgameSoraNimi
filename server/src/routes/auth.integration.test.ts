@@ -11,6 +11,7 @@ import { db } from '../db/knex';
 import { initRedis } from '../redis';
 import { config } from '../config';
 import { optionalAuth, userNameFromUsername } from '../middleware/auth';
+import { initCharacterCache, getEnabledCharacter } from '../services/characterCache';
 
 let server: http.Server;
 let baseUrl: string;
@@ -54,6 +55,7 @@ describe('cookie authentication', () => {
   beforeAll(async () => {
     await initDb();
     await initRedis();
+    await initCharacterCache();
     const app = express();
     app.set('trust proxy', 1);
     app.use(express.json());
@@ -104,11 +106,11 @@ describe('cookie authentication', () => {
     );
     expect(guest.exp - guest.iat).toBe(3 * 365 * 24 * 60 * 60);
     const sessionId = `auth-test-${Date.now()}`;
-    const [character] = await db('characters').select('id').limit(1);
+    const target = getEnabledCharacter(1)!;
     await db('games').insert({
       session_id: sessionId,
       guest_key: guest.key,
-      target_character_id: character.id,
+      target_character_id: target.id,
       mode: 'easy',
       guesses: '[]',
       status: 'lost',

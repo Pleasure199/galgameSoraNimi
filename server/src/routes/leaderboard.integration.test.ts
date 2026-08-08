@@ -7,7 +7,7 @@ import { errorHandler } from '../middleware/common';
 import { db } from '../db/knex';
 import { initDb } from '../db/init';
 import { initRedis } from '../redis';
-import { initCharacterCache } from '../services/characterCache';
+import { initCharacterCache, getEnabledCharacter } from '../services/characterCache';
 import { invalidateCached } from '../services/queryCache';
 import { signToken, userNameFromUsername } from '../middleware/auth';
 import { allLeaderboardCacheKeys } from '../services/leaderboardCache';
@@ -43,11 +43,11 @@ describe('leaderboard', () => {
     }));
     const inserted = await db('users').insert(users).returning(['id', 'username']);
     const userIds = inserted.map((row: any) => Number(row.id));
-    const [target] = await db('characters').select('id').limit(1);
+    const target = getEnabledCharacter(1)!;
     await db('games').insert(inserted.map((row: any, index: number) => ({
       session_id: `leaderboard-${stamp}-${index}`,
       user_id: Number(row.id),
-      target_character_id: Number(target.id),
+      target_character_id: target.id,
       mode: 'easy',
       guesses: '[]',
       status: 'won',
@@ -58,7 +58,7 @@ describe('leaderboard', () => {
       {
         session_id: `leaderboard-${stamp}-beginner-win`,
         user_id: userIds[0],
-        target_character_id: Number(target.id),
+        target_character_id: target.id,
         mode: 'beginner',
         guesses: '[]',
         status: 'won',
@@ -68,7 +68,7 @@ describe('leaderboard', () => {
       {
         session_id: `leaderboard-${stamp}-easy-extra`,
         user_id: userIds[0],
-        target_character_id: Number(target.id),
+        target_character_id: target.id,
         mode: 'easy',
         guesses: '[]',
         status: 'won',
@@ -78,7 +78,7 @@ describe('leaderboard', () => {
       {
         session_id: `leaderboard-${stamp}-normal-a-win`,
         user_id: userIds[0],
-        target_character_id: Number(target.id),
+        target_character_id: target.id,
         mode: 'normal',
         guesses: '[]',
         status: 'won',
@@ -88,7 +88,7 @@ describe('leaderboard', () => {
       {
         session_id: `leaderboard-${stamp}-normal-a-loss`,
         user_id: userIds[0],
-        target_character_id: Number(target.id),
+        target_character_id: target.id,
         mode: 'normal',
         guesses: '[]',
         status: 'lost',
@@ -98,7 +98,7 @@ describe('leaderboard', () => {
       {
         session_id: `leaderboard-${stamp}-normal-b-win`,
         user_id: userIds[1],
-        target_character_id: Number(target.id),
+        target_character_id: target.id,
         mode: 'normal',
         guesses: '[]',
         status: 'won',
@@ -108,7 +108,7 @@ describe('leaderboard', () => {
       {
         session_id: `leaderboard-${stamp}-normal-a-second-win`,
         user_id: userIds[0],
-        target_character_id: Number(target.id),
+        target_character_id: target.id,
         mode: 'normal',
         guesses: '[]',
         status: 'won',

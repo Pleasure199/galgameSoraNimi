@@ -48,7 +48,7 @@
 | ------ | ------------------------------------------------ |
 | 前端   | React 18 + Vite + TypeScript + React Router      |
 | 后端   | Node.js + Express + TypeScript                   |
-| 数据库 | SQLite（better-sqlite3）；可选切换 PostgreSQL    |
+| 数据库 | SQLite（better-sqlite3）；可选切换 PostgreSQL；角色数据直接读取 JSON |
 | 缓存   | Redis（可选，缺位时内存降级）                    |
 | 认证   | JWT + bcrypt（HttpOnly Cookie，客户端不存明文）  |
 | 校验/测试 | Zod / Vitest                                 |
@@ -81,12 +81,11 @@ npm run dev             # server: 3000, client: 5173
 | `npm run build`  | 构建前端 + 编译后端               |
 | `npm start`      | 生产模式启动（server 托管 client/dist）|
 | `npm test`       | 运行前后端测试                    |
-| `npm run migrate`| 初始化数据库结构 + 种子角色       |
-| `npm run seed`   | 补充种子数据中缺失的角色          |
+| `npm run migrate`| 初始化用户/战绩/公告等数据库结构    |
 
 ## 角色数据
 
-角色数据集内置于 `server/src/db/seeds/characters.json`（149 名 galgame 角色，含 9-nine 全系列 9 名角色），字段包括：
+角色数据集内置于 `server/data/characters.json`（149 名 galgame 角色，含 9-nine 全系列 9 名角色），服务启动时直接读取，不写入 PostgreSQL。字段包括：
 
 ```
 name / work / company / release_year / gender / cv / hair_color / hair_color_family / difficulties
@@ -94,17 +93,19 @@ name / work / company / release_year / gender / cv / hair_color / hair_color_fam
 
 - 难度归属直接写在每条角色上（如 `["normal"]`、`["normal","easy"]`、`["normal","easy","beginner"]`），保证入门 ⊂ 简单 ⊂ 普通
 - 发色与色系值须与前端 `GameRules` 色系列表一致，否则同色系「黄色」判定会失效
-- 添加新角色：在 `characters.json` 中追加条目并运行 `npm run seed`，或直接操作数据库
+- 添加新角色：在 `characters.json` 中追加条目后重启服务；角色 ID 按数组顺序从 1 开始分配
 
 ## 项目结构
 
 ```
-server/src
-├── config.ts          # 环境配置
-├── db/                # Knex 实例、建表、种子数据
-├── middleware/        # 认证、Zod 校验、限流、错误处理
-├── routes/            # auth / characters / game / stats / leaderboard / announcements
-└── services/          # 游戏判定、角色缓存、单人对局存储等
+server
+├── data/              # characters.json 角色数据源
+└── src
+    ├── config.ts      # 环境配置
+    ├── db/            # Knex 实例、建表（不含角色数据）
+    ├── middleware/    # 认证、Zod 校验、限流、错误处理
+    ├── routes/        # auth / characters / game / stats / leaderboard / announcements
+    └── services/      # 游戏判定、角色缓存、单人对局存储等
 client/src
 ├── api/               # axios 封装、角色列表缓存
 ├── store/             # auth / theme / guest 等轻量状态
