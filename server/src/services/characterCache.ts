@@ -15,11 +15,13 @@ interface CharacterSeed {
   cv: string;
   hair_color: string;
   hair_color_family: string;
+  hair_length?: string;
+  height?: number | null;
   difficulties?: string[];
   is_enabled?: boolean;
 }
 
-type PublicCharacter = { id: number; name: string };
+type PublicCharacter = { id: number; name: string; difficulties: string[] };
 let charactersById = new Map<number, Character>();
 let allCharacters: Character[] = [];
 let charactersByDifficulty = new Map<string, Character[]>();
@@ -77,11 +79,17 @@ function loadCharacterCatalog(): { version: string; characters: Character[] } {
       cv: assertString(seed.cv, `${name} cv`),
       hair_color: assertString(seed.hair_color, `${name} hair_color`),
       hair_color_family: assertString(seed.hair_color_family, `${name} hair_color_family`),
+      hair_length: assertString(seed.hair_length ?? '未知', `${name} hair_length`),
+      height: seed.height ?? null,
       difficulties: difficulties as string[],
       is_enabled: seed.is_enabled ?? true,
     };
   }).sort((a, b) => a.name.localeCompare(b.name, 'zh'));
-  const version = crypto.createHash('sha256').update(raw).digest('hex').slice(0, 16);
+  const version = crypto.createHash('sha256')
+    .update('character-list-v2\0')
+    .update(raw)
+    .digest('hex')
+    .slice(0, 16);
   return { version, characters };
 }
 
@@ -101,7 +109,11 @@ export async function initCharacterCache(): Promise<void> {
   }
   publicList = {
     version,
-    characters: allCharacters.map((character) => ({ id: character.id, name: character.name })),
+    characters: allCharacters.map((character) => ({
+      id: character.id,
+      name: character.name,
+      difficulties: character.difficulties,
+    })),
   };
 }
 

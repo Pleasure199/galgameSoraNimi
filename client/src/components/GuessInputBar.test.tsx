@@ -6,8 +6,8 @@ import { renderWithProviders } from '../test/render';
 import { getCharacterList } from '../api/characterList';
 
 const characters = [
-  { id: 1, name: 's1mple' },
-  { id: 2, name: 'ZywOo' },
+  { id: 1, name: 's1mple', difficulties: ['easy', 'normal'] },
+  { id: 2, name: 'ZywOo', difficulties: ['normal'] },
 ];
 let characterListListener: ((list: typeof characters) => void) | null = null;
 
@@ -88,7 +88,7 @@ describe('GuessInputBar', () => {
     act(() => {
       characterListListener?.([
         ...characters,
-        { id: 3, name: 's1ren' },
+        { id: 3, name: 's1ren', difficulties: ['easy', 'normal'] },
       ]);
     });
 
@@ -109,6 +109,19 @@ describe('GuessInputBar', () => {
     expect(input).toHaveValue('s1');
     expect(screen.getByText('s1mple')).toBeInTheDocument();
     expect(input).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('only suggests characters inside the selected difficulty', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<GuessInputBar onPick={vi.fn()} difficulty="easy" />);
+
+    const input = screen.getByPlaceholderText('输入角色名...');
+    await user.type(input, 's1');
+    expect(screen.getByText('s1mple')).toBeInTheDocument();
+
+    await user.clear(input);
+    await user.type(input, 'Zy');
+    expect(screen.queryByText('ZywOo')).not.toBeInTheDocument();
   });
 
   it('does not revalidate the character list on every input change', async () => {
@@ -132,8 +145,8 @@ describe('GuessInputBar', () => {
     await user.type(input, 's1');
     act(() => {
       characterListListener?.([
-        { id: 1, name: 's1mple' },
-        { id: 3, name: 's1ren' },
+        { id: 1, name: 's1mple', difficulties: ['easy', 'normal'] },
+        { id: 3, name: 's1ren', difficulties: ['easy', 'normal'] },
       ]);
     });
 

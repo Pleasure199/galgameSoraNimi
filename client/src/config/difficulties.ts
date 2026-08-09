@@ -15,5 +15,5 @@ export const AVAILABLE_DIFFICULTIES = DIFFICULTIES
   .filter((difficulty) => difficulty.enabled)
   .sort((a, b) => a.sortOrder - b.sortOrder);
 
-/** 暂时固定难度：删除难度选择后，客户端统一使用普通档（完整角色池）。 */
+/** 排行榜等未接入多难度筛选的页面仍使用完整版作为默认档。 */
 export const SINGLE_MODE = 'normal';

@@ -1,0 +1,1220 @@
+# 难度角色池
+
+## 入门版 beginner（42）
+
+- 神尾观铃（AIR）
+- 月宫亚由（Kanon）
+- 水濑名雪（Kanon）
+- 古河渚（CLANNAD）
+- 坂上智代（CLANNAD）
+- 神北小毬（Little Busters!）
+- 能美库特莉亚芙卡（Little Busters!）
+- 枣铃（Little Busters!）
+- 神户小鸟（Rewrite）
+- 篝（Rewrite）
+- 立华奏（Angel Beats! (1st Beat)）
+- 仲村由理（Angel Beats! (1st Beat)）
+- 鸣濑白羽（Summer Pockets）
+- 阿尔托莉雅·潘德拉贡（Fate/stay night）
+- 远坂凛（Fate/stay night）
+- 间桐樱（Fate/stay night）
+- 卫宫士郎（Fate/stay night）
+- 爱尔奎特·布伦史塔德（月姬）
+- 牧濑红莉栖（STEINS;GATE）
+- 椎名真由理（STEINS;GATE）
+- 冈部伦太郎（STEINS;GATE）
+- 向坂环（ToHeart2）
+- 柚原木实（ToHeart2）
+- 艾露露（传颂之物）
+- 阿露露（传颂之物）
+- 哈克奥罗（传颂之物）
+- 小木曾雪菜（WHITE ALBUM 2）
+- 冬马和纱（WHITE ALBUM 2）
+- 莉希安瑟丝（SHUFFLE!）
+- 奈莉奈（SHUFFLE!）
+- 朝仓音梦（初音岛）
+- 白河小鸟（初音岛）
+- 芳乃樱（初音岛）
+- 龙宫礼奈（寒蝉鸣泣之时）
+- 前原圭一（寒蝉鸣泣之时）
+- 古手梨花（寒蝉鸣泣之时）
+- 右代宫战人（海猫鸣泣之时）
+- 贝阿朵莉切（海猫鸣泣之时）
+- 九条都（9-nine-九次九日九重色）
+- 新海天（9-nine-天色天歌天籁音）
+- 香坂春风（9-nine-春色春恋春熙风）
+- 结城希亚（9-nine-雪色雪花雪之痕）
+
+## 简单版 easy（280）
+
+- 神尾观铃（AIR）
+- 雾岛佳乃（AIR）
+- 远野美凪（AIR）
+- 月宫亚由（Kanon）
+- 水濑名雪（Kanon）
+- 泽渡真琴（Kanon）
+- 川澄舞（Kanon）
+- 古河渚（CLANNAD）
+- 坂上智代（CLANNAD）
+- 一之濑琴美（CLANNAD）
+- 伊吹风子（CLANNAD）
+- 藤林杏（CLANNAD）
+- 藤林椋（CLANNAD）
+- 直枝理树（Little Busters!）
+- 枣恭介（Little Busters!）
+- 神北小毬（Little Busters!）
+- 能美库特莉亚芙卡（Little Busters!）
+- 西园美鱼（Little Busters!）
+- 三枝叶留佳（Little Busters!）
+- 笹濑川佐佐美（Little Busters!）
+- 枣铃（Little Busters!）
+- 天王寺瑚太朗（Rewrite）
+- 神户小鸟（Rewrite）
+- 千里朱音（Rewrite）
+- 篝（Rewrite）
+- 中津静流（Rewrite）
+- 此花露西娅（Rewrite）
+- 凤千早（Rewrite）
+- 立华奏（Angel Beats! (1st Beat)）
+- 仲村由理（Angel Beats! (1st Beat)）
+- 由依（Angel Beats! (1st Beat)）
+- 音无结弦（Angel Beats! (1st Beat)）
+- 日向秀树（Angel Beats! (1st Beat)）
+- 星野梦美（planetarian ～星之梦～）
+- 鸣濑白羽（Summer Pockets）
+- 久岛鸥（Summer Pockets）
+- 䌷·文德斯（Summer Pockets）
+- 阿尔托莉雅·潘德拉贡（Fate/stay night）
+- 远坂凛（Fate/stay night）
+- 间桐樱（Fate/stay night）
+- 卫宫士郎（Fate/stay night）
+- 卫宫（Fate/stay night）
+- 美杜莎（Fate/stay night）
+- 伊莉雅丝菲尔·冯·爱因兹贝伦（Fate/stay night）
+- 间桐慎二（Fate/stay night）
+- 苍崎青子（魔法使之夜）
+- 久远寺有珠（魔法使之夜）
+- 静希草十郎（魔法使之夜）
+- 爱尔奎特·布伦史塔德（月姬）
+- 希耶尔（月姬）
+- 远野志贵（月姬）
+- 牧濑红莉栖（STEINS;GATE）
+- 椎名真由理（STEINS;GATE）
+- 冈部伦太郎（STEINS;GATE）
+- 菲利斯·喵喵（STEINS;GATE）
+- 漆原琉华（STEINS;GATE）
+- 阿万音铃羽（STEINS;GATE）
+- 桥田至（STEINS;GATE）
+- 沙耶（沙耶之歌）
+- 神岸明（ToHeart）
+- 向坂环（ToHeart2）
+- 柚原木实（ToHeart2）
+- 姬百合珊瑚（ToHeart2）
+- 姬百合珊瑚 (ToHeart2)（ToHeart2）
+- 久寿川莎莎拉（ToHeart2）
+- 艾露露（传颂之物）
+- 阿露露（传颂之物）
+- 图斯库尔（传颂之物）
+- 哈克奥罗（传颂之物）
+- 久远（传颂之物 虚伪的假面）
+- 猫音（传颂之物 虚伪的假面）
+- 哈克（传颂之物 虚伪的假面）
+- 小木曾雪菜（WHITE ALBUM 2）
+- 冬马和纱（WHITE ALBUM 2）
+- 北原春希（WHITE ALBUM 2）
+- 和泉千晶（WHITE ALBUM 2）
+- 森川由绮（WHITE ALBUM）
+- 莉希安瑟丝（SHUFFLE!）
+- 奈莉奈（SHUFFLE!）
+- 时雨亚沙（SHUFFLE!）
+- 朝仓音梦（初音岛）
+- 白河小鸟（初音岛）
+- 芳乃樱（初音岛）
+- 天枷美春（初音岛）
+- 朝仓纯一（初音岛）
+- 朝仓由梦（初音岛II）
+- 朝仓音姬（初音岛II）
+- 白河奈奈佳（初音岛II）
+- 菲娜·法姆·阿修莱特（夜明前的琉璃色）
+- 千堂瑛里华（FORTUNE ARTERIAL）
+- 艾莉丝·弗萝拉莉亚（秽翼的尤斯蒂娅）
+- 雨宫优子（ef - a fairy tale of the two.）
+- 新藤景（ef - a fairy tale of the two.）
+- 新藤千寻（ef - a fairy tale of the two.）
+- 鉴纯夏（Muv-Luv）
+- 篁唯依（Muv-Luv Alternative）
+- 神宫司麻里茂（Muv-Luv Alternative）
+- 凉宫茜（你所期望的永远）
+- 速濑水月（你所期望的永远）
+- 风见雄二（灰色的果实）
+- 风见一姬（灰色的迷宫）
+- 龙宫礼奈（寒蝉鸣泣之时）
+- 前原圭一（寒蝉鸣泣之时）
+- 园崎魅音（寒蝉鸣泣之时）
+- 园崎诗音（寒蝉鸣泣之时）
+- 古手梨花（寒蝉鸣泣之时）
+- 北条沙都子（寒蝉鸣泣之时）
+- 羽入（寒蝉鸣泣之时）
+- 赤坂卫（寒蝉鸣泣之时）
+- 右代宫战人（海猫鸣泣之时）
+- 贝阿朵莉切（海猫鸣泣之时）
+- 右代宫缘寿（海猫鸣泣之时）
+- 右代宫朱志香（海猫鸣泣之时）
+- 玛利亚（海猫鸣泣之时）
+- 川神百代（认真和我谈恋爱!!）
+- 川神一子（认真和我谈恋爱!!）
+- 羽山海己（青空下的约定）
+- 新海翔（9-nine-九次九日九重色）
+- 九条都（9-nine-九次九日九重色）
+- 新海天（9-nine-天色天歌天籁音）
+- 香坂春风（9-nine-春色春恋春熙风）
+- 结城希亚（9-nine-雪色雪花雪之痕）
+- 索菲缇娅（9-nine-九次九日九重色）
+- 高峰莲夜（9-nine-天色天歌天籁音）
+- 相乐美佐枝（CLANNAD）
+- 春原芽衣（CLANNAD）
+- 冈崎汐（CLANNAD）
+- 朱鹭戸沙耶（Little Busters!）
+- 空门苍（Summer Pockets）
+- 藤村大河（Fate/stay night）
+- 桐生萌郁（STEINS;GATE）
+- 大石藏人（寒蝉鸣泣之时）
+- 纱音（海猫鸣泣之时）
+- 露露缇耶（传颂之物 虚伪的假面）
+- 芙蓉枫（SHUFFLE!）
+- 御剑冥夜（Muv-Luv）
+- 柳也（AIR）
+- 小空（AIR）
+- 笹濑川佐佐美 (Little Busters!)（Little Busters!）
+- 废墟猎人（planetarian ～星之梦～）
+- 鹰原羽依里（Summer Pockets）
+- 加藤羽未（Summer Pockets）
+- 七海（Summer Pockets）
+- 神山识（Summer Pockets）
+- 鸣濑白羽 (Summer Pockets)（Summer Pockets）
+- 苍崎橙子（魔法使之夜）
+- 槻司鸢丸（魔法使之夜）
+- 久万梨金鹿（魔法使之夜）
+- 匂坂郁纪（沙耶之歌）
+- 户尾耕司（沙耶之歌）
+- 津久叶瑶（沙耶之歌）
+- 丹保凉子（沙耶之歌）
+- 藤田浩之（ToHeart）
+- 长冈志保（ToHeart）
+- 玛鲁芝（ToHeart）
+- 保科智子（ToHeart）
+- 来栖川芹香（ToHeart）
+- 宫内蕾咪（ToHeart）
+- 松原葵（ToHeart）
+- 姬川琴音（ToHeart）
+- 雏山理绪（ToHeart）
+- 十波由真（ToHeart2）
+- 笹森花梨（ToHeart2）
+- 河野贵明（ToHeart2）
+- るーこ・きれいなそら（ToHeart2）
+- 草壁优季（ToHeart2）
+- 羽根崎美緒（ToHeart2）
+- 卡谬（传颂之物）
+- 大神解放者（传颂之物）
+- 贝纳威（传颂之物）
+- 克罗（传颂之物）
+- 库娅（传颂之物）
+- 奥修托尔（传颂之物 虚伪的假面）
+- 右近（传颂之物 虚伪的假面）
+- 鵟（传颂之物 虚伪的假面）
+- 扇（传颂之物 虚伪的假面）
+- 亚库托瓦尔特（传颂之物 虚伪的假面）
+- 裘鲁（传颂之物 虚伪的假面）
+- 萨拉娜（传颂之物 虚伪的假面）
+- 绪方理奈（WHITE ALBUM）
+- 河岛遥（WHITE ALBUM）
+- 泽仓美咲（WHITE ALBUM）
+- 观月真名（WHITE ALBUM）
+- 筱冢弥生（WHITE ALBUM）
+- 如月小夜子（WHITE ALBUM）
+- 藤井冬弥（WHITE ALBUM）
+- 土见禀（SHUFFLE!）
+- 普莉姆拉（SHUFFLE!）
+- 紅薔薇撫子（SHUFFLE!）
+- 八重桜（SHUFFLE!）
+- ツボミ（SHUFFLE!）
+- デイジー（SHUFFLE!）
+- キキョウ（SHUFFLE!）
+- 鷺澤美咲（初音岛）
+- 胡之宫环（初音岛）
+- 工藤叶（初音岛）
+- 紫和泉子（初音岛）
+- 霧羽香澄（初音岛）
+- 風祈（初音岛）
+- 月岛小恋（初音岛II）
+- 天枷美夏（初音岛II）
+- 雪村杏（初音岛II）
+- 花咲茜（初音岛II）
+- 艾西亚（初音岛II）
+- 樱内义之（初音岛II）
+- エリカ・ムラサキ（初音岛II）
+- 沢井麻耶（初音岛II）
+- 高坂真由纪（初音岛II）
+- 小鳥遊まひる（初音岛II）
+- 藤林忍（初音岛II）
+- 莉乃（初音岛II）
+- 朝雾达哉（夜明前的琉璃色）
+- 穂積さやか（夜明前的琉璃色）
+- 鹰见泽菜月（夜明前的琉璃色）
+- 米亚·克莱门蒂斯（夜明前的琉璃色）
+- 朝雾麻衣（夜明前的琉璃色）
+- リースリット·ノエル（夜明前的琉璃色）
+- 远山翠（夜明前的琉璃色）
+- エステル·フリージア（夜明前的琉璃色）
+- 支仓孝平（FORTUNE ARTERIAL）
+- 悠木奏（FORTUNE ARTERIAL）
+- 悠木阳菜（FORTUNE ARTERIAL）
+- 东仪白（FORTUNE ARTERIAL）
+- 红濑桐叶（FORTUNE ARTERIAL）
+- 尤斯蒂娅·阿斯托利亚（秽翼的尤斯蒂娅）
+- 凯伊姆·阿斯托利亚（秽翼的尤斯蒂娅）
+- 菲奥奈·希尔瓦利亚（秽翼的尤斯蒂娅）
+- コレット・アナスタシア（秽翼的尤斯蒂娅）
+- 莉西娅·德·诺瓦斯·尤利（秽翼的尤斯蒂娅）
+- 鲁基乌斯·迪斯·米雷由（秽翼的尤斯蒂娅）
+- 拉维丽娅（秽翼的尤斯蒂娅）
+- 麻生莲治（ef - a fairy tale of the two.）
+- 广野纮（ef - a fairy tale of the two.）
+- 宫村宫子（ef - a fairy tale of the two.）
+- 堤京介（ef - a fairy tale of the two.）
+- 久濑修一（ef - a fairy tale of the two.）
+- 羽山瑞希（ef - a fairy tale of the two.）
+- 火村夕（ef - a fairy tale of the two.）
+- 白银武（Muv-Luv）
+- 彩峰慧（Muv-Luv）
+- 珠濑壬姬（Muv-Luv）
+- 铠衣尊人（Muv-Luv）
+- 铠衣美琴（Muv-Luv）
+- 00ユニット（Muv-Luv Alternative）
+- 鸣海孝之（你所期望的永远）
+- 平慎二（你所期望的永远）
+- 玉野真由（你所期望的永远）
+- 大空寺亚由（你所期望的永远）
+- 榊由美子（灰色的果实）
+- 松岛满（灰色的果实）
+- 小岭幸（灰色的果实）
+- 入巢莳菜（灰色的果实）
+- 田無美代子（寒蝉鸣泣之时）
+- 呂ノ上源次（海猫鸣泣之时）
+- 乡田俊朗（海猫鸣泣之时）
+- 熊泽秋（海猫鸣泣之时）
+- 右代宫藏臼（海猫鸣泣之时）
+- 右代宫夏妃（海猫鸣泣之时）
+- 南條輝正（海猫鸣泣之时）
+- 右代宫雾江（海猫鸣泣之时）
+- 瓦尔基莉亚（海猫鸣泣之时）
+- 夏娃·贝阿朵莉切（海猫鸣泣之时）
+- 玛蒙（海猫鸣泣之时）
+- 古户绘梨花（海猫鸣泣之时）
+- 威拉德·H·莱特（海猫鸣泣之时）
+- 右代宫理御（海猫鸣泣之时）
+- 德拉诺尔·A·诺克斯（海猫鸣泣之时）
+- クレル・ヴォーブ・ベルナルドゥス（海猫鸣泣之时）
+- 椎名京（认真和我谈恋爱!!）
+- 克丽斯汀·弗里德里希（认真和我谈恋爱!!）
+- 黛由纪江（认真和我谈恋爱!!）
+- 直江大和（认真和我谈恋爱!!）
+- 泽城凛奈（青空下的约定）
+- 浅仓奈绪子（青空下的约定）
+- 六条宫穗（青空下的约定）
+- 藤村静（青空下的约定）
+- 桐島沙衣里（青空下的约定）
+- 星野航（青空下的约定）
+- 三田村茜（青空下的约定）
+- 久藤ちひろ（青空下的约定）
+
+## 完整版 normal（888）
+
+- 神尾观铃（AIR）
+- 雾岛佳乃（AIR）
+- 远野美凪（AIR）
+- 国崎往人（AIR）
+- 神奈备命（AIR）
+- 月宫亚由（Kanon）
+- 水濑名雪（Kanon）
+- 泽渡真琴（Kanon）
+- 川澄舞（Kanon）
+- 相泽祐一（Kanon）
+- 美坂栞（Kanon）
+- 美坂香里（Kanon）
+- 天野美汐（Kanon）
+- 古河渚（CLANNAD）
+- 坂上智代（CLANNAD）
+- 一之濑琴美（CLANNAD）
+- 伊吹风子（CLANNAD）
+- 藤林杏（CLANNAD）
+- 藤林椋（CLANNAD）
+- 冈崎朋也（CLANNAD）
+- 春原阳平（CLANNAD）
+- 古河早苗（CLANNAD）
+- 古河秋生（CLANNAD）
+- 直枝理树（Little Busters!）
+- 枣恭介（Little Busters!）
+- 神北小毬（Little Busters!）
+- 能美库特莉亚芙卡（Little Busters!）
+- 西园美鱼（Little Busters!）
+- 三枝叶留佳（Little Busters!）
+- 笹濑川佐佐美（Little Busters!）
+- 枣铃（Little Busters!）
+- 来谷唯湖（Little Busters!）
+- 二木佳奈多（Little Busters!）
+- 井之原真人（Little Busters!）
+- 宫泽谦吾（Little Busters!）
+- 天王寺瑚太朗（Rewrite）
+- 神户小鸟（Rewrite）
+- 千里朱音（Rewrite）
+- 篝（Rewrite）
+- 中津静流（Rewrite）
+- 此花露西娅（Rewrite）
+- 凤千早（Rewrite）
+- 立华奏（Angel Beats! (1st Beat)）
+- 仲村由理（Angel Beats! (1st Beat)）
+- 由依（Angel Beats! (1st Beat)）
+- 音无结弦（Angel Beats! (1st Beat)）
+- 日向秀树（Angel Beats! (1st Beat)）
+- 岩泽（Angel Beats! (1st Beat)）
+- 星野梦美（planetarian ～星之梦～）
+- 鸣濑白羽（Summer Pockets）
+- 久岛鸥（Summer Pockets）
+- 䌷·文德斯（Summer Pockets）
+- 阿尔托莉雅·潘德拉贡（Fate/stay night）
+- 远坂凛（Fate/stay night）
+- 间桐樱（Fate/stay night）
+- 卫宫士郎（Fate/stay night）
+- 卫宫（Fate/stay night）
+- 美杜莎（Fate/stay night）
+- 伊莉雅丝菲尔·冯·爱因兹贝伦（Fate/stay night）
+- 间桐慎二（Fate/stay night）
+- 美狄亚（Fate/stay night）
+- 库·丘林（Fate/stay night）
+- 吉尔伽美什（Fate/stay night）
+- 言峰绮礼（Fate/stay night）
+- 苍崎青子（魔法使之夜）
+- 久远寺有珠（魔法使之夜）
+- 静希草十郎（魔法使之夜）
+- 爱尔奎特·布伦史塔德（月姬）
+- 希耶尔（月姬）
+- 远野志贵（月姬）
+- 翡翠（月姬）
+- 琥珀（月姬）
+- 远野秋叶（月姬）
+- 弓冢五月（月姬）
+- 牧濑红莉栖（STEINS;GATE）
+- 椎名真由理（STEINS;GATE）
+- 冈部伦太郎（STEINS;GATE）
+- 菲利斯·喵喵（STEINS;GATE）
+- 漆原琉华（STEINS;GATE）
+- 阿万音铃羽（STEINS;GATE）
+- 桥田至（STEINS;GATE）
+- 沙耶（沙耶之歌）
+- 神岸明（ToHeart）
+- 向坂环（ToHeart2）
+- 柚原木实（ToHeart2）
+- 姬百合珊瑚（ToHeart2）
+- 姬百合珊瑚 (ToHeart2)（ToHeart2）
+- 久寿川莎莎拉（ToHeart2）
+- 艾露露（传颂之物）
+- 阿露露（传颂之物）
+- 图斯库尔（传颂之物）
+- 哈克奥罗（传颂之物）
+- 久远（传颂之物 虚伪的假面）
+- 猫音（传颂之物 虚伪的假面）
+- 哈克（传颂之物 虚伪的假面）
+- 小木曾雪菜（WHITE ALBUM 2）
+- 冬马和纱（WHITE ALBUM 2）
+- 北原春希（WHITE ALBUM 2）
+- 和泉千晶（WHITE ALBUM 2）
+- 森川由绮（WHITE ALBUM）
+- 莉希安瑟丝（SHUFFLE!）
+- 奈莉奈（SHUFFLE!）
+- 时雨亚沙（SHUFFLE!）
+- 朝仓音梦（初音岛）
+- 白河小鸟（初音岛）
+- 芳乃樱（初音岛）
+- 天枷美春（初音岛）
+- 朝仓纯一（初音岛）
+- 朝仓由梦（初音岛II）
+- 朝仓音姬（初音岛II）
+- 白河奈奈佳（初音岛II）
+- 菲娜·法姆·阿修莱特（夜明前的琉璃色）
+- 千堂瑛里华（FORTUNE ARTERIAL）
+- 艾莉丝·弗萝拉莉亚（秽翼的尤斯蒂娅）
+- 雨宫优子（ef - a fairy tale of the two.）
+- 新藤景（ef - a fairy tale of the two.）
+- 新藤千寻（ef - a fairy tale of the two.）
+- 鉴纯夏（Muv-Luv）
+- 篁唯依（Muv-Luv Alternative）
+- 神宫司麻里茂（Muv-Luv Alternative）
+- 凉宫茜（你所期望的永远）
+- 速濑水月（你所期望的永远）
+- 风见雄二（灰色的果实）
+- 风见一姬（灰色的迷宫）
+- 龙宫礼奈（寒蝉鸣泣之时）
+- 前原圭一（寒蝉鸣泣之时）
+- 园崎魅音（寒蝉鸣泣之时）
+- 园崎诗音（寒蝉鸣泣之时）
+- 古手梨花（寒蝉鸣泣之时）
+- 北条沙都子（寒蝉鸣泣之时）
+- 羽入（寒蝉鸣泣之时）
+- 赤坂卫（寒蝉鸣泣之时）
+- 右代宫战人（海猫鸣泣之时）
+- 贝阿朵莉切（海猫鸣泣之时）
+- 右代宫缘寿（海猫鸣泣之时）
+- 右代宫朱志香（海猫鸣泣之时）
+- 玛利亚（海猫鸣泣之时）
+- 川神百代（认真和我谈恋爱!!）
+- 川神一子（认真和我谈恋爱!!）
+- 羽山海己（青空下的约定）
+- 新海翔（9-nine-九次九日九重色）
+- 九条都（9-nine-九次九日九重色）
+- 新海天（9-nine-天色天歌天籁音）
+- 香坂春风（9-nine-春色春恋春熙风）
+- 结城希亚（9-nine-雪色雪花雪之痕）
+- 索菲缇娅（9-nine-九次九日九重色）
+- 深泽与一（9-nine-九次九日九重色）
+- 高峰莲夜（9-nine-天色天歌天籁音）
+- 成濑沙月（9-nine-九次九日九重色）
+- 仓田佐祐理（Kanon）
+- 水濑秋子（Kanon）
+- 北川润（Kanon）
+- 相乐美佐枝（CLANNAD）
+- 宫泽有纪宁（CLANNAD）
+- 芳野佑介（CLANNAD）
+- 柊胜平（CLANNAD）
+- 伊吹公子（CLANNAD）
+- 春原芽衣（CLANNAD）
+- 冈崎直幸（CLANNAD）
+- 冈崎汐（CLANNAD）
+- 朱鹭戸沙耶（Little Busters!）
+- 凤咲夜（Rewrite）
+- 椎名（Angel Beats! (1st Beat)）
+- 高松（Angel Beats! (1st Beat)）
+- 游佐（Angel Beats! (1st Beat)）
+- 野田（Angel Beats! (1st Beat)）
+- 直井文人（Angel Beats! (1st Beat)）
+- 藤卷（Angel Beats! (1st Beat)）
+- 松下护驒（Angel Beats! (1st Beat)）
+- 音无初音（Angel Beats! (1st Beat)）
+- 空门苍（Summer Pockets）
+- 水织静久（Summer Pockets）
+- 野村美希（Summer Pockets）
+- 岬镜子（Summer Pockets）
+- 藤村大河（Fate/stay night）
+- 葛木宗一郎（Fate/stay night）
+- 柳洞一成（Fate/stay night）
+- 美缀绫子（Fate/stay night）
+- 卫宫切嗣（Fate/stay night）
+- アサシン（Fate/stay night）
+- レン（月姬）
+- 乾有彦（月姬）
+- 尼禄·卡欧斯（月姬）
+- 桐生萌郁（STEINS;GATE）
+- 天王寺裕吾（STEINS;GATE）
+- 天王寺绹（STEINS;GATE）
+- 园崎阿魉（寒蝉鸣泣之时）
+- 知惠留美子（寒蝉鸣泣之时）
+- 北条铁平（寒蝉鸣泣之时）
+- 入江京介（寒蝉鸣泣之时）
+- 大石藏人（寒蝉鸣泣之时）
+- 富竹次郎（寒蝉鸣泣之时）
+- 鹰野三四（寒蝉鸣泣之时）
+- 右代宫让治（海猫鸣泣之时）
+- 右代宫金蔵（海猫鸣泣之时）
+- 纱音（海猫鸣泣之时）
+- 嘉音（海猫鸣泣之时）
+- 右代宫楼座（海猫鸣泣之时）
+- 右代宫留弗夫（海猫鸣泣之时）
+- 右代宫绘羽（海猫鸣泣之时）
+- 右代宫秀吉（海猫鸣泣之时）
+- 图斯库尔 (传颂之物)（传颂之物）
+- 卡露拉（传颂之物）
+- 藤香（传颂之物）
+- 胧（传颂之物）
+- 柚叶（传颂之物）
+- 露露缇耶（传颂之物 虚伪的假面）
+- 阿托伊（传颂之物 虚伪的假面）
+- 乌露露（传颂之物 虚伪的假面）
+- 杉浦小春（WHITE ALBUM 2）
+- 风冈麻理（WHITE ALBUM 2）
+- 水泽依绪（WHITE ALBUM 2）
+- 饭冢武也（WHITE ALBUM 2）
+- 芙蓉枫（SHUFFLE!）
+- 枯叶（SHUFFLE!）
+- 麻弓百里香（SHUFFLE!）
+- 柚原木实 (ToHeart2)（ToHeart2）
+- 周防天音（灰色的果实）
+- 御剑冥夜（Muv-Luv）
+- 榊千鹤（Muv-Luv）
+- 水越萌（初音岛）
+- 水越真子（初音岛）
+- 白河历（初音岛）
+- 月城爱丽丝（初音岛）
+- 彩珠菜菜子（初音岛）
+- 雾岛圣（AIR）
+- 小满（AIR）
+- 神尾晴子（AIR）
+- 橘敬介（AIR）
+- 土豆（AIR）
+- 里叶（AIR）
+- 柳也（AIR）
+- 八百比丘尼（AIR）
+- 小空（AIR）
+- ピロ（Kanon）
+- 仓田一弥（Kanon）
+- たいやき屋のおやじ（Kanon）
+- 久瀬（Kanon）
+- 坂上鷹文（CLANNAD）
+- 幻想世界的少女（CLANNAD）
+- 幸村俊夫（CLANNAD）
+- 冈崎史乃（CLANNAD）
+- 牡丹（CLANNAD）
+- 仁科りえ（CLANNAD）
+- ガラクタの人形（CLANNAD）
+- Gentleman（CLANNAD）
+- 岡崎敦子（CLANNAD）
+- 志麻贺津纪（CLANNAD）
+- 勇（CLANNAD）
+- 天野洙浬（Little Busters!）
+- 神北小次郎（Little Busters!）
+- 西园美鸟（Little Busters!）
+- 多鲁基（Little Busters!）
+- 古式みゆき（Little Busters!）
+- 川越令（Little Busters!）
+- 渡辺咲子（Little Busters!）
+- 中村由香里（Little Busters!）
+- Haruka'sMother（Little Busters!）
+- 神北拓也（Little Busters!）
+- 笹濑川佐佐美 (Little Busters!)（Little Busters!）
+- レノン（Little Busters!）
+- Miles（Little Busters!）
+- ストレルカ（Little Busters!）
+- Riki'sLegalGuardian（Little Busters!）
+- 三枝晶（Little Busters!）
+- Mr.Futaki（Little Busters!）
+- マッド鈴木（Little Busters!）
+- イワン・ストルガツキー（Little Busters!）
+- 相川（Little Busters!）
+- チェルヌシカ・ストルガツカヤ（Little Busters!）
+- クロ（Little Busters!）
+- 吉野晴彦（Rewrite）
+- 江坂宗源（Rewrite）
+- 西九条灯花（Rewrite）
+- 御堂（Rewrite）
+- 琪比摩斯（Rewrite）
+- 帕尼（Rewrite）
+- 志麻子（Rewrite）
+- 今宫新（Rewrite）
+- 井上晶（Rewrite）
+- 吉耳（Rewrite）
+- 盖纳吉·艾德阿鲁特维奇·卡瓦齐艾瓦（Rewrite）
+- 加岛樱（Rewrite）
+- 亚斯茗（Rewrite）
+- 高砂（Rewrite）
+- 冬牙（Rewrite）
+- 知子（Rewrite）
+- 路易斯（Rewrite）
+- 神户圭介（Rewrite）
+- 神户理香子（Rewrite）
+- 天神（Rewrite）
+- 天马（Rewrite）
+- Saburou（Rewrite）
+- Keitarou（Rewrite）
+- Johnson（Rewrite）
+- Yasuko（Rewrite）
+- AutosaveSpirit（Rewrite）
+- CandyShopLady（Rewrite）
+- CafeteriaLady（Rewrite）
+- BrendaMcFarden（Rewrite）
+- 洲崎周一郎（Rewrite）
+- 天王寺幸枝（Rewrite）
+- 中津静香（Rewrite）
+- 渊田久子（Angel Beats! (1st Beat)）
+- 查（Angel Beats! (1st Beat)）
+- 入江美雪（Angel Beats! (1st Beat)）
+- TK（Angel Beats! (1st Beat)）
+- 大山（Angel Beats! (1st Beat)）
+- 关根诗织（Angel Beats! (1st Beat)）
+- 竹山（Angel Beats! (1st Beat)）
+- 分身天使（Angel Beats! (1st Beat)）
+- 齐藤（Angel Beats! (1st Beat)）
+- 五十岚（Angel Beats! (1st Beat)）
+- 阳菜子（Angel Beats! (1st Beat)）
+- 废墟猎人（planetarian ～星之梦～）
+- 鹰原羽依里（Summer Pockets）
+- 三谷良一（Summer Pockets）
+- 加纳天善（Summer Pockets）
+- 加藤羽未（Summer Pockets）
+- 鸣濑小鸠（Summer Pockets）
+- 稻荷（Summer Pockets）
+- ツムギ・ヴェンダース（Summer Pockets）
+- 久岛鹭（Summer Pockets）
+- 空门蓝（Summer Pockets）
+- 七海（Summer Pockets）
+- 神山识（Summer Pockets）
+- CandyStoreGranny（Summer Pockets）
+- 良一妹（Summer Pockets）
+- 堀田（Summer Pockets）
+- 鸣濑瞳（Summer Pockets）
+- 鸣濑白羽 (Summer Pockets)（Summer Pockets）
+- バーサーカー（Fate/stay night）
+- 黒い影（Fate/stay night）
+- 咒腕的哈桑（Fate/stay night）
+- 间桐脏砚（Fate/stay night）
+- 黑樱（Fate/stay night）
+- 阿尔托莉雅·潘德拉贡〔Alter〕（Fate/stay night）
+- DarkBerserker（Fate/stay night）
+- 萤冢音子（Fate/stay night）
+- 塞拉（Fate/stay night）
+- 莉洁莉特（Fate/stay night）
+- 三枝由纪香（Fate/stay night）
+- 莳寺枫（Fate/stay night）
+- 冰室钟（Fate/stay night）
+- Robin（魔法使之夜）
+- 苍崎橙子（魔法使之夜）
+- 槻司鸢丸（魔法使之夜）
+- 久万梨金鹿（魔法使之夜）
+- 木乃美芳助（魔法使之夜）
+- 鲁格·贝奥武夫（魔法使之夜）
+- 梅·莉黛尔·阿切洛特（魔法使之夜）
+- 周濑律架（魔法使之夜）
+- 周濑唯架（魔法使之夜）
+- 文柄咏梨（魔法使之夜）
+- 山城和树（魔法使之夜）
+- 土桔由里彦（魔法使之夜）
+- 米海尔·罗亚·巴尔达庸（月姬）
+- 远野四季（月姬）
+- ネコアルク（月姬）
+- 七夜志貴（月姬）
+- 秋葉幸孝（STEINS;GATE）
+- 牧瀬章一（STEINS;GATE）
+- 鈴木功一（STEINS;GATE）
+- アルパカマン（STEINS;GATE）
+- 漆原荣辅（STEINS;GATE）
+- 匂坂郁纪（沙耶之歌）
+- 户尾耕司（沙耶之歌）
+- 高畠青海（沙耶之歌）
+- 津久叶瑶（沙耶之歌）
+- 丹保凉子（沙耶之歌）
+- 奥涯雅彦（沙耶之歌）
+- 鈴見洋祐（沙耶之歌）
+- 鈴見博美（沙耶之歌）
+- 藤田浩之（ToHeart）
+- 长冈志保（ToHeart）
+- 玛鲁芝（ToHeart）
+- 保科智子（ToHeart）
+- 来栖川芹香（ToHeart）
+- 宫内蕾咪（ToHeart）
+- 松原葵（ToHeart）
+- 姬川琴音（ToHeart）
+- 雏山理绪（ToHeart）
+- 来栖川绫香（ToHeart）
+- 佐藤雅史（ToHeart）
+- 長瀬源四郎（ToHeart）
+- 坂下好恵（ToHeart）
+- 塞莉欧（ToHeart）
+- 柏木初音（ToHeart）
+- 岡田（ToHeart）
+- 松本（ToHeart）
+- 矢島（ToHeart）
+- 宮内シンディ（ToHeart）
+- 吉井（ToHeart）
+- 長瀬主任（ToHeart）
+- 橋本（ToHeart）
+- 木林（ToHeart）
+- 十波由真（ToHeart2）
+- 笹森花梨（ToHeart2）
+- 河野贵明（ToHeart2）
+- るーこ・きれいなそら（ToHeart2）
+- 草壁优季（ToHeart2）
+- 羽根崎美緒（ToHeart2）
+- 源次丸（ToHeart2）
+- 小牧郁乃（ToHeart2）
+- 柚原春夏（ToHeart2）
+- 向坂雄二（ToHeart2）
+- 長瀬源蔵（ToHeart2）
+- 伊露法（ToHeart2）
+- 朝雾麻亚子（ToHeart2）
+- 吉冈千绘（ToHeart2）
+- 山田满（ToHeart2）
+- 菜菜子（ToHeart2）
+- 神楽玲於奈（ToHeart2）
+- 古風薫子（ToHeart2）
+- 江沢香澄（ToHeart2）
+- 図書委員長（ToHeart2）
+- 卡谬（传颂之物）
+- 睦美（传颂之物）
+- 大神解放者（传颂之物）
+- 铁奥罗（传颂之物）
+- 索波克（传颂之物）
+- 多利（传颂之物）
+- 古拉（传颂之物）
+- 贝纳威（传颂之物）
+- 克罗（传颂之物）
+- 切奇纳罗（传颂之物）
+- 努万基（传颂之物）
+- 萨桑迪（传颂之物）
+- 殷卡拉（传颂之物）
+- 蒙特（传颂之物）
+- 沃贝（传颂之物）
+- 尼维尔（传颂之物）
+- 库娅（传颂之物）
+- 纱雅（传颂之物）
+- 源次丸 (传颂之物)（传颂之物）
+- 哈维恩库亚（传颂之物）
+- 飞燕（传颂之物）
+- 奥利卡坎（传颂之物）
+- 迪利霍莱（传颂之物）
+- 斯欧卡斯（传颂之物）
+- 波纳霍伊（传颂之物）
+- 坎赫鲁达利（传颂之物）
+- 德伊（传颂之物）
+- 命（传颂之物）
+- ミズシマ（传颂之物）
+- Mutikapa（传颂之物）
+- 穆库鲁（传颂之物）
+- 芙米露露（传颂之物）
+- 卡姆查塔尔（传颂之物）
+- 奥修托尔（传颂之物 虚伪的假面）
+- 右近（传颂之物 虚伪的假面）
+- 麻吕吕（传颂之物 虚伪的假面）
+- 鵟（传颂之物 虚伪的假面）
+- 扇（传颂之物 虚伪的假面）
+- 亚库托瓦尔特（传颂之物 虚伪的假面）
+- 诗诺农（传颂之物 虚伪的假面）
+- 御雷（传颂之物 虚伪的假面）
+- 雷光（传颂之物 虚伪的假面）
+- 裘鲁（传颂之物 虚伪的假面）
+- 安洁（传颂之物 虚伪的假面）
+- 宗近（传颂之物 虚伪的假面）
+- 阿露露 (传颂之物 虚伪的假面)（传颂之物 虚伪的假面）
+- 萨拉娜（传颂之物 虚伪的假面）
+- 欧西斯（传颂之物 虚伪的假面）
+- 沃金（传颂之物 虚伪的假面）
+- 七理夜（传颂之物 虚伪的假面）
+- 迪科嘭嘭（传颂之物 虚伪的假面）
+- 索杨克库尔（传颂之物 虚伪的假面）
+- 莫兹努（传颂之物 虚伪的假面）
+- 衮多努阿（传颂之物 虚伪的假面）
+- 武赖（传颂之物 虚伪的假面）
+- 恩托娃（传颂之物 虚伪的假面）
+- ゼグニ（传颂之物 虚伪的假面）
+- 帝（传颂之物 虚伪的假面）
+- 柳原朋（WHITE ALBUM 2）
+- 矢田美穗子（WHITE ALBUM 2）
+- 工藤美代子（WHITE ALBUM 2）
+- 中川和美（WHITE ALBUM 2）
+- 雨宮佐和子（WHITE ALBUM 2）
+- 园田亚子（WHITE ALBUM 2）
+- 早坂亲志（WHITE ALBUM 2）
+- 小木曾晋（WHITE ALBUM 2）
+- 小木曾秋菜（WHITE ALBUM 2）
+- 小木曽孝宏（WHITE ALBUM 2）
+- 冬马曜子（WHITE ALBUM 2）
+- 清水早百合（WHITE ALBUM 2）
+- 佐藤（WHITE ALBUM 2）
+- 本田（WHITE ALBUM 2）
+- 浜田和紀（WHITE ALBUM 2）
+- 松岡（WHITE ALBUM 2）
+- 木崎（WHITE ALBUM 2）
+- 鈴木（WHITE ALBUM 2）
+- 上原（WHITE ALBUM 2）
+- 吉田（WHITE ALBUM 2）
+- 佐藤 (WHITE ALBUM 2)（WHITE ALBUM 2）
+- 諏訪先生（WHITE ALBUM 2）
+- 田中（WHITE ALBUM 2）
+- 担任教師（WHITE ALBUM 2）
+- 绪方理奈（WHITE ALBUM）
+- 河岛遥（WHITE ALBUM）
+- 泽仓美咲（WHITE ALBUM）
+- 观月真名（WHITE ALBUM）
+- 筱冢弥生（WHITE ALBUM）
+- 如月小夜子（WHITE ALBUM）
+- 七濑彰（WHITE ALBUM）
+- 绪方英二（WHITE ALBUM）
+- 藤井冬弥（WHITE ALBUM）
+- フランク長瀬（WHITE ALBUM）
+- 土见禀（SHUFFLE!）
+- 普莉姆拉（SHUFFLE!）
+- 紅薔薇撫子（SHUFFLE!）
+- ユーストマ（SHUFFLE!）
+- フォーベシイ（SHUFFLE!）
+- 緑葉樹（SHUFFLE!）
+- 時雨亜麻（SHUFFLE!）
+- セージ（SHUFFLE!）
+- サイネリア（SHUFFLE!）
+- バーク（SHUFFLE!）
+- 八重桜（SHUFFLE!）
+- 瑠璃＝マツリ（SHUFFLE!）
+- ツボミ（SHUFFLE!）
+- デイジー（SHUFFLE!）
+- 真聡（SHUFFLE!）
+- 芙蓉幹夫（SHUFFLE!）
+- キキョウ（SHUFFLE!）
+- エリカ＝スズラン（SHUFFLE!）
+- 奈莉奈 (SHUFFLE!)（SHUFFLE!）
+- 白河さやか（初音岛）
+- 鷺澤美咲（初音岛）
+- 杉并（初音岛）
+- 歌丸（初音岛）
+- 胡之宫环（初音岛）
+- 工藤叶（初音岛）
+- 紫和泉子（初音岛）
+- 霧羽香澄（初音岛）
+- 森川知子（初音岛）
+- 佐伯加奈子（初音岛）
+- 瀬場（初音岛）
+- ブリッヂ長官（初音岛）
+- 霧羽明日美（初音岛）
+- 風祈（初音岛）
+- 月岛小恋（初音岛II）
+- 天枷美夏（初音岛II）
+- 雪村杏（初音岛II）
+- 板橋渉（初音岛II）
+- 花咲茜（初音岛II）
+- 艾西亚（初音岛II）
+- 樱内义之（初音岛II）
+- 芳乃樱 (初音岛II)（初音岛II）
+- エリカ・ムラサキ（初音岛II）
+- 沢井麻耶（初音岛II）
+- 高坂真由纪（初音岛II）
+- 小鳥遊まひる（初音岛II）
+- リオ・フォーカスライト（初音岛II）
+- フローラ・クエイシー（初音岛II）
+- ジェイミー・ダウニング（初音岛II）
+- 小日向柚子（初音岛II）
+- 美冬（初音岛II）
+- 今井めぐみ（初音岛II）
+- 沢井勇斗（初音岛II）
+- 沢井美秋（初音岛II）
+- 水越舞佳（初音岛II）
+- 小日向慎（初音岛II）
+- 花咲茜 (初音岛II)（初音岛II）
+- 花咲翠（初音岛II）
+- 沢井綾子（初音岛II）
+- 藤林忍（初音岛II）
+- 朝比奈ミキ（初音岛II）
+- 莉乃（初音岛II）
+- 哈利马奥（初音岛II）
+- 朝雾达哉（夜明前的琉璃色）
+- 穂積さやか（夜明前的琉璃色）
+- 鹰见泽菜月（夜明前的琉璃色）
+- 米亚·克莱门蒂斯（夜明前的琉璃色）
+- 卡莲·克拉维斯（夜明前的琉璃色）
+- 朝雾麻衣（夜明前的琉璃色）
+- リースリット·ノエル（夜明前的琉璃色）
+- 远山翠（夜明前的琉璃色）
+- 鹰见泽仁（夜明前的琉璃色）
+- ライオネス·テオ·アーシュライト（夜明前的琉璃色）
+- 鹰见泽左门（夜明前的琉璃色）
+- エステル·フリージア（夜明前的琉璃色）
+- フィアッカ・マルグリット（夜明前的琉璃色）
+- モーリッツ・ザベル・フランツ（夜明前的琉璃色）
+- 支仓孝平（FORTUNE ARTERIAL）
+- 悠木奏（FORTUNE ARTERIAL）
+- 悠木阳菜（FORTUNE ARTERIAL）
+- 东仪白（FORTUNE ARTERIAL）
+- 红濑桐叶（FORTUNE ARTERIAL）
+- 千堂伊织（FORTUNE ARTERIAL）
+- 东仪征一郎（FORTUNE ARTERIAL）
+- 八幡平司（FORTUNE ARTERIAL）
+- 千堂伽耶（FORTUNE ARTERIAL）
+- 天池志津子（FORTUNE ARTERIAL）
+- 青砥正则（FORTUNE ARTERIAL）
+- 美术部部长（FORTUNE ARTERIAL）
+- 尤斯蒂娅·阿斯托利亚（秽翼的尤斯蒂娅）
+- 凯伊姆·阿斯托利亚（秽翼的尤斯蒂娅）
+- 菲奥奈·希尔瓦利亚（秽翼的尤斯蒂娅）
+- コレット・アナスタシア（秽翼的尤斯蒂娅）
+- 莉西娅·德·诺瓦斯·尤利（秽翼的尤斯蒂娅）
+- 吉克弗里德·古拉德（秽翼的尤斯蒂娅）
+- 梅尔特·罗格缇耶（秽翼的尤斯蒂娅）
+- 鲁基乌斯·迪斯·米雷由（秽翼的尤斯蒂娅）
+- 拉维丽娅（秽翼的尤斯蒂娅）
+- 库罗蒂雅（秽翼的尤斯蒂娅）
+- 莉莎（秽翼的尤斯蒂娅）
+- 阿伊莉斯（秽翼的尤斯蒂娅）
+- 兰格（秽翼的尤斯蒂娅）
+- 吉尔巴鲁特（秽翼的尤斯蒂娅）
+- 瓦利亚斯·梅斯纳（秽翼的尤斯蒂娅）
+- 西斯狄娜·艾尔（秽翼的尤斯蒂娅）
+- 纳达尔（秽翼的尤斯蒂娅）
+- 戈尔（秽翼的尤斯蒂娅）
+- 黒羽（秽翼的尤斯蒂娅）
+- 奥兹（秽翼的尤斯蒂娅）
+- 麻生莲治（ef - a fairy tale of the two.）
+- 广野纮（ef - a fairy tale of the two.）
+- 宫村宫子（ef - a fairy tale of the two.）
+- 堤京介（ef - a fairy tale of the two.）
+- 久濑修一（ef - a fairy tale of the two.）
+- 羽山瑞希（ef - a fairy tale of the two.）
+- 火村夕（ef - a fairy tale of the two.）
+- 广野凪（ef - a fairy tale of the two.）
+- 雨宫明良（ef - a fairy tale of the two.）
+- 麻生堇（ef - a fairy tale of the two.）
+- 羽山水姫（ef - a fairy tale of the two.）
+- 白银武（Muv-Luv）
+- 神宫司麻里茂 (Muv-Luv)（Muv-Luv）
+- 香月夕呼（Muv-Luv）
+- 彩峰慧（Muv-Luv）
+- 月咏真那（Muv-Luv）
+- 珠濑壬姬（Muv-Luv）
+- 铠衣尊人（Muv-Luv）
+- 铠衣美琴（Muv-Luv）
+- 戎美凪（Muv-Luv）
+- 神代巽（Muv-Luv）
+- 巴雪乃（Muv-Luv）
+- 伊莉娜·皮亚缇芙（Muv-Luv）
+- 一文字鷹嘴（Muv-Luv）
+- 京塚志津江（Muv-Luv）
+- 鲍尔·拉达比诺德（Muv-Luv）
+- 柏木晴子（Muv-Luv）
+- 珠濑玄丞斋（Muv-Luv）
+- 鉴纯夏 (Muv-Luv)（Muv-Luv）
+- 沙雾尚哉（Muv-Luv）
+- お婆さん（Muv-Luv）
+- 星乃文绪（Muv-Luv）
+- 天野原翠子（Muv-Luv）
+- 天野原甚五郎（Muv-Luv）
+- 高原萌香（Muv-Luv）
+- 麻倉（Muv-Luv）
+- Takeru'sandMeiya'sDaughter（Muv-Luv）
+- Takeru'sandMikoto'sDaughter（Muv-Luv）
+- Takeru'sandMiki'sDaughter（Muv-Luv）
+- Takeru'sandChizuru'sDaughter（Muv-Luv）
+- Takeru'sandKei'sDaughter（Muv-Luv）
+- ユウタ（Muv-Luv）
+- 千鶴の母（Muv-Luv）
+- 師岡（Muv-Luv）
+- 川副（Muv-Luv）
+- 築地多恵（Muv-Luv）
+- 00ユニット（Muv-Luv Alternative）
+- 阿尔弗雷德·沃肯（Muv-Luv Alternative）
+- 穂村爱美（Muv-Luv Alternative）
+- 伊露玛·塔斯雷夫（Muv-Luv Alternative）
+- 凉宫遥（Muv-Luv Alternative）
+- 伊隅美知留（Muv-Luv Alternative）
+- 风间祷子（Muv-Luv Alternative）
+- 宗像美冴（Muv-Luv Alternative）
+- 铠衣左近（Muv-Luv Alternative）
+- 煌武院悠阳（Muv-Luv Alternative）
+- 煌武院悠阳 (Muv-Luv Alternative)（Muv-Luv Alternative）
+- 小沢久彌（Muv-Luv Alternative）
+- 安倍智彦（Muv-Luv Alternative）
+- 田所（Muv-Luv Alternative）
+- 井口（Muv-Luv Alternative）
+- インドラ・サーダン・ミュン（Muv-Luv Alternative）
+- 斑鳩崇継（Muv-Luv Alternative）
+- 上位存在（Muv-Luv Alternative）
+- 鸣海孝之（你所期望的永远）
+- 平慎二（你所期望的永远）
+- 天川萤（你所期望的永远）
+- 玉野真由（你所期望的永远）
+- 大空寺亚由（你所期望的永远）
+- 辻村晶代（你所期望的永远）
+- 伊隅弥生（你所期望的永远）
+- Boyfriend（你所期望的永远）
+- 涼宮薫（你所期望的永远）
+- 凉宫宗一郎（你所期望的永远）
+- 崎山健三（你所期望的永远）
+- 宇都木涅沙（你所期望的永远）
+- 香月素子（你所期望的永远）
+- 速瀬真智子（你所期望的永远）
+- 速濑勋（你所期望的永远）
+- Takayuki'sandHaruka'sDaughter（你所期望的永远）
+- 榊由美子（灰色的果实）
+- 松岛满（灰色的果实）
+- 小岭幸（灰色的果实）
+- 入巢莳菜（灰色的果实）
+- 橘千鹤（灰色的果实）
+- 春寺由梨亚（灰色的果实）
+- 日下部麻子（灰色的果实）
+- 琪娅拉·法瑞尔（灰色的果实）
+- 榊道昭（灰色的果实）
+- 榊美佐子（灰色的果实）
+- と志枝（灰色的果实）
+- 飯田可奈子（灰色的果实）
+- 坂下千秋（灰色的果实）
+- 小出葎（灰色的果实）
+- 佐久间实乃梨（灰色的果实）
+- 伊吹春菜（灰色的果实）
+- 金田沙彩（灰色的果实）
+- 古森惠（灰色的果实）
+- 樱井美冬（灰色的果实）
+- 广冈珠希（灰色的果实）
+- 小沢洋子（灰色的果实）
+- 岡部朋絵（灰色的果实）
+- 越智义彦（灰色的果实）
+- 坂下启二（灰色的果实）
+- 喵美尔（灰色的果实）
+- 少女（灰色的果实）
+- 入巢清夏（灰色的果实）
+- 入巢正孝（灰色的果实）
+- 入巢沙里菜（灰色的果实）
+- 沢田寛子（灰色的果实）
+- 大塚（灰色的果实）
+- 幸の父（灰色的果实）
+- 幸の母（灰色的果实）
+- 小嶺昭博（灰色的果实）
+- 中野仁美（灰色的果实）
+- 山吹れんげ（灰色的果实）
+- 周防ななの（灰色的果实）
+- KazamiYuma（灰色的果实）
+- 鈴音（灰色的果实）
+- IharaNaoyuki（灰色的果实）
+- 希斯·奥斯洛（灰色的迷宫）
+- 风见亮二（灰色的迷宫）
+- 风见聪子（灰色的迷宫）
+- ジャスティン・マイクマイヤー（灰色的迷宫）
+- 丹尼尔·博恩（灰色的迷宫）
+- 米莉艾拉·斯坦菲尔德（灰色的迷宫）
+- エドワード・ウォーカー（灰色的迷宫）
+- 罗伯特·沃尔森（灰色的迷宫）
+- アニエス・ギャレット（灰色的迷宫）
+- アダム（灰色的迷宫）
+- Saho（灰色的迷宫）
+- 公由喜一郎（寒蝉鸣泣之时）
+- 熊谷勝也（寒蝉鸣泣之时）
+- 赤坂美雪（寒蝉鸣泣之时）
+- 亀田幸一（寒蝉鸣泣之时）
+- 园崎茜（寒蝉鸣泣之时）
+- 葛西辰由（寒蝉鸣泣之时）
+- 间宫丽娜（寒蝉鸣泣之时）
+- 北条悟史（寒蝉鸣泣之时）
+- 小此木铁郎（寒蝉鸣泣之时）
+- 高野一二三（寒蝉鸣泣之时）
+- 雲雀13（寒蝉鸣泣之时）
+- 芙蕾德莉卡·贝伦卡斯泰露（寒蝉鸣泣之时）
+- 田無美代子（寒蝉鸣泣之时）
+- 呂ノ上源次（海猫鸣泣之时）
+- 乡田俊朗（海猫鸣泣之时）
+- 熊泽秋（海猫鸣泣之时）
+- 右代宫藏臼（海猫鸣泣之时）
+- 右代宫夏妃（海猫鸣泣之时）
+- 南條輝正（海猫鸣泣之时）
+- 右代宫雾江（海猫鸣泣之时）
+- ベルンカステル（海猫鸣泣之时）
+- 拉姆达戴露塔（海猫鸣泣之时）
+- 罗诺威（海猫鸣泣之时）
+- 噶普（海猫鸣泣之时）
+- 瓦尔基莉亚（海猫鸣泣之时）
+- 夏娃·贝阿朵莉切（海猫鸣泣之时）
+- 路西法（海猫鸣泣之时）
+- 雷维阿坦（海猫鸣泣之时）
+- 撒旦（海猫鸣泣之时）
+- 贝露菲格露（海猫鸣泣之时）
+- 玛蒙（海猫鸣泣之时）
+- 贝露赛布布（海猫鸣泣之时）
+- 阿丝磨德乌丝（海猫鸣泣之时）
+- 天草十三（海猫鸣泣之时）
+- 須磨寺霞（海猫鸣泣之时）
+- 樱太郎（海猫鸣泣之时）
+- 熊沢鯖吉（海猫鸣泣之时）
+- 南條雅行（海猫鸣泣之时）
+- 谢斯塔410（海猫鸣泣之时）
+- 谢斯塔45（海猫鸣泣之时）
+- 谢斯塔00（海猫鸣泣之时）
+- シエスタ556（海猫鸣泣之时）
+- 大月（海猫鸣泣之时）
+- 川畑（海猫鸣泣之时）
+- 安田紗代（海猫鸣泣之时）
+- 右代宫明日梦（海猫鸣泣之时）
+- 芙尔芙尔（海猫鸣泣之时）
+- 古户绘梨花（海猫鸣泣之时）
+- 威拉德·H·莱特（海猫鸣泣之时）
+- 右代宫理御（海猫鸣泣之时）
+- 赛帕尔（海猫鸣泣之时）
+- 德拉诺尔·A·诺克斯（海猫鸣泣之时）
+- ベアトリーチェ・カスティリオーニ（海猫鸣泣之时）
+- コーネリア（海猫鸣泣之时）
+- ガートルード（海猫鸣泣之时）
+- 菲泽莉努·阿乌古斯都斯·阿乌罗拉（海猫鸣泣之时）
+- 菲泽莉努·阿乌古斯都斯·阿乌罗拉 (海猫鸣泣之时)（海猫鸣泣之时）
+- 右代宮ベアトリーチェ（海猫鸣泣之时）
+- クレル・ヴォーブ・ベルナルドゥス（海猫鸣泣之时）
+- 玛蒙 (海猫鸣泣之时)（海猫鸣泣之时）
+- 明日音（海猫鸣泣之时）
+- 鐘音（海猫鸣泣之时）
+- 礼音（海猫鸣泣之时）
+- 恋音（海猫鸣泣之时）
+- 瑠音（海猫鸣泣之时）
+- 玲音（海猫鸣泣之时）
+- 八城十八（海猫鸣泣之时）
+- 蟹泽绢（认真和我谈恋爱!!）
+- 鉄乙女（认真和我谈恋爱!!）
+- 椎名京（认真和我谈恋爱!!）
+- 克丽斯汀·弗里德里希（认真和我谈恋爱!!）
+- 黛由纪江（认真和我谈恋爱!!）
+- 上杉錬（认真和我谈恋爱!!）
+- 久遠寺未有（认真和我谈恋爱!!）
+- 久遠寺夢（认真和我谈恋爱!!）
+- 朱子（认真和我谈恋爱!!）
+- 上杉美鳩（认真和我谈恋爱!!）
+- 南斗星（认真和我谈恋爱!!）
+- 清原千春（认真和我谈恋爱!!）
+- 九鬼扬羽（认真和我谈恋爱!!）
+- デニーロ（认真和我谈恋爱!!）
+- 直江大和（认真和我谈恋爱!!）
+- 风间翔一（认真和我谈恋爱!!）
+- 岛津岳人（认真和我谈恋爱!!）
+- 师冈卓也（认真和我谈恋爱!!）
+- 不死川心（认真和我谈恋爱!!）
+- 九鬼英雄（认真和我谈恋爱!!）
+- クッキー（认真和我谈恋爱!!）
+- 源忠胜（认真和我谈恋爱!!）
+- 小笠原千花（认真和我谈恋爱!!）
+- 甘粕真与（认真和我谈恋爱!!）
+- 福本育郎（认真和我谈恋爱!!）
+- 熊饲满（认真和我谈恋爱!!）
+- 大串スグル（认真和我谈恋爱!!）
+- 小岛梅子（认真和我谈恋爱!!）
+- 羽黑黑子（认真和我谈恋爱!!）
+- 忍足あずみ（认真和我谈恋爱!!）
+- 榊原小雪（认真和我谈恋爱!!）
+- 葵冬马（认真和我谈恋爱!!）
+- 井上准（认真和我谈恋爱!!）
+- 玛吉特·埃贝巴赫（认真和我谈恋爱!!）
+- 川神鉄心（认真和我谈恋爱!!）
+- 宇佐美巨人（认真和我谈恋爱!!）
+- 板垣亚巳（认真和我谈恋爱!!）
+- 板垣辰子（认真和我谈恋爱!!）
+- 板垣天使（认真和我谈恋爱!!）
+- 板垣龙兵（认真和我谈恋爱!!）
+- 绫小路麻呂（认真和我谈恋爱!!）
+- ルー・イー（认真和我谈恋爱!!）
+- フランク・フリードリヒ（认真和我谈恋爱!!）
+- 总理（认真和我谈恋爱!!）
+- 店長（认真和我谈恋爱!!）
+- 大和田伊予（认真和我谈恋爱!!）
+- 武蔵小杉（认真和我谈恋爱!!）
+- 矢場弓子（认真和我谈恋爱!!）
+- 釈迦堂刑部（认真和我谈恋爱!!）
+- 南條・M・虎子（认真和我谈恋爱!!）
+- カラカル・ゲイツ（认真和我谈恋爱!!）
+- カラカル・ゲイル（认真和我谈恋爱!!）
+- 島津麗子（认真和我谈恋爱!!）
+- 泽城凛奈（青空下的约定）
+- 浅仓奈绪子（青空下的约定）
+- 六条宫穗（青空下的约定）
+- 藤村静（青空下的约定）
+- 桐島沙衣里（青空下的约定）
+- 星野航（青空下的约定）
+- 三田村茜（青空下的约定）
+- 久藤ちひろ（青空下的约定）
+- 三田村隆史（青空下的约定）
+- 内山雅文（青空下的约定）
+- 羽山克彦（青空下的约定）
+- 星野一誠（青空下的约定）
+- 塚田博（青空下的约定）
+- 星野奈津江（青空下的约定）
+- 紀子（青空下的约定）
+- 野川伸二郎（青空下的约定）
+- 索菲缇娅 (9-nine-九次九日九重色)（9-nine-九次九日九重色）
+- 幽灵（9-nine-九次九日九重色）
+- ナイン（9-nine-春色春恋春熙风）
+- 伊利斯（9-nine-春色春恋春熙风）
+- 蕾娜（9-nine-雪色雪花雪之痕）

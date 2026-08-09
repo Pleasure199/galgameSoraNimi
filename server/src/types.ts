@@ -26,6 +26,10 @@ export interface Character {
   hair_color: string;
   /** 色系（隐藏字段，仅用于发色 close 判定） */
   hair_color_family: string;
+  /** 发长 */
+  hair_length: string;
+  /** 身高（cm），未知为 null */
+  height: number | null;
   /** 难度归属，直接来自角色 JSON 数据集 */
   difficulties: string[];
   is_enabled: boolean;
@@ -51,6 +55,8 @@ export interface GuessFeedback {
     gender: AttributeFeedback;
     cv: AttributeFeedback;
     hairColor: AttributeFeedback;
+    hairLength: AttributeFeedback;
+    height: AttributeFeedback;
   };
 }
 

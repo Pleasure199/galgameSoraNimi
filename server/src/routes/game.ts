@@ -48,6 +48,8 @@ function answerView(target: Character) {
     gender: target.gender,
     cv: target.cv,
     hairColor: target.hair_color,
+    hairLength: target.hair_length,
+    height: target.height,
   };
 }
 
@@ -149,6 +151,9 @@ router.post(
       const game = await loadOwnedGame(gameId, owner.identityKey);
       const guess = getEnabledCharacter(req.body.characterId);
       if (!guess) throw new HttpError(404, 'CHARACTER_NOT_FOUND');
+      if (!guess.difficulties.includes(game.mode)) {
+        throw new HttpError(400, 'CHARACTER_OUTSIDE_DIFFICULTY');
+      }
       const target = getCharacter(game.targetCharacterId);
       if (!target) throw new HttpError(500, 'INTERNAL_ERROR');
       if (game.guesses.some((item) => item.characterId === guess.id)) {

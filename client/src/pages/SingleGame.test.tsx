@@ -19,7 +19,7 @@ vi.mock('../api/client', async () => {
 });
 
 vi.mock('../api/characterList', () => ({
-  getCharacterList: vi.fn(async () => [{ id: 1, name: 's1mple' }]),
+  getCharacterList: vi.fn(async () => [{ id: 1, name: 's1mple', difficulties: ['easy', 'normal'] }]),
   subscribeCharacterList: vi.fn(() => () => undefined),
   searchCharacterList: (list: Array<{ id: number; name: string }>, query: string) =>
     list.filter((item) => item.name.toLowerCase().includes(query.trim().toLowerCase())),
@@ -138,7 +138,7 @@ describe('SingleGame UX', () => {
 
     const giveup = deferred<{
       data: {
-        answer: { name: string; work: string; company: string; releaseYear: number; gender: string; cv: string; hairColor: string };
+        answer: { name: string; work: string; company: string; releaseYear: number; gender: string; cv: string; hairColor: string; hairLength: string; height: number };
       };
     }>();
     post.mockReturnValueOnce(giveup.promise as never);
@@ -158,7 +158,7 @@ describe('SingleGame UX', () => {
 
     giveup.resolve({
       data: {
-        answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色' },
+        answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色', hairLength: '长发', height: 160 },
       },
     });
     expect(await screen.findByRole('dialog')).toHaveTextContent('牧瀬紅莉栖');
@@ -171,7 +171,7 @@ describe('SingleGame UX', () => {
         data: {
           status: 'lost',
           recorded: false,
-          answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色' },
+          answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色', hairLength: '长发', height: 160 },
         },
       } as never);
     renderGame('easy');

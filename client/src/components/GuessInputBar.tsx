@@ -7,11 +7,13 @@ import { useTranslation } from 'react-i18next';
 interface Suggestion {
   id: number;
   name: string;
+  difficulties: string[];
 }
 
 interface Props {
   onPick: (character: Suggestion) => boolean | void | Promise<boolean | void>;
   onFocusChange?: (focused: boolean) => void;
+  difficulty?: string;
   statusText?: ReactNode;
   disabled?: boolean;
   placeholder?: string;
@@ -25,6 +27,7 @@ interface Props {
 export default function GuessInputBar({
   onPick,
   onFocusChange,
+  difficulty,
   statusText,
   disabled,
   placeholder,
@@ -65,9 +68,12 @@ export default function GuessInputBar({
   }, []);
 
   const applyCharacterList = useCallback((list: Suggestion[]) => {
-    characters.current = list;
-    applyQuery(textRef.current, list, false);
-  }, [applyQuery]);
+    const scoped = difficulty
+      ? list.filter((character) => character.difficulties.includes(difficulty))
+      : list;
+    characters.current = scoped;
+    applyQuery(textRef.current, scoped, false);
+  }, [applyQuery, difficulty]);
 
   useEffect(() => {
     const unsubscribe = subscribeCharacterList(applyCharacterList);

@@ -23,17 +23,17 @@
 
 ## 玩法
 
-输入角色名，系统按 **作品 / 所属会社 / 发售时间 / 性别 / 声优 / 发色** 逐属性给出对比反馈：
+输入角色名，系统按 **作品 / 所属会社 / 发售时间 / 性别 / 声优 / 发色 / 发长 / 身高** 逐属性给出对比反馈：
 
 - 🟩 **绿色** —— 该属性与答案完全一致
-- 🟨 **黄色** —— 接近（同发色色系、发售年份相差不超过 2 年）
-- ↑↓ **箭头** —— 数值型属性（发售时间）提示答案更早或更晚
+- 🟨 **黄色** —— 接近（同发色色系、身高相差不超过 3 cm、发售年份相差不超过 2 年）
+- ↑↓ **箭头** —— 数值型属性（身高 / 发售时间）提示答案更高或更早
 
 8 次机会内猜出目标角色即获胜，猜中角色名同样直接获胜。
 
 ## 功能特性
 
-- 🎮 **单人模式** —— 完整角色池进行中对局，可断线续玩（暂时移除难度选择）
+- 🎮 **单人模式** —— 可选择入门版 / 简单版 / 完整版角色池，进行中对局可断线续玩
 - 🔍 **查角色** —— 按角色名 / 作品 / 声优模糊搜索角色资料
 - 📊 **统计与回放** / 🏆 **排行榜** / 📢 **公告**
 - 👤 **无需登录** —— 匿名访客可直接游玩，战绩按浏览器本地标识记账，登录后自动并入账号
@@ -85,14 +85,18 @@ npm run dev             # server: 3000, client: 5173
 
 ## 角色数据
 
-角色数据集内置于 `server/data/characters.json`（149 名 galgame 角色，含 9-nine 全系列 9 名角色），服务启动时直接读取，不写入 PostgreSQL。字段包括：
+角色数据集内置于 `server/data/characters.json`（888 名 galgame 角色，覆盖当前收录作品在 VNDB 上的全部角色条目），服务启动时直接读取，不写入 PostgreSQL。字段包括：
 
 ```
-name / work / company / release_year / gender / cv / hair_color / hair_color_family / difficulties
+name / work / company / release_year / gender / cv / hair_color / hair_color_family / hair_length / height / difficulties
 ```
 
 - 难度归属直接写在每条角色上（如 `["normal"]`、`["normal","easy"]`、`["normal","easy","beginner"]`），保证入门 ⊂ 简单 ⊂ 普通
 - 发色与色系值须与前端 `GameRules` 色系列表一致，否则同色系「黄色」判定会失效
+- 发长与身高以 VNDB 词条属性为主，身高缺失时写 `null`
+- 角色名优先使用有来源的简体中文译名（Bangumi 简体中文名、项目原有译名）；无法可靠翻译的小众角色保留日文原名或罗马音
+- `characterIds.json` 保存 `characters.json` 每行对应的 VNDB 角色 ID，`characterNameOverrides.json` 保存有来源的译名覆盖表
+- 批量重建数据：`node scripts/fetchVndbData.mjs` 拉取 VNDB 原始角色，`node scripts/buildCharacters.mjs` 按 ID 覆盖表重新生成 `characters.json`
 - 添加新角色：在 `characters.json` 中追加条目后重启服务；角色 ID 按数组顺序从 1 开始分配
 
 ## 项目结构

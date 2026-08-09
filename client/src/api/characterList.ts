@@ -3,6 +3,7 @@ import { api } from './client';
 export interface CharacterSuggestion {
   id: number;
   name: string;
+  difficulties: string[];
 }
 
 interface CachedCharacterList {
@@ -10,7 +11,7 @@ interface CachedCharacterList {
   characters: CharacterSuggestion[];
 }
 
-const STORAGE_KEY = 'character-list-v1';
+const STORAGE_KEY = 'character-list-v2';
 const REVALIDATE_INTERVAL_MS = 30_000;
 let memory: CachedCharacterList | null = null;
 let loading: Promise<CharacterSuggestion[]> | null = null;

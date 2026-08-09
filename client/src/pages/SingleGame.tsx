@@ -180,6 +180,11 @@ export default function SingleGame() {
       : leaving
         ? t('game.leaving')
         : null;
+  const difficultyHint = mode === 'beginner'
+    ? t('game.beginnerHint')
+    : mode === 'easy'
+      ? t('game.easyHint')
+      : t('game.normalHint');
 
   return (
     <Page
@@ -264,6 +269,7 @@ export default function SingleGame() {
             <GuessInputBar
               onPick={(c) => guess(c.id)}
               onFocusChange={setInputFocused}
+              difficulty={mode}
               disabled={busy || !gameId}
             />
           </>
@@ -299,7 +305,7 @@ export default function SingleGame() {
           <Target size={32} strokeWidth={1.5} />
           <p>{t('game.startHint')}</p>
           <p className="game-empty-sub">
-            {t('game.normalHint')}
+            {difficultyHint}
           </p>
           <div className="guess-legend" aria-label={t('rules.feedbackLabel')}>
             <span><i className="legend-correct" />{t('rules.greenTitle')}</span>

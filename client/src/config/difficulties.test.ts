@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AVAILABLE_DIFFICULTIES, DIFFICULTIES, SINGLE_MODE } from './difficulties';
+import { AVAILABLE_DIFFICULTIES, DIFFICULTIES } from './difficulties';
 
 describe('difficulty config', () => {
   it('keeps the available difficulty levels sorted', () => {
@@ -12,8 +12,4 @@ describe('difficulty config', () => {
     );
   });
 
-  it('fixes a single mode while difficulty selection is removed', () => {
-    expect(SINGLE_MODE).toBe('normal');
-    expect(AVAILABLE_DIFFICULTIES.some((item) => item.key === SINGLE_MODE)).toBe(true);
-  });
 });

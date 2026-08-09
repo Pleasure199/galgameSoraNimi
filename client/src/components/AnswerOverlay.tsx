@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { BookOpen, Landmark, Calendar, UserRound, Mic, Palette } from 'lucide-react';
+import { BookOpen, Landmark, Calendar, UserRound, Mic, Palette, Scissors, Ruler } from 'lucide-react';
 import ModalPortal from './ModalPortal';
 import { useTranslation } from 'react-i18next';
 
@@ -11,6 +11,8 @@ export interface AnswerInfo {
   gender: string;
   cv: string;
   hairColor: string;
+  hairLength: string;
+  height: number | null;
 }
 
 /** 角色信息表(答案卡片/查询结果共用) */
@@ -23,6 +25,8 @@ export function CharacterInfoTable({ answer }: { answer: AnswerInfo }) {
     [<UserRound size={14} key="i" />, t('character.gender'), answer.gender || '-'],
     [<Mic size={14} key="i" />, t('character.cv'), answer.cv || '-'],
     [<Palette size={14} key="i" />, t('character.hairColor'), answer.hairColor || '-'],
+    [<Scissors size={14} key="i" />, t('character.hairLength'), answer.hairLength || '-'],
+    [<Ruler size={14} key="i" />, t('character.height'), answer.height ?? '-'],
   ];
   return (
     <table className="character-info-table">

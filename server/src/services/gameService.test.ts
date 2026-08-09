@@ -13,6 +13,8 @@ function makeCharacter(overrides: Partial<Character>): Character {
     cv: '今井麻美',
     hair_color: '红色',
     hair_color_family: 'red',
+    hair_length: '长发',
+    height: 160,
     is_enabled: true,
     difficulties: ['normal'],
     ...overrides,
@@ -75,6 +77,33 @@ describe('compareGuess', () => {
   it('发色不同且不同色系给 wrong', () => {
     const guess = makeCharacter({ id: 2, hair_color: '黑色', hair_color_family: 'black' });
     expect(compareGuess(guess, target).attributes.hairColor.level).toBe('wrong');
+  });
+
+  it('发长相同给 correct', () => {
+    const guess = makeCharacter({ id: 2, hair_length: '长发' });
+    expect(compareGuess(guess, target).attributes.hairLength.level).toBe('correct');
+  });
+
+  it('发长不同给 wrong', () => {
+    const guess = makeCharacter({ id: 2, hair_length: '短发' });
+    expect(compareGuess(guess, target).attributes.hairLength.level).toBe('wrong');
+  });
+
+  it('身高相同给 correct', () => {
+    const guess = makeCharacter({ id: 2, height: 160 });
+    expect(compareGuess(guess, target).attributes.height.level).toBe('correct');
+  });
+
+  it('身高相差 3 cm 内给 close 并带方向提示', () => {
+    const guess = makeCharacter({ id: 2, height: target.height! - 3 });
+    const fb = compareGuess(guess, target);
+    expect(fb.attributes.height.level).toBe('close');
+    expect(fb.attributes.height.hint).toBe('higher');
+  });
+
+  it('身高未知时给 wrong', () => {
+    const guess = makeCharacter({ id: 2, height: null });
+    expect(compareGuess(guess, target).attributes.height.level).toBe('wrong');
   });
 
   it('MAX_GUESSES 与服务端默认一致为 8', () => {

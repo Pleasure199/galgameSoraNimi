@@ -144,8 +144,16 @@ export default function GameRules() {
                         <span>{t('rules.hairColorText')}</span>
                       </div>
                       <div>
+                        <strong>{t('rules.hairLengthTitle')}</strong>
+                        <span>{t('rules.hairLengthText')}</span>
+                      </div>
+                      <div>
                         <strong>{t('rules.releaseYearTitle')}</strong>
                         <span>{t('rules.releaseYearText')}</span>
+                      </div>
+                      <div>
+                        <strong>{t('rules.heightTitle')}</strong>
+                        <span>{t('rules.heightText')}</span>
                       </div>
                     </div>
                     <div className="rule-result-notes">

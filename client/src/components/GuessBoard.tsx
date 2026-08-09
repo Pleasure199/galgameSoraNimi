@@ -29,6 +29,8 @@ function GuessBoard({ guesses }: { guesses: GuessFeedback[] }) {
     t('guess.columns.gender'),
     t('guess.columns.cv'),
     t('guess.columns.hairColor'),
+    t('guess.columns.hairLength'),
+    t('guess.columns.height'),
   ];
   return (
     <div className="game-table-wrap">
@@ -58,6 +60,8 @@ function GuessBoard({ guesses }: { guesses: GuessFeedback[] }) {
               <Cell attr={g.attributes.gender} label={columns[4]} />
               <Cell attr={g.attributes.cv} label={columns[5]} />
               <Cell attr={g.attributes.hairColor} label={columns[6]} />
+              <Cell attr={g.attributes.hairLength} label={columns[7]} />
+              <Cell attr={g.attributes.height} label={columns[8]} />
             </tr>
           ))}
         </tbody>

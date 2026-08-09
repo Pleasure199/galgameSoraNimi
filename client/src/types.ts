@@ -17,6 +17,8 @@ export interface GuessFeedback {
     gender: AttributeFeedback;
     cv: AttributeFeedback;
     hairColor: AttributeFeedback;
+    hairLength: AttributeFeedback;
+    height: AttributeFeedback;
   };
 }
 
@@ -35,4 +37,6 @@ export interface CharacterInfo {
   gender: string;
   cv: string;
   hairColor: string;
+  hairLength: string;
+  height: number | null;
 }

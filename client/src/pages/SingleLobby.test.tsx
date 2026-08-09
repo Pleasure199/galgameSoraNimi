@@ -4,7 +4,6 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SingleLobby from './SingleLobby';
 import { renderAtRoute } from '../test/render';
-import { SINGLE_MODE } from '../config/difficulties';
 
 function PathProbe() {
   const location = useLocation();
@@ -16,14 +15,17 @@ describe('SingleLobby', () => {
     localStorage.clear();
   });
 
-  it('renders a single start action without difficulty cards', () => {
+  it('renders the three difficulty choices', () => {
     renderAtRoute(<SingleLobby />, { route: '/single', path: '/single' });
 
-    expect(screen.queryByRole('button', { name: /入门版|简单版|完整版/ })).toBeNull();
+    expect(screen.getAllByRole('radio')).toHaveLength(3);
+    expect(screen.getByRole('radio', { name: /入门版/ })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /简单版/ })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /完整版/ })).toBeInTheDocument();
     expect(screen.getByText('开始一局单人猜测，猜出目标角色即获胜。')).toBeInTheDocument();
   });
 
-  it('starts a game in the fixed mode', async () => {
+  it('starts a game with the selected difficulty', async () => {
     const user = userEvent.setup();
     renderAtRoute(
       <SingleLobby />,
@@ -39,10 +41,27 @@ describe('SingleLobby', () => {
       }
     );
 
+    await user.click(screen.getByRole('radio', { name: /简单版/ }));
     await user.click(screen.getByRole('button', { name: /开始游戏/ }));
 
-    expect(await screen.findByTestId('current-path')).toHaveTextContent(`/single/${SINGLE_MODE}`);
+    expect(await screen.findByTestId('current-path')).toHaveTextContent('/single/easy');
     expect(localStorage.getItem('tianyiba.single-difficulty')).toBeNull();
+  });
+
+  it('defaults to the beginner difficulty', async () => {
+    const user = userEvent.setup();
+    renderAtRoute(
+      <SingleLobby />,
+      {
+        route: '/single',
+        path: '/single',
+        extraRoutes: <Route path="/single/:mode" element={<PathProbe />} />,
+      }
+    );
+
+    await user.click(screen.getByRole('button', { name: /开始游戏/ }));
+
+    expect(await screen.findByTestId('current-path')).toHaveTextContent('/single/beginner');
   });
 
   it('start button remains a full-width primary action class', () => {
