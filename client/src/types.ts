@@ -18,7 +18,6 @@ export interface GuessFeedback {
     cv: AttributeFeedback;
     hairColor: AttributeFeedback;
     hairLength: AttributeFeedback;
-    height: AttributeFeedback;
   };
 }
 
@@ -38,5 +37,5 @@ export interface CharacterInfo {
   cv: string;
   hairColor: string;
   hairLength: string;
-  height: number | null;
+  difficulties: string[];
 }

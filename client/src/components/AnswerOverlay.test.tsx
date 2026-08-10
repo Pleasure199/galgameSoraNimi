@@ -13,7 +13,6 @@ const answer = {
   cv: '今井麻美',
   hairColor: '红色',
   hairLength: '长发',
-  height: 160,
 };
 
 describe('AnswerOverlay', () => {

@@ -180,6 +180,37 @@
 }
 .player-search-content.search-all-content { width: min(920px, 100%); }
 .search-all-card h3 { margin-bottom: 12px; }
+.search-difficulty-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.search-difficulty-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-soft);
+  color: var(--text);
+  cursor: pointer;
+}
+.search-difficulty-tab:hover { border-color: var(--diff-color, var(--primary)); }
+.search-difficulty-tab.active {
+  border-color: var(--diff-color, var(--primary));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--diff-color, var(--primary)) 22%, transparent);
+}
+.search-difficulty-tab span {
+  min-width: 22px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--diff-color, var(--primary)) 16%, transparent);
+  color: var(--diff-color, var(--primary));
+  font-size: 0.8rem;
+  text-align: center;
+}
 .search-all-list {
   display: grid;
   gap: 8px;

@@ -49,7 +49,6 @@ function answerView(target: Character) {
     cv: target.cv,
     hairColor: target.hair_color,
     hairLength: target.hair_length,
-    height: target.height,
   };
 }
 

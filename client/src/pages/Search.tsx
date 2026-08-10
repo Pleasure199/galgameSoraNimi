@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { CSSProperties } from 'react';
 import { Search as SearchIcon, CircleDot, ChevronLeft, ChevronRight, List } from 'lucide-react';
 import Page from '../components/Page';
 import GuessInputBar from '../components/GuessInputBar';
@@ -7,6 +8,8 @@ import { api, errMsg } from '../api/client';
 import { CharacterInfo } from '../types';
 import { toast } from '../components/Toast';
 import { useTranslation } from 'react-i18next';
+import { AVAILABLE_DIFFICULTIES } from '../config/difficulties';
+import { difficultyColor, difficultyLabel } from '../utils/difficulty';
 
 /** 查角色:底部输入 + 自动补全,选中后在上方展示角色卡片(原版布局) */
 export default function Search() {
@@ -14,6 +17,7 @@ export default function Search() {
   const [character, setCharacter] = useState<CharacterInfo | null>(null);
   const [allCharacters, setAllCharacters] = useState<CharacterInfo[] | null>(null);
   const [allPage, setAllPage] = useState(1);
+  const [selectedDifficulty, setSelectedDifficulty] = useState('normal');
   const [loadingAll, setLoadingAll] = useState(false);
   const PAGE_SIZE = 100;
 
@@ -49,12 +53,19 @@ export default function Search() {
     }
   };
 
+  const filteredAll = allCharacters?.filter((character) =>
+    character.difficulties.includes(selectedDifficulty)
+  ) ?? [];
+  const difficultyCounts = new Map(
+    AVAILABLE_DIFFICULTIES.map((difficulty) => [
+      difficulty.key,
+      allCharacters?.filter((character) => character.difficulties.includes(difficulty.key)).length ?? 0,
+    ])
+  );
   const totalPages = allCharacters
-    ? Math.max(1, Math.ceil(allCharacters.length / PAGE_SIZE))
+    ? Math.max(1, Math.ceil(filteredAll.length / PAGE_SIZE))
     : 0;
-  const pageItems = allCharacters
-    ? allCharacters.slice((allPage - 1) * PAGE_SIZE, allPage * PAGE_SIZE)
-    : [];
+  const pageItems = filteredAll.slice((allPage - 1) * PAGE_SIZE, allPage * PAGE_SIZE);
 
   return (
     <Page
@@ -99,15 +110,31 @@ export default function Search() {
                 cv: character.cv,
                 hairColor: character.hairColor,
                 hairLength: character.hairLength,
-                height: character.height,
               }}
             />
           </div>
         ) : allCharacters ? (
           <div className="card search-all-card">
-            <h3>{t('search.allResults', { count: allCharacters.length })}</h3>
+            <h3>{t('search.allResults', { count: filteredAll.length })}</h3>
+            <div className="search-difficulty-tabs" role="group" aria-label={t('search.difficultyTitle')}>
+              {AVAILABLE_DIFFICULTIES.map((difficulty) => (
+                <button
+                  key={difficulty.key}
+                  type="button"
+                  className={`search-difficulty-tab${selectedDifficulty === difficulty.key ? ' active' : ''}`}
+                  style={{ '--diff-color': difficultyColor(difficulty.key) } as CSSProperties}
+                  onClick={() => {
+                    setSelectedDifficulty(difficulty.key);
+                    setAllPage(1);
+                  }}
+                >
+                  {difficultyLabel(t, difficulty.key)}
+                  <span>{difficultyCounts.get(difficulty.key) ?? 0}</span>
+                </button>
+              ))}
+            </div>
             <div className="search-all-list">
-              {pageItems.map((item) => (
+              {pageItems.length ? pageItems.map((item) => (
                 <button
                   key={item.id}
                   type="button"
@@ -117,7 +144,11 @@ export default function Search() {
                   <span>{item.name}</span>
                   <span className="muted">{item.work}</span>
                 </button>
-              ))}
+              )) : (
+                <p className="muted" style={{ textAlign: 'center', padding: '24px 0' }}>
+                  {t('search.emptyDifficulty')}
+                </p>
+              )}
             </div>
             <div className="search-all-pagination">
               <button

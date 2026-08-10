@@ -23,11 +23,11 @@
 
 ## 玩法
 
-输入角色名，系统按 **作品 / 所属会社 / 发售时间 / 性别 / 声优 / 发色 / 发长 / 身高** 逐属性给出对比反馈：
+输入角色名，系统按 **作品 / 所属会社 / 发售时间 / 性别 / 声优 / 发色 / 发长** 逐属性给出对比反馈：
 
 - 🟩 **绿色** —— 该属性与答案完全一致
-- 🟨 **黄色** —— 接近（同发色色系、身高相差不超过 3 cm、发售年份相差不超过 2 年）
-- ↑↓ **箭头** —— 数值型属性（身高 / 发售时间）提示答案更高或更早
+- 🟨 **黄色** —— 接近（同发色色系、发售年份相差不超过 2 年）
+- ↑↓ **箭头** —— 数值型属性（发售时间）提示答案更早或更晚
 
 8 次机会内猜出目标角色即获胜，猜中角色名同样直接获胜。
 
@@ -96,12 +96,12 @@ node scripts/importVndbCharacters.mjs
 角色数据存储在 PostgreSQL 的 `characters` 表，数据源为 VNDB 数据库导出 `vndb-db-2026-08-07`，并通过 Bangumi 简体中文名补齐日文/罗马音角色的译名。当前共 13373 名角色，服务启动时从 PostgreSQL 构建内存缓存。字段包括：
 
 ```
-name / work / company / release_year / gender / cv / hair_color / hair_color_family / hair_length / height / difficulties
+name / work / company / release_year / gender / cv / hair_color / hair_color_family / hair_length / difficulties
 ```
 
 - 难度归属直接写在每条角色上（如 `["normal"]`、`["normal","easy"]`、`["normal","easy","beginner"]`），保证入门 ⊂ 简单 ⊂ 普通
 - 发色与色系值须与前端 `GameRules` 色系列表一致，否则同色系「黄色」判定会失效
-- 发长与身高以 VNDB 词条属性为主，身高缺失时写 `null`
+- 发长以 VNDB 词条属性为主
 - 角色名优先使用有来源的简体中文译名（Bangumi 简体中文名、项目原有译名）；日文/罗马音角色只有在找到可靠译名后才进入角色池
 - `vndb` schema：VNDB 原始表（chars、chars_names、chars_traits、chars_vns、vn、vn_titles、vn_seiyuu 等）
 - `public.characters`：应用侧角色表，名称唯一，`difficulties` 使用 JSON 数组文本保存

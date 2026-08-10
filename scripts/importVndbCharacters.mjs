@@ -123,7 +123,7 @@ async function main() {
 
   const [charsRes, zhRes, vnRes, vnTitlesRes, releaseRes, companyRes, seiyuuRes, staffRes, traitsRes] =
     await Promise.all([
-      client.query('select id, sex, gender, height from chars'),
+      client.query('select id, sex, gender from chars'),
       client.query("select id, name from chars_names where lang = 'zh-Hans'"),
       client.query('select id, vid, role from chars_vns'),
       client.query('select id, lang, title from vn_titles'),
@@ -232,9 +232,6 @@ async function main() {
     if (beginnerIds.has(vndbId) && !difficulties.includes('beginner')) difficulties.push('beginner');
 
     const cvAid = vn ? cvByVnChar.get(`${vn.vid}:${vndbId}`) : null;
-    const rawHeight = legacy?.height != null
-      ? legacy.height
-      : Number(char.height) || null;
     rows.push({
       id: legacyIdByVndb.get(vndbId) ?? nextId++,
       vndb_id: vndbId,
@@ -247,7 +244,6 @@ async function main() {
       hair_color: legacy?.hair_color ?? hairColor,
       hair_color_family: legacy?.hair_color_family ?? hairFamily,
       hair_length: legacy?.hair_length ?? hairLengthOf(traitNames),
-      height: rawHeight > 0 ? rawHeight : null,
       difficulties: JSON.stringify(difficulties),
       is_enabled: true,
       data_version: DATA_VERSION,
@@ -267,10 +263,10 @@ async function main() {
     await client.query(
       `insert into characters (
          id, vndb_id, name, work, company, release_year, gender, cv,
-         hair_color, hair_color_family, hair_length, height, difficulties,
+         hair_color, hair_color_family, hair_length, difficulties,
          is_enabled, data_version
        ) values (
-         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
        )`,
       [
         row.id,
@@ -284,7 +280,6 @@ async function main() {
         row.hair_color,
         row.hair_color_family,
         row.hair_length,
-        row.height,
         row.difficulties,
         row.is_enabled,
         row.data_version,

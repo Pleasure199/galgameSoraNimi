@@ -75,7 +75,6 @@ export async function ensureSchema(instance: Knex = db): Promise<void> {
       t.string('hair_color').notNullable();
       t.string('hair_color_family').notNullable();
       t.string('hair_length').notNullable();
-      t.float('height').nullable();
       t.text('difficulties').notNullable();
       t.boolean('is_enabled').notNullable().defaultTo(true);
       t.string('data_version').notNullable();

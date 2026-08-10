@@ -14,7 +14,6 @@ interface CharacterSeed {
   hair_color: string;
   hair_color_family: string;
   hair_length?: string;
-  height?: number | null;
   difficulties?: string[];
   is_enabled?: boolean;
   data_version?: string;
@@ -53,7 +52,6 @@ async function loadCharacterCatalog(): Promise<{ version: string; characters: Ch
     hair_color: row.hair_color,
     hair_color_family: row.hair_color_family,
     hair_length: row.hair_length,
-    height: row.height == null ? null : Number(row.height),
     difficulties: JSON.parse(String(row.difficulties)) as string[],
     is_enabled: Boolean(row.is_enabled),
     data_version: String(row.data_version ?? ''),
@@ -92,7 +90,6 @@ async function loadCharacterCatalog(): Promise<{ version: string; characters: Ch
       hair_color: assertString(seed.hair_color, `${name} hair_color`),
       hair_color_family: assertString(seed.hair_color_family, `${name} hair_color_family`),
       hair_length: assertString(seed.hair_length ?? '未知', `${name} hair_length`),
-      height: seed.height ?? null,
       difficulties: difficulties as string[],
       is_enabled: seed.is_enabled ?? true,
     };

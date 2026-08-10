@@ -151,10 +151,6 @@ export default function GameRules() {
                         <strong>{t('rules.releaseYearTitle')}</strong>
                         <span>{t('rules.releaseYearText')}</span>
                       </div>
-                      <div>
-                        <strong>{t('rules.heightTitle')}</strong>
-                        <span>{t('rules.heightText')}</span>
-                      </div>
                     </div>
                     <div className="rule-result-notes">
                       <p><span className="rule-result-icon rule-result-win"><Flag size={15} /></span><strong>{t('rules.winLabel')}</strong>{t('rules.winText')}</p>

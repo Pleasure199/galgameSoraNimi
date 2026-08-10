@@ -98,10 +98,10 @@ async function main() {
     await client.query(
       `insert into characters (
          id, vndb_id, name, work, company, release_year, gender, cv,
-         hair_color, hair_color_family, hair_length, height, difficulties,
+         hair_color, hair_color_family, hair_length, difficulties,
          is_enabled, data_version
        ) values (
-         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
        )
        on conflict (vndb_id) do nothing`,
       [
@@ -116,7 +116,6 @@ async function main() {
         row.hair_color,
         row.hair_color_family,
         row.hair_length,
-        row.height ?? null,
         JSON.stringify(row.difficulties),
         row.is_enabled ?? true,
         'legacy-json',

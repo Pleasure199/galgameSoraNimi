@@ -19,7 +19,6 @@ function serialize(rows) {
       `"hair_color": ${JSON.stringify(r.hair_color)}`,
       `"hair_color_family": ${JSON.stringify(r.hair_color_family)}`,
       `"hair_length": ${JSON.stringify(r.hair_length)}`,
-      `"height": ${JSON.stringify(r.height)}`,
       `"difficulties": ${JSON.stringify(r.difficulties)}`,
     ];
     return `  { ${parts.join(', ')} }`;
