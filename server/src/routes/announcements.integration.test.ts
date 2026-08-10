@@ -57,7 +57,7 @@ describe('popup announcements', () => {
       expect(list.data).toContainEqual(expect.objectContaining({
         id,
         title,
-        is_popup: 1,
+        is_popup: true,
       }));
     } finally {
       await db('announcements').where({ id }).del();

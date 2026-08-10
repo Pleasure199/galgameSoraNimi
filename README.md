@@ -48,7 +48,7 @@
 | ------ | ------------------------------------------------ |
 | 前端   | React 18 + Vite + TypeScript + React Router      |
 | 后端   | Node.js + Express + TypeScript                   |
-| 数据库 | SQLite（better-sqlite3）；可选切换 PostgreSQL；角色数据直接读取 JSON |
+| 数据库 | PostgreSQL 16（VNDB 原始表在 vndb schema，应用表在 public） |
 | 缓存   | Redis（可选，缺位时内存降级）                    |
 | 认证   | JWT + bcrypt（HttpOnly Cookie，客户端不存明文）  |
 | 校验/测试 | Zod / Vitest                                 |
@@ -56,15 +56,23 @@
 
 ## 快速开始
 
-**环境要求**：Node.js ≥ 22、npm、Redis（可选，本地开发可降级为内存模式）；SQLite 开箱即用，无需额外数据库。
+**环境要求**：Node.js ≥ 22、npm、PostgreSQL 16、Redis（可选，本地开发可降级为内存模式）。
 
 ```bash
 npm install
-cp .env.example .env    # 可选，有默认值
+cp .env.example .env    # 修改 DB_URL 指向本机 PostgreSQL
 npm run dev             # server: 3000, client: 5173
 ```
 
 访问 http://localhost:5173 。
+
+首次初始化数据库：
+
+```bash
+npm run migrate
+node scripts/buildBangumiNameMap.mjs
+node scripts/importVndbCharacters.mjs
+```
 
 ### 运行时行为说明
 
@@ -85,7 +93,7 @@ npm run dev             # server: 3000, client: 5173
 
 ## 角色数据
 
-角色数据集内置于 `server/data/characters.json`（888 名 galgame 角色，覆盖当前收录作品在 VNDB 上的全部角色条目），服务启动时直接读取，不写入 PostgreSQL。字段包括：
+角色数据存储在 PostgreSQL 的 `characters` 表，数据源为 VNDB 数据库导出 `vndb-db-2026-08-07`，并通过 Bangumi 简体中文名补齐日文/罗马音角色的译名。当前共 13373 名角色，服务启动时从 PostgreSQL 构建内存缓存。字段包括：
 
 ```
 name / work / company / release_year / gender / cv / hair_color / hair_color_family / hair_length / height / difficulties
@@ -94,10 +102,12 @@ name / work / company / release_year / gender / cv / hair_color / hair_color_fam
 - 难度归属直接写在每条角色上（如 `["normal"]`、`["normal","easy"]`、`["normal","easy","beginner"]`），保证入门 ⊂ 简单 ⊂ 普通
 - 发色与色系值须与前端 `GameRules` 色系列表一致，否则同色系「黄色」判定会失效
 - 发长与身高以 VNDB 词条属性为主，身高缺失时写 `null`
-- 角色名优先使用有来源的简体中文译名（Bangumi 简体中文名、项目原有译名）；无法可靠翻译的小众角色保留日文原名或罗马音
-- `characterIds.json` 保存 `characters.json` 每行对应的 VNDB 角色 ID，`characterNameOverrides.json` 保存有来源的译名覆盖表
-- 批量重建数据：`node scripts/fetchVndbData.mjs` 拉取 VNDB 原始角色，`node scripts/buildCharacters.mjs` 按 ID 覆盖表重新生成 `characters.json`
-- 添加新角色：在 `characters.json` 中追加条目后重启服务；角色 ID 按数组顺序从 1 开始分配
+- 角色名优先使用有来源的简体中文译名（Bangumi 简体中文名、项目原有译名）；日文/罗马音角色只有在找到可靠译名后才进入角色池
+- `vndb` schema：VNDB 原始表（chars、chars_names、chars_traits、chars_vns、vn、vn_titles、vn_seiyuu 等）
+- `public.characters`：应用侧角色表，名称唯一，`difficulties` 使用 JSON 数组文本保存
+- `public.character_name_overrides`：有来源的简体中文译名覆盖表
+- 批量导入：`node scripts/importVndbCharacters.mjs` 从 VNDB schema 生成 `characters` 表
+- `server/data/*.json` 仅作为一次性迁移种子，运行时不读取
 
 ## 项目结构
 

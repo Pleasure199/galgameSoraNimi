@@ -7,6 +7,7 @@ import { rateLimit } from '../middleware/rateLimit';
 const router = Router();
 const characterSearchQuery = z.object({
   search: z.string().trim().max(100).default(''),
+  limit: z.coerce.number().int().min(1).max(100000).default(100),
   suggest: z.enum(['0', '1']).default('0').transform((value) => value === '1'),
 });
 
@@ -38,9 +39,9 @@ router.get(
   }),
   validateQuery(characterSearchQuery),
   asyncHandler(async (req, res) => {
-    const { search, suggest } = req.query as unknown as z.infer<typeof characterSearchQuery>;
+    const { search, suggest, limit } = req.query as unknown as z.infer<typeof characterSearchQuery>;
 
-    const characters = searchCachedCharacters(search, suggest ? 10 : 100);
+    const characters = searchCachedCharacters(search, suggest ? 10 : limit);
 
     if (suggest) {
       return res.json(characters.map((c) => ({ id: c.id, name: c.name })));

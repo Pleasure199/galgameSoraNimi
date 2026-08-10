@@ -140,6 +140,7 @@ export const resources = {
       search: {
         title: '角色查询', placeholder: '输入角色名（支持模糊搜索）...', button: '查询',
         empty: '在下方输入框中输入角色名称即可查询', fuzzy: '支持模糊搜索：输入部分名称即可匹配',
+        showAll: '显示全部角色', loading: '加载中…', allResults: '全部角色（{{count}}）', pageInfo: '第 {{current}} / {{total}} 页',
       },
       leaderboard: {
         title: '排行榜', player: '玩家', wins: '胜场', total: '总场次', winRate: '胜率', avgGuesses: '平均猜测', self: '我',
@@ -318,6 +319,7 @@ export const resources = {
       search: {
         title: 'Character Search', placeholder: 'Enter a character name (fuzzy search)...', button: 'Search',
         empty: 'Enter a character name below to search', fuzzy: 'Fuzzy search is supported: enter part of a name',
+        showAll: 'Show all characters', loading: 'Loading…', allResults: 'All characters ({{count}})', pageInfo: 'Page {{current}} / {{total}}',
       },
       leaderboard: {
         title: 'Leaderboard', player: 'Player', wins: 'Wins', total: 'Games', winRate: 'Win rate', avgGuesses: 'Avg. guesses', self: 'You',
@@ -496,6 +498,7 @@ export const resources = {
       search: {
         title: 'キャラクター検索', placeholder: 'キャラクター名を入力（あいまい検索対応）...', button: '検索',
         empty: '下の入力欄にキャラクター名を入力してください', fuzzy: '名前の一部だけでも検索できます',
+        showAll: '全キャラクターを表示', loading: '読み込み中…', allResults: '全キャラクター（{{count}}）', pageInfo: '{{current}} / {{total}} ページ',
       },
       leaderboard: {
         title: 'ランキング', player: 'プレイヤー', wins: '勝利数', total: '試合数', winRate: '勝率', avgGuesses: '平均予想数', self: '自分',

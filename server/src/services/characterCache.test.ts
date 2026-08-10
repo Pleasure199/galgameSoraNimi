@@ -19,7 +19,7 @@ describe('character JSON catalog', () => {
     const list = await getPublicCharacterList();
 
     expect(list.version).toMatch(/^[0-9a-f]{16}$/);
-    expect(list.characters).toHaveLength(888);
+    expect(list.characters).toHaveLength(13373);
     expect(list.characters.find((character) => character.id === 1)).toMatchObject({
       id: 1,
       name: '神尾观铃',
@@ -31,7 +31,7 @@ describe('character JSON catalog', () => {
       work: 'AIR',
       difficulties: ['normal', 'easy', 'beginner'],
     });
-    expect(getEnabledCharacters()).toHaveLength(888);
+    expect(getEnabledCharacters()).toHaveLength(13373);
   });
 
   it('builds difficulty pools and targets from the JSON data', () => {

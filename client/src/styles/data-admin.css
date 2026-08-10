@@ -178,6 +178,41 @@
   width: min(620px, 100%);
   margin-inline: auto;
 }
+.player-search-content.search-all-content { width: min(920px, 100%); }
+.search-all-card h3 { margin-bottom: 12px; }
+.search-all-list {
+  display: grid;
+  gap: 8px;
+  max-height: 58vh;
+  overflow-y: auto;
+  padding: 4px;
+}
+.search-all-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-soft);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.search-all-row:hover { border-color: var(--primary); }
+.search-all-row > span:first-child { font-weight: 600; overflow-wrap: anywhere; }
+.search-all-row .muted { font-size: 0.85rem; text-align: right; }
+.search-all-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+.search-all-pagination .btn { width: 36px; height: 36px; padding: 0; }
+.search-all-pagination span { min-width: 120px; text-align: center; color: var(--text-sec); }
 .admin-list-toolbar {
   display: grid;
   grid-template-columns: minmax(240px, 560px) auto;

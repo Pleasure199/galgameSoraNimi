@@ -20,11 +20,12 @@ afterEach(async () => {
 });
 
 describe('schema migration', () => {
-  it('creates the non-character schema with game columns', async () => {
+  it('creates the character and game schema with game columns', async () => {
     const instance = memoryDb();
     await ensureSchema(instance);
 
-    expect(await instance.schema.hasTable('characters')).toBe(false);
+    expect(await instance.schema.hasTable('characters')).toBe(true);
+    expect(await instance.schema.hasTable('character_name_overrides')).toBe(true);
     expect(await instance.schema.hasTable('character_difficulties')).toBe(false);
     expect(await instance.schema.hasTable('difficulty_levels')).toBe(false);
     expect(await instance.schema.hasTable('app_migrations')).toBe(true);
