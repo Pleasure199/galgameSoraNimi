@@ -1,29 +1,32 @@
 :root {
-  --bg: #f3f0ea;
+  --bg: #f3f8ff;
   --card: #ffffff;
-  --card-soft: #f8f5f0;
-  --border: rgba(32, 17, 24, 0.14);
-  --border-strong: rgba(32, 17, 24, 0.3);
-  --text: #201118;
-  --text-sec: #5f5058;
-  --text-light: #90838b;
+  --card-soft: #f5faff;
+  --border: rgba(24, 58, 102, 0.16);
+  --border-strong: rgba(124, 77, 255, 0.42);
+  --text: #17263d;
+  --text-sec: #52647f;
+  --text-light: #8192ad;
   --input-bg: #ffffff;
-  --primary: #c9ea16;
-  --primary-hover: #b7d800;
-  --primary-soft: rgba(201, 234, 22, 0.2);
-  --primary-strong: #566800;
-  --success: #0e7a4b;
-  --warning: #ad5f00;
-  --danger: #cb3649;
-  --accent: #6a48d7;
-  --correct: #199a60;
-  --close: #cd7d0e;
-  --wrong: #a89ba3;
-  --shadow-sm: 0 3px 10px rgba(32, 17, 24, 0.07);
-  --shadow: 0 12px 30px rgba(32, 17, 24, 0.08);
-  --shadow-lg: 0 28px 70px rgba(32, 17, 24, 0.2);
+  --primary: #ff9535;
+  --primary-hover: #f07e18;
+  --primary-soft: rgba(255, 149, 53, 0.16);
+  --primary-strong: #a34a00;
+  --success: #0e8a5b;
+  --warning: #b36700;
+  --danger: #d13649;
+  --accent: #7c4dff;
+  --correct: #16895e;
+  --close: #c77a00;
+  --wrong: #a8b6c9;
+  --shadow-sm: 0 3px 10px rgba(24, 58, 102, 0.07);
+  --shadow: 0 12px 30px rgba(24, 58, 102, 0.1);
+  --shadow-lg: 0 28px 70px rgba(24, 58, 102, 0.2);
   --radius: 4px;
   --radius-sm: 3px;
+  --sky: #54c8ff;
+  --sky-soft: rgba(84, 200, 255, 0.16);
+  --accent-soft: rgba(124, 77, 255, 0.12);
   /* rem 定义(=1180px@16px 基准):随根字号放大,宽屏低缩放时整个版面等比变大 */
   --content-max: 73.75rem;
   /* 上下界必须是 rem:px 界不参与根字号补偿,会让版心占比随缩放漂移,
@@ -56,7 +59,7 @@ body,
    下界 100% 已经让 1600–1920 区间恒为默认字号,不需要额外的媒体查询包一层。 */
 html { font-size: clamp(100%, 0.833333vw, 400%); }
 html[data-theme='blast'],
-html[data-theme='blast'] body { background-color: #160a13; }
+html[data-theme='blast'] body { background-color: #0c1a2e; }
 
 body {
   margin: 0;
@@ -73,12 +76,13 @@ body {
 /* 浅色底纹只在非 blast 下生效:blast 用户在深色样式表到达前保持 html 内联深底,不闪白 */
 html:not([data-theme='blast']) body {
   background:
-    radial-gradient(circle at 10% -6%, rgba(201, 234, 22, 0.13), transparent 30rem),
-    radial-gradient(circle at 94% 4%, rgba(106, 72, 215, 0.07), transparent 26rem),
-    repeating-linear-gradient(118deg, transparent 0 92px, rgba(32, 17, 24, 0.016) 92px 93px),
+    radial-gradient(circle at 10% -6%, rgba(84, 200, 255, 0.16), transparent 30rem),
+    radial-gradient(circle at 94% 4%, rgba(124, 77, 255, 0.1), transparent 26rem),
+    radial-gradient(circle at 52% 100%, rgba(255, 149, 53, 0.07), transparent 24rem),
+    repeating-linear-gradient(118deg, transparent 0 92px, rgba(24, 58, 102, 0.014) 92px 93px),
     var(--bg);
 }
 
 button, input, select, textarea { font: inherit; }
 button, a { touch-action: manipulation; }
-::selection { background: rgba(201, 234, 22, 0.45); }
+::selection { background: rgba(124, 77, 255, 0.28); }

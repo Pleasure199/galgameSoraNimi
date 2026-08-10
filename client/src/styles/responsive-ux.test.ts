@@ -39,9 +39,9 @@ describe('desktop/mobile layout contracts', () => {
     );
     expect(home).toMatch(/\.single-difficulty-check\s*\{[^}]*color:\s*#201118/s);
     expect(home).toMatch(
-      /\.home-hero::before,\s*\n?\s*\.home-hero::after\s*\{[^}]*z-index:\s*0/s
+      /\.home-stage\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1\.08fr\)\s+minmax\(300px,\s*0\.92fr\)/s
     );
-    expect(home).toMatch(/\.home-hero\s*>\s*\*\s*\{[^}]*z-index:\s*1/s);
+    expect(home).toMatch(/\.home-stage-image\s*\{[^}]*object-fit:\s*cover/s);
 
     const responsive = readCss('./responsive.css');
     expect(responsive).toMatch(
