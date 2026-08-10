@@ -4,6 +4,8 @@ import {
   getEnabledCharacter,
   getEnabledCharacters,
   getPublicCharacterList,
+  getWorks,
+  searchCachedCharactersByWork,
   initCharacterCache,
   isDifficultyAvailable,
   pickCachedTarget,
@@ -56,5 +58,20 @@ describe('character JSON catalog', () => {
     expect(searchCachedCharacters('川上とも子', 100)).toContainEqual(
       expect.objectContaining({ id: 1 })
     );
+  });
+
+  it('returns every character under a work', () => {
+    const air = searchCachedCharactersByWork('AIR', 1000);
+    expect(air.length).toBeGreaterThan(1);
+    expect(air.every((character) => character.work.includes('AIR'))).toBe(true);
+  });
+
+  it('lists works with their companies', () => {
+    const works = getWorks();
+    expect(works.length).toBeGreaterThan(0);
+    expect(works.find((work) => work.name === 'AIR')).toMatchObject({
+      name: 'AIR',
+      company: 'Key',
+    });
   });
 });

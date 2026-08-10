@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { asyncHandler, validateQuery } from '../middleware/common';
-import { getPublicCharacterList, searchCachedCharacters } from '../services/characterCache';
+import {
+  getPublicCharacterList,
+  getWorks,
+  searchCachedCharacters,
+  searchCachedCharactersByWork,
+} from '../services/characterCache';
 import { rateLimit } from '../middleware/rateLimit';
 
 const router = Router();
@@ -9,6 +14,7 @@ const characterSearchQuery = z.object({
   search: z.string().trim().max(100).default(''),
   limit: z.coerce.number().int().min(1).max(100000).default(100),
   suggest: z.enum(['0', '1']).default('0').transform((value) => value === '1'),
+  work: z.string().trim().max(200).default(''),
 });
 
 router.get(
@@ -39,9 +45,11 @@ router.get(
   }),
   validateQuery(characterSearchQuery),
   asyncHandler(async (req, res) => {
-    const { search, suggest, limit } = req.query as unknown as z.infer<typeof characterSearchQuery>;
+    const { search, suggest, limit, work } = req.query as unknown as z.infer<typeof characterSearchQuery>;
 
-    const characters = searchCachedCharacters(search, suggest ? 10 : limit);
+    const characters = work
+      ? searchCachedCharactersByWork(work, limit)
+      : searchCachedCharacters(search, suggest ? 10 : limit);
 
     if (suggest) {
       return res.json(characters.map((c) => ({ id: c.id, name: c.name })));
@@ -60,6 +68,17 @@ router.get(
         difficulties: c.difficulties,
       }))
     );
+  })
+);
+
+router.get(
+  '/works',
+  validateQuery(z.object({
+    limit: z.coerce.number().int().min(1).max(100000).default(100000),
+  })),
+  asyncHandler(async (req, res) => {
+    const { limit } = req.query as unknown as z.infer<typeof characterSearchQuery>;
+    res.json({ items: getWorks(limit) });
   })
 );
 

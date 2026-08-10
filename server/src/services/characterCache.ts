@@ -167,6 +167,42 @@ export function searchCachedCharacters(search: string, limit: number): Character
   return result;
 }
 
+function normalizeWorkTitle(value: string): string {
+  return value.trim().toLocaleLowerCase().replace(/\s+/g, '');
+}
+
+export function searchCachedCharactersByWork(work: string, limit: number): Character[] {
+  const normalized = normalizeWorkTitle(work);
+  if (!normalized) return [];
+  const result: Character[] = [];
+  for (const character of allCharacters) {
+    if (normalizeWorkTitle(character.work) === normalized) {
+      result.push(character);
+      if (result.length >= limit) break;
+    }
+  }
+  return result;
+}
+
+export function getWorks(limit = 100000): Array<{ name: string; company: string; count: number }> {
+  const byWork = new Map<string, { name: string; company: string; count: number }>();
+  for (const character of allCharacters) {
+    const current = byWork.get(character.work);
+    if (current) {
+      current.count += 1;
+      continue;
+    }
+    byWork.set(character.work, {
+      name: character.work,
+      company: character.company,
+      count: 1,
+    });
+  }
+  return [...byWork.values()]
+    .sort((a, b) => a.name.localeCompare(b.name, 'zh'))
+    .slice(0, limit);
+}
+
 export async function getPublicCharacterList(): Promise<typeof publicList> {
   return publicList;
 }

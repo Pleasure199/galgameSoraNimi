@@ -140,6 +140,9 @@ export const resources = {
         empty: '在下方输入框中输入角色名称即可查询', fuzzy: '支持模糊搜索：输入部分名称即可匹配',
         showAll: '显示全部角色', loading: '加载中…', allResults: '全部角色（{{count}}）', pageInfo: '第 {{current}} / {{total}} 页',
         difficultyTitle: '按难度显示', emptyDifficulty: '该难度下暂无角色',
+        workPlaceholder: '输入作品名搜索全部角色', workButton: '按作品搜索',
+        workResults: '作品“{{work}}”的角色（{{count}}）',
+        showAllWorks: '显示全部作品', allWorksTitle: '全部作品（{{count}}）', workCharacterCount: '{{count}} 名角色',
       },
       leaderboard: {
         title: '排行榜', player: '玩家', wins: '胜场', total: '总场次', winRate: '胜率', avgGuesses: '平均猜测', self: '我',
@@ -318,6 +321,9 @@ export const resources = {
         empty: 'Enter a character name below to search', fuzzy: 'Fuzzy search is supported: enter part of a name',
         showAll: 'Show all characters', loading: 'Loading…', allResults: 'All characters ({{count}})', pageInfo: 'Page {{current}} / {{total}}',
         difficultyTitle: 'Filter by difficulty', emptyDifficulty: 'No characters in this difficulty yet',
+        workPlaceholder: 'Enter a work name to search all characters', workButton: 'Search by work',
+        workResults: 'Characters in “{{work}}” ({{count}})',
+        showAllWorks: 'Show all works', allWorksTitle: 'All works ({{count}})', workCharacterCount: '{{count}} characters',
       },
       leaderboard: {
         title: 'Leaderboard', player: 'Player', wins: 'Wins', total: 'Games', winRate: 'Win rate', avgGuesses: 'Avg. guesses', self: 'You',
@@ -496,6 +502,9 @@ export const resources = {
         empty: '下の入力欄にキャラクター名を入力してください', fuzzy: '名前の一部だけでも検索できます',
         showAll: '全キャラクターを表示', loading: '読み込み中…', allResults: '全キャラクター（{{count}}）', pageInfo: '{{current}} / {{total}} ページ',
         difficultyTitle: '難易度で表示', emptyDifficulty: 'この難易度にはまだキャラクターがいません',
+        workPlaceholder: '作品名を入力して全キャラクターを検索', workButton: '作品で検索',
+        workResults: '作品「{{work}}」のキャラクター（{{count}}）',
+        showAllWorks: '全作品を表示', allWorksTitle: '全作品（{{count}}）', workCharacterCount: '{{count}} 人のキャラクター',
       },
       leaderboard: {
         title: 'ランキング', player: 'プレイヤー', wins: '勝利数', total: '試合数', winRate: '勝率', avgGuesses: '平均予想数', self: '自分',
