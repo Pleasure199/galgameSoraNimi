@@ -60,7 +60,7 @@ export default function Search() {
                 cv: character.cv,
                 hairColor: character.hairColor,
                 hairLength: character.hairLength,
-                height: character.height,
+                writer: character.writer,
               }}
             />
           </div>

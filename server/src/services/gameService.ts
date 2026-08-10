@@ -1,7 +1,6 @@
 import { Character, GuessFeedback, AttributeFeedback } from '../types';
 
 const RELEASE_YEAR_CLOSE_RANGE = 2;
-const HEIGHT_CLOSE_RANGE = 3;
 
 function textAttr(guess: string, target: string): AttributeFeedback {
   return { value: guess, level: guess === target ? 'correct' : 'wrong' };
@@ -35,17 +34,6 @@ function numberAttr(
   };
 }
 
-function nullableNumberAttr(
-  guessVal: number | null,
-  targetVal: number | null,
-  closeRange: number
-): AttributeFeedback {
-  if (guessVal == null || targetVal == null) {
-    return { value: guessVal ?? '未知', level: 'wrong' };
-  }
-  return numberAttr(guessVal, targetVal, closeRange);
-}
-
 /** 逐属性对比猜测角色与目标角色,产出反馈 */
 export function compareGuess(guess: Character, target: Character): GuessFeedback {
   const correct = guess.id === target.id;
@@ -61,7 +49,7 @@ export function compareGuess(guess: Character, target: Character): GuessFeedback
       cv: textAttr(guess.cv, target.cv),
       hairColor: hairColorAttr(guess, target),
       hairLength: hairLengthAttr(guess, target),
-      height: nullableNumberAttr(guess.height, target.height, HEIGHT_CLOSE_RANGE),
+      writer: textAttr(guess.writer, target.writer),
     },
   };
 }

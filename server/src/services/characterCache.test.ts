@@ -19,25 +19,27 @@ describe('character JSON catalog', () => {
     const list = await getPublicCharacterList();
 
     expect(list.version).toMatch(/^[0-9a-f]{16}$/);
-    expect(list.characters).toHaveLength(888);
+    expect(list.characters).toHaveLength(48082);
     expect(list.characters.find((character) => character.id === 1)).toMatchObject({
       id: 1,
       name: '神尾观铃',
-      difficulties: ['normal', 'easy', 'beginner'],
+      difficulties: ['normal'],
     });
     expect(getEnabledCharacter(1)).toMatchObject({
       id: 1,
       name: '神尾观铃',
       work: 'AIR',
-      difficulties: ['normal', 'easy', 'beginner'],
+      difficulties: ['normal'],
     });
-    expect(getEnabledCharacters()).toHaveLength(888);
+    expect(getEnabledCharacters()).toHaveLength(48082);
   });
 
   it('builds difficulty pools and targets from the JSON data', () => {
     expect(isDifficultyAvailable('beginner')).toBe(true);
+    expect(getDifficultyCharacters('beginner')).toHaveLength(178);
+    expect(getDifficultyCharacters('easy')).toHaveLength(1725);
     expect(getDifficultyCharacters('beginner')).toContainEqual(
-      expect.objectContaining({ id: 1 })
+      expect.objectContaining({ id: 142, name: '新海天' })
     );
     expect(getDifficultyCharacters('unknown')).toEqual([]);
 
@@ -53,7 +55,7 @@ describe('character JSON catalog', () => {
     expect(searchCachedCharacters('AIR', 100)).toContainEqual(
       expect.objectContaining({ id: 1 })
     );
-    expect(searchCachedCharacters('川上とも子', 100)).toContainEqual(
+    expect(searchCachedCharacters('川上伦子', 100)).toContainEqual(
       expect.objectContaining({ id: 1 })
     );
   });

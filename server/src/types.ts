@@ -28,8 +28,8 @@ export interface Character {
   hair_color_family: string;
   /** 发长 */
   hair_length: string;
-  /** 身高（cm），未知为 null */
-  height: number | null;
+  /** 剧本家 */
+  writer: string;
   /** 难度归属，直接来自角色 JSON 数据集 */
   difficulties: string[];
   is_enabled: boolean;
@@ -56,7 +56,7 @@ export interface GuessFeedback {
     cv: AttributeFeedback;
     hairColor: AttributeFeedback;
     hairLength: AttributeFeedback;
-    height: AttributeFeedback;
+    writer: AttributeFeedback;
   };
 }
 

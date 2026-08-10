@@ -152,8 +152,8 @@ export default function GameRules() {
                         <span>{t('rules.releaseYearText')}</span>
                       </div>
                       <div>
-                        <strong>{t('rules.heightTitle')}</strong>
-                        <span>{t('rules.heightText')}</span>
+                        <strong>{t('rules.writerTitle')}</strong>
+                        <span>{t('rules.writerText')}</span>
                       </div>
                     </div>
                     <div className="rule-result-notes">

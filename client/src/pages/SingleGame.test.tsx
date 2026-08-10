@@ -138,7 +138,7 @@ describe('SingleGame UX', () => {
 
     const giveup = deferred<{
       data: {
-        answer: { name: string; work: string; company: string; releaseYear: number; gender: string; cv: string; hairColor: string; hairLength: string; height: number };
+        answer: { name: string; work: string; company: string; releaseYear: number; gender: string; cv: string; hairColor: string; hairLength: string; writer: string };
       };
     }>();
     post.mockReturnValueOnce(giveup.promise as never);
@@ -158,7 +158,7 @@ describe('SingleGame UX', () => {
 
     giveup.resolve({
       data: {
-        answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色', hairLength: '长发', height: 160 },
+        answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色', hairLength: '长发', writer: '林直孝' },
       },
     });
     expect(await screen.findByRole('dialog')).toHaveTextContent('牧瀬紅莉栖');
@@ -171,7 +171,7 @@ describe('SingleGame UX', () => {
         data: {
           status: 'lost',
           recorded: false,
-          answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色', hairLength: '长发', height: 160 },
+          answer: { name: '牧瀬紅莉栖', work: 'STEINS;GATE', company: 'MAGES.', releaseYear: 2009, gender: '女', cv: '今井麻美', hairColor: '红色', hairLength: '长发', writer: '林直孝' },
         },
       } as never);
     renderGame('easy');

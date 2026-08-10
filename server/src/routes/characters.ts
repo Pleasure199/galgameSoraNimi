@@ -56,7 +56,7 @@ router.get(
         cv: c.cv,
         hairColor: c.hair_color,
         hairLength: c.hair_length,
-        height: c.height,
+        writer: c.writer,
       }))
     );
   })

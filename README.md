@@ -23,11 +23,11 @@
 
 ## 玩法
 
-输入角色名，系统按 **作品 / 所属会社 / 发售时间 / 性别 / 声优 / 发色 / 发长 / 身高** 逐属性给出对比反馈：
+输入角色名，系统按 **作品 / 所属会社 / 发售时间 / 性别 / 声优 / 发色 / 发长 / 剧本家** 逐属性给出对比反馈：
 
 - 🟩 **绿色** —— 该属性与答案完全一致
-- 🟨 **黄色** —— 接近（同发色色系、身高相差不超过 3 cm、发售年份相差不超过 2 年）
-- ↑↓ **箭头** —— 数值型属性（身高 / 发售时间）提示答案更高或更早
+- 🟨 **黄色** —— 接近（同发色色系、发售年份相差不超过 2 年）
+- ↑↓ **箭头** —— 数值型属性（发售时间）提示答案更早或更晚
 
 8 次机会内猜出目标角色即获胜，猜中角色名同样直接获胜。
 
@@ -85,18 +85,25 @@ npm run dev             # server: 3000, client: 5173
 
 ## 角色数据
 
-角色数据集内置于 `server/data/characters.json`（888 名 galgame 角色，覆盖当前收录作品在 VNDB 上的全部角色条目），服务启动时直接读取，不写入 PostgreSQL。字段包括：
+角色数据集内置于 `server/data/characters.json`（48082 名 galgame 角色，原 888 名来自 VNDB，其余来自 Bangumi；已按 VNDB 数据库过滤，删除无 VNDB 对应条目的作品并清理同作品、跨作品、跨来源的重复角色），服务启动时直接读取，不写入 PostgreSQL。字段包括：
 
 ```
-name / work / company / release_year / gender / cv / hair_color / hair_color_family / hair_length / height / difficulties
+name / work / company / release_year / gender / cv / hair_color / hair_color_family / hair_length / writer / difficulties
 ```
 
 - 难度归属直接写在每条角色上（如 `["normal"]`、`["normal","easy"]`、`["normal","easy","beginner"]`），保证入门 ⊂ 简单 ⊂ 普通
+- 难度重分级：`node scripts/reclassifyDifficulties.mjs` 按网络热度（Bangumi 收藏、VNDB 投票数）、知名度（评分）和发布时间的百分位加权（50/40/10）重新分级；入门版取属性齐全的前 200 名，简单版取前 2000 名
+- 柚子社特例：`node scripts/addYuzusoftBeginner.mjs` 将《魔女的夜宴》及之后柚子社作品（千恋＊万花、RIDDLE JOKER、星光咖啡馆与死神之蝶、天使☆嚣嚣 RE-BOOT!）全部角色加入入门组；其中个别角色因数据源缺少发色/发长/声优信息而保留 `未知`
+- 难度覆盖：`node scripts/applyDifficultyOverrides.mjs` 将 PARQUET 与缺属性角色改为 normal，并将属性完整的 9-nine 系列角色加入入门组
+- 去重：`node scripts/deduplicateCharacters.mjs` 按角色 ID 与 VNDB 匹配去除同一人物在不同作品/不同数据源中的重复行
+- 入门池筛选：`node scripts/applyBeginnerRoleDemotion.mjs` 依据 VNDB 角色关系，将 beginner 中的 side/appears 路人移入 easy/normal；移出与未确认名单见 `docs/beginner-role-demoted.tsv`、`docs/beginner-role-unclassified.tsv`
 - 发色与色系值须与前端 `GameRules` 色系列表一致，否则同色系「黄色」判定会失效
-- 发长与身高以 VNDB 词条属性为主，身高缺失时写 `null`
+- 发色、发长、性别与声优通过 VNDB 官方数据库 dump 补充（约 39000 名角色已有发色、35000 名已有发长、39100 名已有声优）；剧本家来自 Bangumi 作品 `剧本 / 脚本` 字段，缺失时写 `未知`
 - 角色名优先使用有来源的简体中文译名（Bangumi 简体中文名、项目原有译名）；无法可靠翻译的小众角色保留日文原名或罗马音
-- `characterIds.json` 保存 `characters.json` 每行对应的 VNDB 角色 ID，`characterNameOverrides.json` 保存有来源的译名覆盖表
-- 批量重建数据：`node scripts/fetchVndbData.mjs` 拉取 VNDB 原始角色，`node scripts/buildCharacters.mjs` 按 ID 覆盖表重新生成 `characters.json`
+- `characterIds.json` 保存每行对应的 VNDB 角色 ID（`bgm:` 前缀表示 Bangumi 角色 ID），`characterNameOverrides.json` 保存有来源的译名覆盖表
+- Bangumi 扩充：`node scripts/importBangumi.mjs` 从 Bangumi Archive 导入新增角色；`node scripts/updateBangumiAttributes.mjs` 补充剧本家、声优、发色与简中名
+- VNDB 补齐：`node scripts/supplementVndbDump.mjs` 读取 VNDB 官方 dump（默认解压到 `/private/tmp/vndb-db/db`，可用 `VNDB_DIR` 覆盖），按“作品 + 规范化姓名”匹配后补齐缺失属性
+- VNDB 过滤与简中化：`node scripts/filterVndbWorks.mjs` 按作品名匹配 VNDB，删除无对应条目的作品并清理同作品重复角色，按 VNDB `zh-Hans` 转换繁体/罗马拼音作品名；已删除作品清单见 `docs/vndb-missing-works.tsv`
 - 添加新角色：在 `characters.json` 中追加条目后重启服务；角色 ID 按数组顺序从 1 开始分配
 
 ## 项目结构

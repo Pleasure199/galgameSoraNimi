@@ -14,7 +14,7 @@ function makeCharacter(overrides: Partial<Character>): Character {
     hair_color: '红色',
     hair_color_family: 'red',
     hair_length: '长发',
-    height: 160,
+    writer: '林直孝',
     is_enabled: true,
     difficulties: ['normal'],
     ...overrides,
@@ -89,21 +89,14 @@ describe('compareGuess', () => {
     expect(compareGuess(guess, target).attributes.hairLength.level).toBe('wrong');
   });
 
-  it('身高相同给 correct', () => {
-    const guess = makeCharacter({ id: 2, height: 160 });
-    expect(compareGuess(guess, target).attributes.height.level).toBe('correct');
+  it('剧本家相同给 correct', () => {
+    const guess = makeCharacter({ id: 2, writer: '林直孝' });
+    expect(compareGuess(guess, target).attributes.writer.level).toBe('correct');
   });
 
-  it('身高相差 3 cm 内给 close 并带方向提示', () => {
-    const guess = makeCharacter({ id: 2, height: target.height! - 3 });
-    const fb = compareGuess(guess, target);
-    expect(fb.attributes.height.level).toBe('close');
-    expect(fb.attributes.height.hint).toBe('higher');
-  });
-
-  it('身高未知时给 wrong', () => {
-    const guess = makeCharacter({ id: 2, height: null });
-    expect(compareGuess(guess, target).attributes.height.level).toBe('wrong');
+  it('剧本家不同给 wrong', () => {
+    const guess = makeCharacter({ id: 2, writer: '麻枝准' });
+    expect(compareGuess(guess, target).attributes.writer.level).toBe('wrong');
   });
 
   it('MAX_GUESSES 与服务端默认一致为 8', () => {

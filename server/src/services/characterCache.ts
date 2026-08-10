@@ -16,7 +16,7 @@ interface CharacterSeed {
   hair_color: string;
   hair_color_family: string;
   hair_length?: string;
-  height?: number | null;
+  writer?: string;
   difficulties?: string[];
   is_enabled?: boolean;
 }
@@ -80,7 +80,7 @@ function loadCharacterCatalog(): { version: string; characters: Character[] } {
       hair_color: assertString(seed.hair_color, `${name} hair_color`),
       hair_color_family: assertString(seed.hair_color_family, `${name} hair_color_family`),
       hair_length: assertString(seed.hair_length ?? '未知', `${name} hair_length`),
-      height: seed.height ?? null,
+      writer: assertString(seed.writer ?? '未知', `${name} writer`),
       difficulties: difficulties as string[],
       is_enabled: seed.is_enabled ?? true,
     };
