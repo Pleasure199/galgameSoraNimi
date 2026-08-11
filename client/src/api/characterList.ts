@@ -135,6 +135,5 @@ export function searchCharacterList(characters: CharacterSuggestion[], query: st
     .map((character) => ({ character, score: matchScore(character.name, normalized) }))
     .filter((entry) => Number.isFinite(entry.score))
     .sort((a, b) => a.score - b.score || a.character.name.localeCompare(b.character.name))
-    .map((entry) => entry.character)
-    .slice(0, 10);
+    .map((entry) => entry.character);
 }

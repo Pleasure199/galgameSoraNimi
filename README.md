@@ -4,7 +4,7 @@
 
 **Galgame 角色猜测游戏 —— 类 Wordle 玩法，猜出目标角色即获胜**
 
-[![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Node.js ≥ 22](https://img.shields.io/badge/node-%E2%89%A522-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![npm workspaces](https://img.shields.io/badge/npm-workspaces-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/)
 
@@ -135,4 +135,4 @@ client/src
 
 ## 许可证
 
-本项目基于 [AGPL-3.0](LICENSE) 开源。
+本项目基于 [Apache-2.0](LICENSE) 开源。
