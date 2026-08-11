@@ -52,7 +52,6 @@ export const resources = {
         stats: '统计/回放',
         leaderboard: '排行榜',
         announcements: '更新公告',
-        bilibili: 'B站：怂皇的一天',
         github: 'GitHub',
       },
       rules: {
@@ -233,7 +232,6 @@ export const resources = {
         stats: 'Stats / Replays',
         leaderboard: 'Leaderboard',
         announcements: 'Updates',
-        bilibili: 'Bilibili: 怂皇的一天',
         github: 'GitHub',
       },
       rules: {
@@ -414,7 +412,6 @@ export const resources = {
         stats: '統計 / リプレイ',
         leaderboard: 'ランキング',
         announcements: '更新情報',
-        bilibili: 'Bilibili：怂皇的一天',
         github: 'GitHub',
       },
       rules: {

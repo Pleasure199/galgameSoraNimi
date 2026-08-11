@@ -32,26 +32,6 @@ function GitHubIcon() {
   );
 }
 
-function BilibiliIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="16"
-      height="16"
-      aria-hidden="true"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 2.5 3M16 3l-2.5 3" />
-      <rect x="3" y="6" width="18" height="14" rx="3" />
-      <path d="M8 12v2M16 12v2" />
-    </svg>
-  );
-}
-
 interface HomeActionCardProps {
   to: string;
   icon: ReactNode;
@@ -215,17 +195,7 @@ export default function Home() {
         </section>
         <footer className="home-footer">
           <a
-            href="https://space.bilibili.com/290893104"
-            className="home-footer-link home-footer-bili"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-umami-event="home-bilibili"
-          >
-            <BilibiliIcon />
-            {t('home.bilibili')}
-          </a>
-          <a
-            href="https://github.com/shnlfriberg/csgofriberg"
+            href="https://github.com/Pleasure199/galgameSoraNimi"
             className="home-footer-link"
             target="_blank"
             rel="noopener noreferrer"

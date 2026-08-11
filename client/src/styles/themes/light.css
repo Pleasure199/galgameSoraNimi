@@ -188,8 +188,6 @@ html:not([data-theme='blast']) .btn-danger:hover:not(:disabled),
 html:not([data-theme='blast']) .btn-red:hover:not(:disabled) { background: #b02a3c; color: #fff; }
 html:not([data-theme='blast']) .btn-accent { background: var(--accent); color: #fff; }
 html:not([data-theme='blast']) .btn-accent:hover:not(:disabled) { background: #6a3df2; color: #fff; }
-html:not([data-theme='blast']) .btn-bilibili { background: #00aeec; color: #fff; }
-html:not([data-theme='blast']) .btn-bilibili:hover:not(:disabled) { background: #0096cc; color: #fff; }
 html:not([data-theme='blast']) .btn-github { background: #24292f; color: #fff; }
 html:not([data-theme='blast']) .btn-github:hover:not(:disabled) { background: #3a4149; color: #fff; }
 

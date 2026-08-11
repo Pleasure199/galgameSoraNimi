@@ -230,9 +230,6 @@ body::before {
 .btn-red:hover:not(:disabled) { background: #ff8190; color: #280b12; }
 .btn-accent { background: var(--accent); color: #170b23; }
 .btn-accent:hover:not(:disabled) { background: #c9aaff; color: #170b23; }
-.btn-bilibili { background: #36bceb; color: #071b22; }
-.btn-bilibili:hover:not(:disabled) { background: #6fd2f4; color: #071b22; }
-
 .btn:focus-visible,
 .input:focus-visible,
 .opt-btn:focus-visible,
