@@ -1,12 +1,10 @@
 import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
 import { Character } from '../types';
 import { DIFFICULTY_LEVELS } from '../difficulties';
-
-const CHARACTER_DATA_PATH = path.resolve(__dirname, '../../data/characters.json');
+import { db } from '../db/knex';
 
 interface CharacterSeed {
+  id?: number;
   name: string;
   work: string;
   company: string;
@@ -16,9 +14,27 @@ interface CharacterSeed {
   hair_color: string;
   hair_color_family: string;
   hair_length?: string;
-  height?: number | null;
   difficulties?: string[];
   is_enabled?: boolean;
+  data_version?: string;
+}
+
+type CatalogVersionRow = {
+  id?: number;
+  name: string;
+  difficulties?: string[];
+  data_version?: string;
+};
+
+export function computeCatalogVersion(rows: CatalogVersionRow[]): string {
+  const hash = crypto.createHash('sha256');
+  hash.update('character-list-v3\0');
+  hash.update(String(rows.length));
+  hash.update(rows[0]?.data_version ?? '');
+  for (const row of rows) {
+    hash.update(`\0${row.id ?? ''}:${row.name}:${(row.difficulties ?? []).join(',')}`);
+  }
+  return hash.digest('hex').slice(0, 16);
 }
 
 type PublicCharacter = { id: number; name: string; difficulties: string[] };
@@ -41,15 +57,27 @@ function assertString(value: unknown, label: string): string {
   return value;
 }
 
-function loadCharacterCatalog(): { version: string; characters: Character[] } {
-  const raw = fs.readFileSync(CHARACTER_DATA_PATH, 'utf8');
-  const seeds = JSON.parse(raw) as CharacterSeed[];
-  if (!Array.isArray(seeds)) {
-    throw new Error('[characters] data file must contain an array');
-  }
+async function loadCharacterCatalog(): Promise<{ version: string; characters: Character[] }> {
+  const rows = await db('characters').orderBy('id');
+  const seeds = rows.map((row) => ({
+    id: Number(row.id),
+    name: row.name,
+    work: row.work,
+    company: row.company,
+    release_year: Number(row.release_year),
+    gender: row.gender,
+    cv: row.cv,
+    hair_color: row.hair_color,
+    hair_color_family: row.hair_color_family,
+    hair_length: row.hair_length,
+    difficulties: JSON.parse(String(row.difficulties)) as string[],
+    is_enabled: Boolean(row.is_enabled),
+    data_version: String(row.data_version ?? ''),
+  })) as CharacterSeed[];
   const difficultyKeys = new Set<string>(DIFFICULTY_LEVELS.map((difficulty) => difficulty.key));
   const seenNames = new Set<string>();
   const characters = seeds.map((seed, index) => {
+    const id = Number(seed.id ?? index + 1);
     const name = assertString(seed.name, `name at index ${index}`).trim();
     if (!name || seenNames.has(name)) {
       throw new Error(`[characters] duplicate or missing name at index ${index}`);
@@ -70,7 +98,7 @@ function loadCharacterCatalog(): { version: string; characters: Character[] } {
       throw new Error(`[characters] ${name} contains an unknown difficulty`);
     }
     return {
-      id: index + 1,
+      id,
       name,
       work: assertString(seed.work, `${name} work`),
       company: assertString(seed.company, `${name} company`),
@@ -80,21 +108,15 @@ function loadCharacterCatalog(): { version: string; characters: Character[] } {
       hair_color: assertString(seed.hair_color, `${name} hair_color`),
       hair_color_family: assertString(seed.hair_color_family, `${name} hair_color_family`),
       hair_length: assertString(seed.hair_length ?? '未知', `${name} hair_length`),
-      height: seed.height ?? null,
       difficulties: difficulties as string[],
       is_enabled: seed.is_enabled ?? true,
     };
   }).sort((a, b) => a.name.localeCompare(b.name, 'zh'));
-  const version = crypto.createHash('sha256')
-    .update('character-list-v2\0')
-    .update(raw)
-    .digest('hex')
-    .slice(0, 16);
-  return { version, characters };
+  return { version: computeCatalogVersion(seeds), characters };
 }
 
 export async function initCharacterCache(): Promise<void> {
-  const { version, characters } = loadCharacterCatalog();
+  const { version, characters } = await loadCharacterCatalog();
   charactersById = new Map(characters.map((character) => [character.id, character]));
   allCharacters = characters.filter((character) => Boolean(character.is_enabled));
   charactersByDifficulty = new Map(
@@ -155,6 +177,42 @@ export function searchCachedCharacters(search: string, limit: number): Character
     if (result.length >= limit) break;
   }
   return result;
+}
+
+function normalizeWorkTitle(value: string): string {
+  return value.trim().toLocaleLowerCase().replace(/\s+/g, '');
+}
+
+export function searchCachedCharactersByWork(work: string, limit: number): Character[] {
+  const normalized = normalizeWorkTitle(work);
+  if (!normalized) return [];
+  const result: Character[] = [];
+  for (const character of allCharacters) {
+    if (normalizeWorkTitle(character.work) === normalized) {
+      result.push(character);
+      if (result.length >= limit) break;
+    }
+  }
+  return result;
+}
+
+export function getWorks(limit = 100000): Array<{ name: string; company: string; count: number }> {
+  const byWork = new Map<string, { name: string; company: string; count: number }>();
+  for (const character of allCharacters) {
+    const current = byWork.get(character.work);
+    if (current) {
+      current.count += 1;
+      continue;
+    }
+    byWork.set(character.work, {
+      name: character.work,
+      company: character.company,
+      count: 1,
+    });
+  }
+  return [...byWork.values()]
+    .sort((a, b) => a.name.localeCompare(b.name, 'zh'))
+    .slice(0, limit);
 }
 
 export async function getPublicCharacterList(): Promise<typeof publicList> {

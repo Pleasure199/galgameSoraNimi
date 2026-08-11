@@ -13,9 +13,13 @@
     "start": "npm run start -w server",
     "test": "npm run test -w server && npm run test -w client",
     "test:client": "npm run test -w client",
-    "migrate": "npm run migrate -w server"
+    "migrate": "npm run migrate -w server",
+    "db:import-vndb": "node scripts/importVndbCharacters.mjs",
+    "db:build-bangumi-names": "node scripts/buildBangumiNameMap.mjs",
+    "db:sync-legacy": "node scripts/syncLegacyCharacters.mjs"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "opencc-js": "^1.4.1"
   }
 }

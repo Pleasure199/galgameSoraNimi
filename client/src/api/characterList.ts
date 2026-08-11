@@ -11,7 +11,7 @@ interface CachedCharacterList {
   characters: CharacterSuggestion[];
 }
 
-const STORAGE_KEY = 'character-list-v2';
+const STORAGE_KEY = 'character-list-v3';
 const REVALIDATE_INTERVAL_MS = 30_000;
 let memory: CachedCharacterList | null = null;
 let loading: Promise<CharacterSuggestion[]> | null = null;

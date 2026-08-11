@@ -55,6 +55,32 @@ export async function ensureSchema(instance: Knex = db): Promise<void> {
     `create index${usersIndexConcurrently} if not exists "users_display_id_idx" on "users" ("display_id")`
   );
 
+  if (!(await instance.schema.hasTable('character_name_overrides'))) {
+    await instance.schema.createTable('character_name_overrides', (t) => {
+      t.string('vndb_id').primary();
+      t.string('name').notNullable();
+      t.string('source').notNullable();
+    });
+  }
+  if (!(await instance.schema.hasTable('characters'))) {
+    await instance.schema.createTable('characters', (t) => {
+      t.increments('id').primary();
+      t.string('vndb_id').notNullable().unique();
+      t.string('name').notNullable().unique();
+      t.string('work').notNullable();
+      t.string('company').notNullable();
+      t.integer('release_year').notNullable();
+      t.string('gender').notNullable();
+      t.string('cv').notNullable();
+      t.string('hair_color').notNullable();
+      t.string('hair_color_family').notNullable();
+      t.string('hair_length').notNullable();
+      t.text('difficulties').notNullable();
+      t.boolean('is_enabled').notNullable().defaultTo(true);
+      t.string('data_version').notNullable();
+    });
+  }
+
   if (!(await instance.schema.hasTable('app_migrations'))) {
     await instance.schema.createTable('app_migrations', (t) => {
       t.string('name', 128).primary();

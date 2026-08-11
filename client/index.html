@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content"
     />
-    <meta name="theme-color" content="#160a13" />
+    <meta name="theme-color" content="#0c1a2e" />
     <meta name="description" content="天一把 - Galgame 角色猜测游戏，通过作品、会社、发售时间、性别、声优与发色逐属性反馈猜出目标角色。" />
     <script>
       try {
@@ -24,13 +24,13 @@
                 : 'blast';
         document.documentElement.dataset.theme = initTheme;
         document.documentElement.style.colorScheme = initTheme === 'blast' ? 'dark' : 'light';
-        document.documentElement.style.background = initTheme === 'blast' ? '#160a13' : '#f3f0ea';
+        document.documentElement.style.background = initTheme === 'blast' ? '#0c1a2e' : '#f3f8ff';
         var themeColorMeta = document.querySelector('meta[name="theme-color"]');
-        if (themeColorMeta) themeColorMeta.content = initTheme === 'blast' ? '#160a13' : '#f3f0ea';
+        if (themeColorMeta) themeColorMeta.content = initTheme === 'blast' ? '#0c1a2e' : '#f3f8ff';
         document.documentElement.dataset.themeReady = '';
       } catch (_) {
         document.documentElement.dataset.theme = 'blast';
-        document.documentElement.style.background = '#160a13';
+        document.documentElement.style.background = '#0c1a2e';
         document.documentElement.dataset.themeReady = '';
       }
     </script>

@@ -78,7 +78,7 @@ async function fetchCharacters(vnId) {
     const data = await query('character', {
       filters: ['vn', '=', ['id', '=', vnId]],
       fields:
-        'id,name,original,gender,sex,height,aliases,traits{id,name,group_name},vns{id,title,role,spoiler}',
+        'id,name,original,gender,sex,aliases,traits{id,name,group_name},vns{id,title,role,spoiler}',
       results: 100,
       page,
     });

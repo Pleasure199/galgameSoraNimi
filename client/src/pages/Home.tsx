@@ -1,15 +1,17 @@
+import type { CSSProperties, ReactNode } from 'react';
 import { useEffect, useSyncExternalStore, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Search,
-  Gamepad2,
+  ArrowRight,
+  ArrowUpRight,
   BarChart3,
-  Trophy,
-  Megaphone,
+  Gamepad2,
   LogIn,
   LogOut,
+  Megaphone,
+  Search,
+  Trophy,
 } from 'lucide-react';
-import MenuCard from '../components/MenuCard';
 import GameRules from '../components/GameRules';
 import { useAuth } from '../store/auth';
 import { getGuestName, subscribeGuestName } from '../store/guest';
@@ -30,23 +32,24 @@ function GitHubIcon() {
   );
 }
 
-function BilibiliIcon() {
+interface HomeActionCardProps {
+  to: string;
+  icon: ReactNode;
+  label: string;
+  description: string;
+  color: string;
+}
+
+function HomeActionCard({ to, icon, label, description, color }: HomeActionCardProps) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="16"
-      height="16"
-      aria-hidden="true"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 2.5 3M16 3l-2.5 3" />
-      <rect x="3" y="6" width="18" height="14" rx="3" />
-      <path d="M8 12v2M16 12v2" />
-    </svg>
+    <Link to={to} className="home-card" style={{ '--card-color': color } as CSSProperties}>
+      <span className="home-card-icon">{icon}</span>
+      <span className="home-card-copy">
+        <strong>{label}</strong>
+        <small>{description}</small>
+      </span>
+      <ArrowUpRight className="home-card-arrow" size={18} />
+    </Link>
   );
 }
 
@@ -134,61 +137,66 @@ export default function Home() {
           )}
         </span>
       </div>
-      <main className="page-scroll" id="main-content">
-        <div className="home-hero">
-          <h1>{t('common.brand')}</h1>
-          <p className="hero-subtitle">{t('home.subtitle')}</p>
-          <GameRules />
-          {initialized && !user && (
-            <p className="muted" style={{ marginTop: 6 }}>
-              {t('home.guestHint')}
-            </p>
-          )}
-        </div>
-        <div className="menu-grid">
-          <MenuCard
+      <main className="page-scroll home-scroll" id="main-content">
+        <section className="home-stage" aria-labelledby="home-title">
+          <div className="home-stage-copy">
+            <span className="home-stage-eyebrow">// {t('common.brand')}</span>
+            <h1 id="home-title">{t('common.brand')}</h1>
+            <p className="home-stage-subtitle">{t('home.subtitle')}</p>
+            <div className="home-stage-actions">
+              <Link className="btn btn-lg home-play-btn" to="/single">
+                <Gamepad2 size={18} />
+                <span>{t('home.singleMode')}</span>
+                <ArrowRight className="home-play-arrow" size={16} />
+              </Link>
+              <GameRules />
+            </div>
+            {initialized && !user && (
+              <p className="home-stage-hint">
+                {t('home.guestHint')}
+              </p>
+            )}
+          </div>
+          <div className="home-stage-art" aria-hidden="true">
+            <img className="home-stage-image" src="/images/sora-nimi-01.png" alt="" />
+          </div>
+        </section>
+        <section className="home-dashboard" aria-label={t('common.home')}>
+          <HomeActionCard
             to="/single"
             icon={<Gamepad2 size={22} />}
             label={t('home.singleMode')}
             description={t('home.singleModeDescription')}
-            color="#74e38f"
+            color="#ff9f43"
           />
-          <MenuCard
+          <HomeActionCard
             to="/search"
             icon={<Search size={22} />}
             label={t('home.search')}
             description={t('home.searchDescription')}
-            color="#65a8ff"
+            color="#7c4dff"
           />
-        </div>
-        <div className="bottom-bar">
-          <Link to="/stats" className="btn">
-            <BarChart3 size={15} />
-            {t('home.stats')}
-          </Link>
-          {showLeaderboard && (
-            <Link to="/leaderboard" className="btn btn-warning">
-              <Trophy size={15} />
-              {t('home.leaderboard')}
+          <div className="home-rail">
+            <Link to="/stats" className="home-rail-link">
+              <BarChart3 size={16} />
+              <span>{t('home.stats')}</span>
             </Link>
-          )}
-          <Link to="/announcement" className="btn btn-success">
-            <Megaphone size={15} />
-            {t('home.announcements')}
-          </Link>
+            {showLeaderboard && (
+              <Link to="/leaderboard" className="home-rail-link">
+                <Trophy size={16} />
+                <span>{t('home.leaderboard')}</span>
+              </Link>
+            )}
+            <Link to="/announcement" className="home-rail-link">
+              <Megaphone size={16} />
+              <span>{t('home.announcements')}</span>
+            </Link>
+          </div>
+        </section>
+        <footer className="home-footer">
           <a
-            href="https://space.bilibili.com/290893104"
-            className="btn btn-bilibili"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-umami-event="home-bilibili"
-          >
-            <BilibiliIcon />
-            {t('home.bilibili')}
-          </a>
-          <a
-            href="https://github.com/shnlfriberg/csgofriberg"
-            className="btn btn-github"
+            href="https://github.com/Pleasure199/galgameSoraNimi"
+            className="home-footer-link"
             target="_blank"
             rel="noopener noreferrer"
             data-umami-event="home-github"
@@ -196,7 +204,7 @@ export default function Home() {
             <GitHubIcon />
             {t('home.github')}
           </a>
-        </div>
+        </footer>
       </main>
     </div>
   );

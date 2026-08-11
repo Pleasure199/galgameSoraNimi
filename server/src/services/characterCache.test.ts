@@ -1,9 +1,12 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import {
+  computeCatalogVersion,
   getDifficultyCharacters,
   getEnabledCharacter,
   getEnabledCharacters,
   getPublicCharacterList,
+  getWorks,
+  searchCachedCharactersByWork,
   initCharacterCache,
   isDifficultyAvailable,
   pickCachedTarget,
@@ -19,25 +22,31 @@ describe('character JSON catalog', () => {
     const list = await getPublicCharacterList();
 
     expect(list.version).toMatch(/^[0-9a-f]{16}$/);
-    expect(list.characters).toHaveLength(888);
+    expect(list.characters).toHaveLength(13373);
     expect(list.characters.find((character) => character.id === 1)).toMatchObject({
       id: 1,
       name: '神尾观铃',
-      difficulties: ['normal', 'easy', 'beginner'],
+      difficulties: ['beginner', 'easy', 'normal'],
     });
     expect(getEnabledCharacter(1)).toMatchObject({
       id: 1,
       name: '神尾观铃',
       work: 'AIR',
-      difficulties: ['normal', 'easy', 'beginner'],
+      difficulties: ['beginner', 'easy', 'normal'],
     });
-    expect(getEnabledCharacters()).toHaveLength(888);
+    expect(getEnabledCharacters()).toHaveLength(13373);
+  });
+
+  it('changes the catalog version when difficulties change', () => {
+    const base = { id: 1, name: '在原七海', difficulties: ['normal'], data_version: 'vndb-2026-08-07' };
+    const promoted = { ...base, difficulties: ['beginner', 'easy', 'normal'] };
+    expect(computeCatalogVersion([base])).not.toBe(computeCatalogVersion([promoted]));
   });
 
   it('builds difficulty pools and targets from the JSON data', () => {
     expect(isDifficultyAvailable('beginner')).toBe(true);
     expect(getDifficultyCharacters('beginner')).toContainEqual(
-      expect.objectContaining({ id: 1 })
+      expect.objectContaining({ id: 14 })
     );
     expect(getDifficultyCharacters('unknown')).toEqual([]);
 
@@ -56,5 +65,20 @@ describe('character JSON catalog', () => {
     expect(searchCachedCharacters('川上とも子', 100)).toContainEqual(
       expect.objectContaining({ id: 1 })
     );
+  });
+
+  it('returns every character under a work', () => {
+    const air = searchCachedCharactersByWork('AIR', 1000);
+    expect(air.length).toBeGreaterThan(1);
+    expect(air.every((character) => character.work.includes('AIR'))).toBe(true);
+  });
+
+  it('lists works with their companies', () => {
+    const works = getWorks();
+    expect(works.length).toBeGreaterThan(0);
+    expect(works.find((work) => work.name === 'AIR')).toMatchObject({
+      name: 'AIR',
+      company: 'Key',
+    });
   });
 });
