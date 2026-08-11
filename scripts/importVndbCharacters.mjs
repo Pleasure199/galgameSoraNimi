@@ -5,8 +5,11 @@ import pg from 'pg';
 const ROOT = path.resolve(process.cwd());
 const LEGACY_CHARACTERS_PATH = path.join(ROOT, 'server/data/characters.json');
 const LEGACY_IDS_PATH = path.join(ROOT, 'server/data/characterIds.json');
+const WEB_POPULARITY_PATH = path.join(ROOT, 'scripts/webPopularity.json');
 const DATABASE_URL = process.env.DATABASE_URL || 'postgres://tianyiba:tianyiba@127.0.0.1:5432/tianyiba';
 const DATA_VERSION = 'vndb-2026-08-07';
+const BEGINNER_LIMIT = 300;
+const EASY_LIMIT = 3000;
 
 const COLOR_MAP = {
   Black: ['黑色', 'black'],
@@ -29,6 +32,7 @@ const LONG = new Set(['Long', 'Waist Length+', 'Ankle Length']);
 const MED = new Set(['Shoulder-length']);
 const SHORT = new Set(['Short', 'Bob Cut', 'Crew Cut', 'Spiky']);
 const ROLE_PRIORITY = { main: 0, primary: 1, side: 2, appears: 3 };
+const MAIN_PROTAGONIST_ROLES = new Set(['main', 'primary']);
 const WEIRD_PATTERNS = [
   /[?？]/,
   /主人公|男主角|女主角|店主|店长|男孩|女孩|未知的|人类女孩|金发小女孩|好奇的小女孩|陌生女孩/,
@@ -111,14 +115,39 @@ async function main() {
   );
   const legacyCharacters = JSON.parse(fs.readFileSync(LEGACY_CHARACTERS_PATH, 'utf8'));
   const legacyIds = JSON.parse(fs.readFileSync(LEGACY_IDS_PATH, 'utf8'));
+  const webPopularity = JSON.parse(fs.readFileSync(WEB_POPULARITY_PATH, 'utf8'));
+  const webNameToCanonical = new Map();
+  const beginnerRank = new Map();
+  webPopularity.beginner.forEach((name, index) => {
+    const key = simplifyName(name);
+    if (!beginnerRank.has(key)) beginnerRank.set(key, index);
+    if (!webNameToCanonical.has(key)) webNameToCanonical.set(key, key);
+  });
+  const easyList = [...webPopularity.beginner, ...webPopularity.easyExtra];
+  const easyRank = new Map();
+  easyList.forEach((name, index) => {
+    const key = simplifyName(name);
+    if (!easyRank.has(key)) easyRank.set(key, index);
+    if (!webNameToCanonical.has(key)) webNameToCanonical.set(key, key);
+  });
+  for (const [canonical, aliases] of Object.entries(webPopularity.aliases || {})) {
+    const canonicalKey = simplifyName(canonical);
+    for (const alias of aliases) {
+      webNameToCanonical.set(simplifyName(alias), canonicalKey);
+    }
+  }
+  const rankOf = (map, name) => {
+    const direct = map.get(name);
+    if (direct != null) return direct;
+    const canonical = webNameToCanonical.get(name);
+    return canonical ? map.get(canonical) : undefined;
+  };
   const legacyIdByVndb = new Map();
   const legacyRowByVndb = new Map();
-  const beginnerIds = new Set();
   legacyCharacters.forEach((row, index) => {
     const vndbId = `c${String(legacyIds[index]).replace(/^c/, '')}`;
     legacyIdByVndb.set(vndbId, index + 1);
     legacyRowByVndb.set(vndbId, row);
-    if (row.difficulties?.includes('beginner')) beginnerIds.add(vndbId);
   });
 
   const [charsRes, zhRes, vnRes, vnTitlesRes, releaseRes, companyRes, seiyuuRes, staffRes, traitsRes] =
@@ -224,15 +253,9 @@ async function main() {
     );
     const [hairColor, hairFamily] = hairOf(traitNames);
     const role = vn?.role ?? 'appears';
-    const difficulties = legacy?.difficulties
-      ? [...legacy.difficulties]
-      : role === 'main' || role === 'primary'
-        ? ['normal', 'easy']
-        : ['normal'];
-    if (beginnerIds.has(vndbId) && !difficulties.includes('beginner')) difficulties.push('beginner');
 
     const cvAid = vn ? cvByVnChar.get(`${vn.vid}:${vndbId}`) : null;
-    rows.push({
+    const row = {
       id: legacyIdByVndb.get(vndbId) ?? nextId++,
       vndb_id: vndbId,
       name: displayName,
@@ -244,11 +267,21 @@ async function main() {
       hair_color: legacy?.hair_color ?? hairColor,
       hair_color_family: legacy?.hair_color_family ?? hairFamily,
       hair_length: legacy?.hair_length ?? hairLengthOf(traitNames),
-      difficulties: JSON.stringify(difficulties),
       is_enabled: true,
       data_version: DATA_VERSION,
       sourceRank: legacy ? 0 : overrides.has(vndbId.replace(/^c/, '')) ? 1 : 2,
-    });
+      _role: role,
+    };
+    row._complete =
+      row.gender !== '未知'
+      && row.cv !== '未知'
+      && row.hair_color !== '未知'
+      && row.hair_color_family !== 'unknown'
+      && row.hair_length !== '未知'
+      && row.release_year > 0
+      && row.work !== '未知'
+      && row.company !== '未知';
+    rows.push(row);
   }
 
   const rowsByName = new Map();
@@ -257,6 +290,42 @@ async function main() {
     if (!current || row.sourceRank < current.sourceRank) rowsByName.set(row.name, row);
   }
   const finalRows = [...rowsByName.values()].sort((a, b) => a.id - b.id);
+  const beginnerPool = finalRows
+    .filter((row) => row._complete && MAIN_PROTAGONIST_ROLES.has(row._role) && rankOf(beginnerRank, row.name) != null)
+    .sort((a, b) => rankOf(beginnerRank, a.name) - rankOf(beginnerRank, b.name) || a.id - b.id)
+    .slice(0, BEGINNER_LIMIT);
+  const easyPool = finalRows
+    .filter((row) => row._complete && rankOf(easyRank, row.name) != null)
+    .sort((a, b) => rankOf(easyRank, a.name) - rankOf(easyRank, b.name) || a.id - b.id)
+    .slice(0, EASY_LIMIT);
+  const matchedWebNames = new Set(
+    finalRows
+      .map((row) => webNameToCanonical.get(row.name))
+      .filter(Boolean)
+  );
+  for (const name of easyList) {
+    const key = simplifyName(name);
+    const canonical = webNameToCanonical.get(key) ?? key;
+    if (!matchedWebNames.has(canonical)) console.warn(`[web-popularity] no match: ${name}`);
+  }
+  const beginnerViolations = beginnerPool.filter(
+    (row) => !row._complete || !MAIN_PROTAGONIST_ROLES.has(row._role)
+  );
+  const easyViolations = easyPool.filter((row) => !row._complete);
+  if (beginnerViolations.length || easyViolations.length) {
+    throw new Error(
+      `difficulty validation failed: beginner=${beginnerViolations.length}, easy=${easyViolations.length}`
+    );
+  }
+  const beginnerIds = new Set(beginnerPool.map((row) => row.id));
+  const easyIds = new Set(easyPool.map((row) => row.id));
+  for (const row of finalRows) {
+    const difficulties = ['normal'];
+    if (easyIds.has(row.id)) difficulties.unshift('easy');
+    if (beginnerIds.has(row.id)) difficulties.unshift('beginner');
+    row.difficulties = JSON.stringify(difficulties);
+  }
+  console.log(`difficulty pools: beginner=${beginnerIds.size}, easy=${easyIds.size}, normal=${finalRows.length}`);
 
   await client.query('truncate table characters restart identity');
   for (const row of finalRows) {

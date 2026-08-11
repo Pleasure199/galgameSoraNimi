@@ -19,6 +19,24 @@ interface CharacterSeed {
   data_version?: string;
 }
 
+type CatalogVersionRow = {
+  id?: number;
+  name: string;
+  difficulties?: string[];
+  data_version?: string;
+};
+
+export function computeCatalogVersion(rows: CatalogVersionRow[]): string {
+  const hash = crypto.createHash('sha256');
+  hash.update('character-list-v3\0');
+  hash.update(String(rows.length));
+  hash.update(rows[0]?.data_version ?? '');
+  for (const row of rows) {
+    hash.update(`\0${row.id ?? ''}:${row.name}:${(row.difficulties ?? []).join(',')}`);
+  }
+  return hash.digest('hex').slice(0, 16);
+}
+
 type PublicCharacter = { id: number; name: string; difficulties: string[] };
 let charactersById = new Map<number, Character>();
 let allCharacters: Character[] = [];
@@ -94,13 +112,7 @@ async function loadCharacterCatalog(): Promise<{ version: string; characters: Ch
       is_enabled: seed.is_enabled ?? true,
     };
   }).sort((a, b) => a.name.localeCompare(b.name, 'zh'));
-  const version = crypto.createHash('sha256')
-    .update('character-list-v3\0')
-    .update(String(rows.length))
-    .update(seeds[0]?.data_version ?? '')
-    .digest('hex')
-    .slice(0, 16);
-  return { version, characters };
+  return { version: computeCatalogVersion(seeds), characters };
 }
 
 export async function initCharacterCache(): Promise<void> {

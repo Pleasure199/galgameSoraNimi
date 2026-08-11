@@ -62,7 +62,7 @@ export default defineConfig({
       },
     },
     // CSP style-src is 'self' (+ unsafe-inline); data: stylesheet URLs are blocked.
-    assetsInlineLimit(filePath, content) {
+    assetsInlineLimit(filePath: string, content: string | Uint8Array) {
       if (/\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(filePath) || filePath.endsWith('.css')) {
         return false;
       }
@@ -76,4 +76,4 @@ export default defineConfig({
     restoreMocks: true,
     clearMocks: true,
   },
-});
+} as any);
