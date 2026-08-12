@@ -13,12 +13,12 @@ import {
   searchCachedCharacters,
 } from './characterCache';
 
-describe('character JSON catalog', () => {
+describe('character catalog', () => {
   beforeAll(async () => {
     await initCharacterCache();
   });
 
-  it('loads every character from characters.json with deterministic ids', async () => {
+  it('loads every character from PostgreSQL with deterministic ids', async () => {
     const list = await getPublicCharacterList();
 
     expect(list.version).toMatch(/^[0-9a-f]{16}$/);
@@ -43,7 +43,7 @@ describe('character JSON catalog', () => {
     expect(computeCatalogVersion([base])).not.toBe(computeCatalogVersion([promoted]));
   });
 
-  it('builds difficulty pools and targets from the JSON data', () => {
+  it('builds difficulty pools and targets from the catalog', () => {
     expect(isDifficultyAvailable('beginner')).toBe(true);
     expect(getDifficultyCharacters('beginner')).toContainEqual(
       expect.objectContaining({ id: 14 })

@@ -3,8 +3,6 @@ import path from 'node:path';
 import pg from 'pg';
 
 const ROOT = path.resolve(process.cwd());
-const LEGACY_CHARACTERS_PATH = path.join(ROOT, 'server/data/characters.json');
-const LEGACY_IDS_PATH = path.join(ROOT, 'server/data/characterIds.json');
 const WEB_POPULARITY_PATH = path.join(ROOT, 'scripts/webPopularity.json');
 const DATABASE_URL = process.env.DATABASE_URL || 'postgres://tianyiba:tianyiba@127.0.0.1:5432/tianyiba';
 const DATA_VERSION = 'vndb-2026-08-07';
@@ -113,8 +111,11 @@ async function main() {
   const overrides = new Map(
     overrideRes.rows.map((row) => [row.vndb_id.replace(/^c/, ''), row.name])
   );
-  const legacyCharacters = JSON.parse(fs.readFileSync(LEGACY_CHARACTERS_PATH, 'utf8'));
-  const legacyIds = JSON.parse(fs.readFileSync(LEGACY_IDS_PATH, 'utf8'));
+  const legacyRes = await client.query(
+    'select id, vndb_id, work, company, release_year, gender, cv, hair_color, hair_color_family, hair_length from characters'
+  );
+  const legacyIdByVndb = new Map(legacyRes.rows.map((row) => [row.vndb_id, Number(row.id)]));
+  const legacyRowByVndb = new Map(legacyRes.rows.map((row) => [row.vndb_id, row]));
   const webPopularity = JSON.parse(fs.readFileSync(WEB_POPULARITY_PATH, 'utf8'));
   const webNameToCanonical = new Map();
   const beginnerRank = new Map();
@@ -142,14 +143,6 @@ async function main() {
     const canonical = webNameToCanonical.get(name);
     return canonical ? map.get(canonical) : undefined;
   };
-  const legacyIdByVndb = new Map();
-  const legacyRowByVndb = new Map();
-  legacyCharacters.forEach((row, index) => {
-    const vndbId = `c${String(legacyIds[index]).replace(/^c/, '')}`;
-    legacyIdByVndb.set(vndbId, index + 1);
-    legacyRowByVndb.set(vndbId, row);
-  });
-
   const [charsRes, zhRes, vnRes, vnTitlesRes, releaseRes, companyRes, seiyuuRes, staffRes, traitsRes] =
     await Promise.all([
       client.query('select id, sex, gender from chars'),

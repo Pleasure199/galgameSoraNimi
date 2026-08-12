@@ -2,7 +2,9 @@ node_modules/
 dist/
 pow-wasm/target/
 *.sqlite3
+*.sqlite3-shm
 *.db
+*.tsbuildinfo
 .env
 .DS_Store
 target/
