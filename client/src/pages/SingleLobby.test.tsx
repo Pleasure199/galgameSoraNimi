@@ -69,4 +69,42 @@ describe('SingleLobby', () => {
     const start = screen.getByRole('button', { name: /开始游戏/ });
     expect(start).toHaveClass('btn', 'btn-lg', 'btn-green');
   });
+
+  it('asks for confirmation before starting full mode', async () => {
+    const user = userEvent.setup();
+    renderAtRoute(
+      <SingleLobby />,
+      {
+        route: '/single',
+        path: '/single',
+        extraRoutes: <Route path="/single/:mode" element={<PathProbe />} />,
+      }
+    );
+
+    await user.click(screen.getByRole('radio', { name: /完整版/ }));
+    await user.click(screen.getByRole('button', { name: /开始游戏/ }));
+
+    expect(await screen.findByRole('alertdialog')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /继续挑战/ }));
+
+    expect(await screen.findByTestId('current-path')).toHaveTextContent('/single/normal');
+  });
+
+  it('stays on the lobby when full mode confirmation is cancelled', async () => {
+    const user = userEvent.setup();
+    renderAtRoute(
+      <SingleLobby />,
+      {
+        route: '/single',
+        path: '/single',
+        extraRoutes: <Route path="/single/:mode" element={<PathProbe />} />,
+      }
+    );
+
+    await user.click(screen.getByRole('radio', { name: /完整版/ }));
+    await user.click(screen.getByRole('button', { name: /开始游戏/ }));
+    await user.click(await screen.findByRole('button', { name: /取消/ }));
+
+    expect(screen.queryByTestId('current-path')).not.toBeInTheDocument();
+  });
 });

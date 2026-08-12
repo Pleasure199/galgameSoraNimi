@@ -133,7 +133,12 @@ export const resources = {
         starting: '正在开始新对局…', startFailedTitle: '开局失败', startRetry: '重试', backToLobby: '返回大厅',
         processing: '处理中', leaving: '退出中',
       },
-      singleLobby: { title: '单人模式', subtitle: '开始一局单人猜测，猜出目标角色即获胜。', difficultyTitle: '选择难度', recommended: '推荐', start: '开始游戏' },
+      singleLobby: {
+        title: '单人模式', subtitle: '开始一局单人猜测，猜出目标角色即获胜。', difficultyTitle: '选择难度', recommended: '推荐', start: '开始游戏',
+        normalConfirmTitle: '确认选择完整版？',
+        normalConfirmMessage: '完整版包含全部角色，部分角色可能存在属性不全，猜测难度会更高。是否继续？',
+        normalConfirmStart: '继续挑战',
+      },
       search: {
         title: '角色查询', placeholder: '输入角色名（支持模糊搜索）...', button: '查询',
         empty: '在下方输入框中输入角色名称即可查询', fuzzy: '支持模糊搜索：输入部分名称即可匹配',
@@ -313,7 +318,9 @@ export const resources = {
         starting: 'Starting a new game…', startFailedTitle: 'Could not start the game', startRetry: 'Retry', backToLobby: 'Back to lobby',
         processing: 'Processing', leaving: 'Leaving',
       },
-      singleLobby: { title: 'Solo mode', subtitle: 'Guess a random galgame character within 8 tries.', difficultyTitle: 'Choose difficulty', recommended: 'Recommended', start: 'Start game' },
+      singleLobby: {
+        title: 'Solo mode', subtitle: 'Guess a random galgame character within 8 tries.', difficultyTitle: 'Choose difficulty', recommended: 'Recommended', start: 'Start game',
+      },
       search: {
         title: 'Character Search', placeholder: 'Enter a character name (fuzzy search)...', button: 'Search',
         empty: 'Enter a character name below to search', fuzzy: 'Fuzzy search is supported: enter part of a name',
@@ -493,7 +500,9 @@ export const resources = {
         starting: '新しいゲームを開始しています…', startFailedTitle: 'ゲームを開始できませんでした', startRetry: '再試行', backToLobby: 'ロビーに戻る',
         processing: '処理中', leaving: '退出中',
       },
-      singleLobby: { title: 'ソロモード', subtitle: 'ランダムなギャルゲーキャラを8回以内に当てよう。', difficultyTitle: '難易度を選択', recommended: 'おすすめ', start: 'ゲーム開始' },
+      singleLobby: {
+        title: 'ソロモード', subtitle: 'ランダムなギャルゲーキャラを8回以内に当てよう。', difficultyTitle: '難易度を選択', recommended: 'おすすめ', start: 'ゲーム開始',
+      },
       search: {
         title: 'キャラクター検索', placeholder: 'キャラクター名を入力（あいまい検索対応）...', button: '検索',
         empty: '下の入力欄にキャラクター名を入力してください', fuzzy: '名前の一部だけでも検索できます',

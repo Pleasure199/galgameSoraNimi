@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { Check, Gamepad2, Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
+import { useConfirm } from '../components/ConfirmDialog';
 import { AVAILABLE_DIFFICULTIES } from '../config/difficulties';
 import {
   difficultyColor,
@@ -15,9 +16,19 @@ import { useTranslation } from 'react-i18next';
 export default function SingleLobby() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const confirm = useConfirm();
   const [selected, setSelected] = useState(AVAILABLE_DIFFICULTIES[0]?.key ?? 'beginner');
 
-  const start = () => {
+  const start = async () => {
+    if (selected === 'normal') {
+      const confirmed = await confirm({
+        title: t('singleLobby.normalConfirmTitle'),
+        message: t('singleLobby.normalConfirmMessage'),
+        confirmLabel: t('singleLobby.normalConfirmStart'),
+        tone: 'warning',
+      });
+      if (!confirmed) return;
+    }
     navigate(`/single/${selected}`);
   };
 
@@ -58,7 +69,7 @@ export default function SingleLobby() {
         })}
       </div>
       <div className="single-lobby-action">
-        <button type="button" className="btn btn-lg btn-green" onClick={start}>
+        <button type="button" className="btn btn-lg btn-green" onClick={() => void start()}>
           <Play size={17} /> {t('singleLobby.start')}
         </button>
       </div>
