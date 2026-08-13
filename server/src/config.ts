@@ -32,7 +32,7 @@ export const config = {
   redisUrl: process.env.REDIS_URL || 'redis://127.0.0.1:6379',
   redisPrefix: process.env.REDIS_PREFIX || 'tianyiba:',
   redisRequired: process.env.REDIS_REQUIRED === 'true',
-  redisCommandTimeoutMs: Number(process.env.REDIS_COMMAND_TIMEOUT_MS || 1500),
+  redisCommandTimeoutMs: Number(process.env.REDIS_COMMAND_TIMEOUT_MS || 3000),
   passwordWorkers: Number.isInteger(configuredPasswordWorkers)
     ? Math.max(1, Math.min(4, configuredPasswordWorkers))
     : 2,

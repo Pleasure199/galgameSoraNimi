@@ -48,6 +48,9 @@ function makeClient(label: string): Client {
         // Initial connect must fail fast so a missing Redis triggers the
         // single-instance memory fallback instead of hanging startup forever.
         // Once connected, keep the default auto-reconnect behavior.
+        connectTimeout: 10_000,
+        keepAlive: true,
+        keepAliveInitialDelay: 30_000,
         reconnectStrategy: (retries) => {
           if (everConnected) return Math.min(retries * 100, 1000);
           if (retries >= 5) return new Error('REDIS_INITIAL_CONNECT_FAILED');
@@ -84,6 +87,8 @@ export async function initRedis(): Promise<boolean> {
     ]);
     available = true;
     console.log(`[redis] connected: ${config.redisUrl}`);
+    await commandClient.ping();
+    console.log('[redis] warmed up');
     return true;
   } catch (err) {
     available = false;

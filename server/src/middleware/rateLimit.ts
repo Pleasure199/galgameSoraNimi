@@ -81,6 +81,7 @@ export function rateLimit(options: RateLimitOptions) {
       }
       next();
     } catch (err) {
+      console.error(`[RateLimit] rate-limit check failed for ${req.method} ${req.originalUrl}`, err);
       if (options.failClosed) return res.status(503).json({ code: 'RATE_LIMIT_UNAVAILABLE' });
       next();
     }

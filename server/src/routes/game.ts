@@ -102,7 +102,7 @@ router.post(
     limit: 10,
     windowSeconds: 60,
     key: requestIdentity,
-    failClosed: true,
+    failClosed: false,
   }),
   validateBody(z.object({
     mode: z.string().trim().regex(/^[a-z0-9][a-z0-9_-]{0,31}$/).default('beginner'),
@@ -138,7 +138,7 @@ router.post(
     limit: 30,
     windowSeconds: 10,
     key: requestIdentity,
-    failClosed: true,
+    failClosed: false,
   }),
   validateParams(gameIdParams),
   validateBody(z.object({ characterId: z.number().int().positive() })),
@@ -189,7 +189,7 @@ router.post(
     limit: 15,
     windowSeconds: 60,
     key: requestIdentity,
-    failClosed: true,
+    failClosed: false,
   }),
   validateParams(gameIdParams),
   asyncHandler(async (req, res) => {
