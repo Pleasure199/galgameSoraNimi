@@ -10,11 +10,32 @@ interface RateLimitOptions {
 }
 
 const localCounters = new Map<string, { count: number; expiresAt: number }>();
+let localCleanupCounter = 0;
 const HASH_RATE_LIMIT_SCRIPT = `local count = redis.call('HINCRBY', KEYS[1], ARGV[1], 1)
 if count == 1 then
   redis.call('HEXPIRE', KEYS[1], ARGV[2], 'FIELDS', '1', ARGV[1])
 end
 return count`;
+
+function consumeLocalRateLimit(
+  localKey: string,
+  limit: number,
+  windowSeconds: number
+): boolean {
+  const now = Date.now();
+  localCleanupCounter += 1;
+  if (localCounters.size >= 5000 || localCleanupCounter % 1000 === 0) {
+    for (const [key, item] of localCounters) {
+      if (item.expiresAt <= now) localCounters.delete(key);
+    }
+  }
+  const current = localCounters.get(localKey);
+  const item = !current || current.expiresAt <= now
+    ? { count: 1, expiresAt: now + windowSeconds * 1000 }
+    : { count: current.count + 1, expiresAt: current.expiresAt };
+  localCounters.set(localKey, item);
+  return item.count <= limit;
+}
 
 export async function consumeRateLimit(
   name: string,
@@ -36,8 +57,12 @@ export async function consumeRateLimit(
         [identity, String(windowSeconds + 1)]
       ));
     } catch (err) {
+      // Redis 临时故障时回退到本地计数，避免任何接口返回“服务繁忙”。
+      if (!(err instanceof Error) || !/unknown command|hexpire/i.test(err.message)) {
+        console.error(`[RateLimit] Redis failure, falling back to local counter: ${err instanceof Error ? err.message : String(err)}`);
+        return consumeLocalRateLimit(localKey, limit, windowSeconds);
+      }
       // Keep a compatibility path for Redis versions without hash-field TTL.
-      if (!(err instanceof Error) || !/unknown command|hexpire/i.test(err.message)) throw err;
       const legacyKey = redisKey(`rl:${name}:${identity}:${bucket}`);
       const result = await client.multi()
         .incr(legacyKey)
@@ -47,13 +72,7 @@ export async function consumeRateLimit(
     }
     return count <= limit;
   }
-  const now = Date.now();
-  const current = localCounters.get(localKey);
-  const item = !current || current.expiresAt <= now
-    ? { count: 1, expiresAt: now + windowSeconds * 1000 }
-    : { count: current.count + 1, expiresAt: current.expiresAt };
-  localCounters.set(localKey, item);
-  return item.count <= limit;
+  return consumeLocalRateLimit(localKey, limit, windowSeconds);
 }
 
 function remoteIp(req: Request): string {
