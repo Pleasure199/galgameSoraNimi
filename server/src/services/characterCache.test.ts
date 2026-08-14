@@ -26,13 +26,13 @@ describe('character catalog', () => {
     expect(list.characters.find((character) => character.id === 1)).toMatchObject({
       id: 1,
       name: '神尾观铃',
-      difficulties: ['beginner', 'easy', 'normal'],
+      difficulties: ['beginner', 'easy', 'normal', 'hard', 'complete'],
     });
     expect(getEnabledCharacter(1)).toMatchObject({
       id: 1,
       name: '神尾观铃',
       work: 'AIR',
-      difficulties: ['beginner', 'easy', 'normal'],
+      difficulties: ['beginner', 'easy', 'normal', 'hard', 'complete'],
     });
     expect(getEnabledCharacters()).toHaveLength(13373);
   });

@@ -15,12 +15,14 @@ describe('SingleLobby', () => {
     localStorage.clear();
   });
 
-  it('renders the three difficulty choices', () => {
+  it('renders the five difficulty choices', () => {
     renderAtRoute(<SingleLobby />, { route: '/single', path: '/single' });
 
-    expect(screen.getAllByRole('radio')).toHaveLength(3);
+    expect(screen.getAllByRole('radio')).toHaveLength(5);
     expect(screen.getByRole('radio', { name: /入门版/ })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: /简单版/ })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /普通版/ })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /困难版/ })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: /完整版/ })).toBeInTheDocument();
     expect(screen.getByText('开始一局单人猜测，猜出目标角色即获胜。')).toBeInTheDocument();
   });
@@ -87,7 +89,7 @@ describe('SingleLobby', () => {
     expect(await screen.findByRole('alertdialog')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /继续挑战/ }));
 
-    expect(await screen.findByTestId('current-path')).toHaveTextContent('/single/normal');
+    expect(await screen.findByTestId('current-path')).toHaveTextContent('/single/complete');
   });
 
   it('stays on the lobby when full mode confirmation is cancelled', async () => {

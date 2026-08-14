@@ -17,7 +17,7 @@ export default function Search() {
   const [character, setCharacter] = useState<CharacterInfo | null>(null);
   const [allCharacters, setAllCharacters] = useState<CharacterInfo[] | null>(null);
   const [allPage, setAllPage] = useState(1);
-  const [selectedDifficulty, setSelectedDifficulty] = useState('normal');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('complete');
   const [loadingAll, setLoadingAll] = useState(false);
   const [workResults, setWorkResults] = useState<CharacterInfo[] | null>(null);
   const [workQuery, setWorkQuery] = useState('');

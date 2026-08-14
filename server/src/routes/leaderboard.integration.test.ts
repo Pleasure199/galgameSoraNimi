@@ -106,6 +106,26 @@ describe('leaderboard', () => {
         finished_at: db.fn.now(),
       },
       {
+        session_id: `leaderboard-${stamp}-hard-win`,
+        user_id: userIds[0],
+        target_character_id: target.id,
+        mode: 'hard',
+        guesses: '[]',
+        status: 'won',
+        guess_count: 2,
+        finished_at: db.fn.now(),
+      },
+      {
+        session_id: `leaderboard-${stamp}-complete-win`,
+        user_id: userIds[0],
+        target_character_id: target.id,
+        mode: 'complete',
+        guesses: '[]',
+        status: 'won',
+        guess_count: 2,
+        finished_at: db.fn.now(),
+      },
+      {
         session_id: `leaderboard-${stamp}-normal-a-second-win`,
         user_id: userIds[0],
         target_character_id: target.id,
@@ -146,6 +166,18 @@ describe('leaderboard', () => {
         winRate: 2 / 3,
       });
 
+      const hardResponse = await fetch(`${baseUrl}/api/leaderboard?difficulty=hard`);
+      const hardData = await hardResponse.json();
+      expect(hardResponse.status).toBe(200);
+      expect(hardData.difficulty).toBe('hard');
+      expect(hardData.items[0]).toMatchObject({ id: userIds[0], wins: 1, total: 1 });
+
+      const completeResponse = await fetch(`${baseUrl}/api/leaderboard?difficulty=complete`);
+      const completeData = await completeResponse.json();
+      expect(completeResponse.status).toBe(200);
+      expect(completeData.difficulty).toBe('complete');
+      expect(completeData.items[0]).toMatchObject({ id: userIds[0], wins: 1, total: 1 });
+
       const token = signToken({ id: userIds[0], token_version: 0 });
       const ownResponse = await fetch(`${baseUrl}/api/leaderboard?difficulty=normal`, {
         headers: { Cookie: `tianyiba_session=${token}` },
@@ -159,7 +191,7 @@ describe('leaderboard', () => {
 
       await db('users').where({ id: userIds[0] }).update({ leaderboard_hidden: true });
       await invalidateCached(...allLeaderboardCacheKeys());
-      for (const hiddenDifficulty of ['beginner', 'easy', 'normal']) {
+      for (const hiddenDifficulty of ['beginner', 'easy', 'normal', 'hard', 'complete']) {
         const hiddenResponse = await fetch(
           `${baseUrl}/api/leaderboard?difficulty=${hiddenDifficulty}`,
           {

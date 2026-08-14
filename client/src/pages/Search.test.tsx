@@ -37,7 +37,7 @@ describe('Search', () => {
         cv: '川上とも子',
         hairColor: '金色',
         hairLength: '长发',
-        difficulties: ['normal'],
+        difficulties: ['normal', 'hard', 'complete'],
       }],
     } as never);
 
@@ -64,7 +64,7 @@ describe('Search', () => {
           cv: '川上とも子',
           hairColor: '金色',
           hairLength: '长发',
-          difficulties: ['normal', 'easy', 'beginner'],
+          difficulties: ['beginner', 'easy', 'normal', 'hard', 'complete'],
         },
         {
           id: 2,
@@ -76,7 +76,7 @@ describe('Search', () => {
           cv: '岡本麻弥',
           hairColor: '蓝色',
           hairLength: '短发',
-          difficulties: ['normal', 'easy'],
+          difficulties: ['easy', 'normal', 'hard', 'complete'],
         },
       ],
     } as never);
@@ -108,7 +108,7 @@ describe('Search', () => {
           cv: '川上とも子',
           hairColor: '金色',
           hairLength: '长发',
-          difficulties: ['normal', 'easy', 'beginner'],
+          difficulties: ['beginner', 'easy', 'normal', 'hard', 'complete'],
         },
         {
           id: 2,
@@ -120,7 +120,7 @@ describe('Search', () => {
           cv: '岡本麻弥',
           hairColor: '蓝色',
           hairLength: '短发',
-          difficulties: ['normal', 'easy'],
+          difficulties: ['easy', 'normal', 'hard', 'complete'],
         },
       ],
     } as never);

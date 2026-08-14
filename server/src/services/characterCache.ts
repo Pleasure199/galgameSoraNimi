@@ -86,7 +86,7 @@ async function loadCharacterCatalog(): Promise<{ version: string; characters: Ch
     if (!Number.isInteger(seed.release_year)) {
       throw new Error(`[characters] ${name} release_year must be an integer`);
     }
-    const difficulties = seed.difficulties ?? ['normal'];
+    const difficulties = seed.difficulties ?? ['complete'];
     if (
       !Array.isArray(difficulties) ||
       !difficulties.length ||

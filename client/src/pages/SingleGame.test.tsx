@@ -67,7 +67,7 @@ describe('SingleGame UX', () => {
   });
 
   it('redirects invalid difficulty URLs without writing localStorage', async () => {
-    renderGame('hard');
+    renderGame('unknown');
     expect(await screen.findByTestId('lobby')).toBeInTheDocument();
     expect(localStorage.getItem('tianyiba.single-difficulty')).toBeNull();
     expect(post).not.toHaveBeenCalled();

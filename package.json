@@ -15,6 +15,7 @@
     "test": "npm run test -w server && npm run test -w client",
     "test:client": "npm run test -w client",
     "migrate": "npm run migrate -w server",
+    "db:migrate-normal-mode": "node scripts/migrateNormalModeToComplete.mjs",
     "db:import-vndb": "node scripts/importVndbCharacters.mjs",
     "db:build-bangumi-names": "node scripts/buildBangumiNameMap.mjs"
   },

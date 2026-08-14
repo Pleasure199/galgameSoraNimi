@@ -184,7 +184,11 @@ export default function SingleGame() {
     ? t('game.beginnerHint')
     : mode === 'easy'
       ? t('game.easyHint')
-      : t('game.normalHint');
+      : mode === 'normal'
+        ? t('game.normalHint')
+        : mode === 'hard'
+          ? t('game.hardHint')
+          : t('game.completeHint');
 
   return (
     <Page

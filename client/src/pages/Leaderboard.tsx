@@ -6,7 +6,8 @@ import { api, errMsg } from '../api/client';
 import { toast } from '../components/Toast';
 import { useAuth } from '../store/auth';
 import { useTranslation } from 'react-i18next';
-import { SINGLE_MODE } from '../config/difficulties';
+import { AVAILABLE_DIFFICULTIES } from '../config/difficulties';
+import { difficultyLabel } from '../utils/difficulty';
 
 interface BoardRow {
   id: number;
@@ -28,6 +29,7 @@ export default function Leaderboard() {
   const [rows, setRows] = useState<BoardRow[]>([]);
   const [currentUser, setCurrentUser] = useState<LeaderboardResponse['currentUser']>(null);
   const [loading, setLoading] = useState(true);
+  const [difficulty, setDifficulty] = useState('beginner');
   const requestId = useRef(0);
   const currentUserId = useAuth((state) => state.user?.id ?? null);
 
@@ -35,7 +37,7 @@ export default function Leaderboard() {
     const currentRequest = ++requestId.current;
     setLoading(true);
     api
-      .get<LeaderboardResponse>('/leaderboard', { params: { difficulty: SINGLE_MODE } })
+      .get<LeaderboardResponse>('/leaderboard', { params: { difficulty } })
       .then((res) => {
         if (currentRequest !== requestId.current) return;
         setRows(res.data.items);
@@ -47,7 +49,7 @@ export default function Leaderboard() {
       .finally(() => {
         if (currentRequest === requestId.current) setLoading(false);
       });
-  }, []);
+  }, [difficulty]);
 
   const columns: Column<BoardRow>[] = [
     { key: 'rank', title: '#', render: (r) => rows.indexOf(r) + 1 },
@@ -71,7 +73,10 @@ export default function Leaderboard() {
     },
   ];
 
-  const selectionLabel = t('leaderboard.single');
+  const selectionLabel = t('leaderboard.selection', {
+    mode: t('leaderboard.single'),
+    difficulty: difficultyLabel(t, difficulty),
+  });
 
   return (
     <Page title={t('leaderboard.title')} icon={<Trophy size={17} />}>
@@ -94,6 +99,26 @@ export default function Leaderboard() {
           </span>
         </div>
       )}
+      <div className="leaderboard-controls">
+        <label className="leaderboard-difficulty-select">
+          {t('leaderboard.difficultyLabel')}
+          <select
+            className="input"
+            value={difficulty}
+            aria-label={t('leaderboard.difficultyLabel')}
+            onChange={(event) => setDifficulty(event.target.value)}
+          >
+          {AVAILABLE_DIFFICULTIES.map((option) => (
+            <option
+              key={option.key}
+              value={option.key}
+            >
+              {difficultyLabel(t, option.key)}
+            </option>
+          ))}
+          </select>
+        </label>
+      </div>
       <div className="card leaderboard-card leaderboard-card-single">
         <DataTable
           columns={columns}

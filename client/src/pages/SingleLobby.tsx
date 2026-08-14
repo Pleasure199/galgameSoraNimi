@@ -20,11 +20,11 @@ export default function SingleLobby() {
   const [selected, setSelected] = useState(AVAILABLE_DIFFICULTIES[0]?.key ?? 'beginner');
 
   const start = async () => {
-    if (selected === 'normal') {
+    if (selected === 'complete') {
       const confirmed = await confirm({
-        title: t('singleLobby.normalConfirmTitle'),
-        message: t('singleLobby.normalConfirmMessage'),
-        confirmLabel: t('singleLobby.normalConfirmStart'),
+        title: t('singleLobby.completeConfirmTitle'),
+        message: t('singleLobby.completeConfirmMessage'),
+        confirmLabel: t('singleLobby.completeConfirmStart'),
         tone: 'warning',
       });
       if (!confirmed) return;
