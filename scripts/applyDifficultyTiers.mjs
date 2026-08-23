@@ -2,10 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pg from 'pg';
+import { DATABASE_URL } from './dbUrl.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const TIERS_PATH = path.join(ROOT, 'scripts/difficultyTiers.json');
-const DATABASE_URL = process.env.DATABASE_URL || 'postgres://tianyiba:tianyiba@127.0.0.1:5432/tianyiba';
 
 const tiers = JSON.parse(fs.readFileSync(TIERS_PATH, 'utf8'));
 

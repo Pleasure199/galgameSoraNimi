@@ -1,6 +1,6 @@
 import pg from 'pg';
+import { DATABASE_URL } from './dbUrl.mjs';
 
-const DATABASE_URL = process.env.DATABASE_URL || 'postgres://tianyiba:tianyiba@127.0.0.1:5432/tianyiba';
 
 const BEGINNER = [
   "古河渚",

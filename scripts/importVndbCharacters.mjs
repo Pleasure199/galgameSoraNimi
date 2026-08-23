@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import pg from 'pg';
+import { DATABASE_URL } from './dbUrl.mjs';
 
 const ROOT = path.resolve(process.cwd());
 const WEB_POPULARITY_PATH = path.join(ROOT, 'scripts/webPopularity.json');
-const DATABASE_URL = process.env.DATABASE_URL || 'postgres://tianyiba:tianyiba@127.0.0.1:5432/tianyiba';
 const DATA_VERSION = 'vndb-2026-08-07';
 const BEGINNER_LIMIT = 300;
 const EASY_LIMIT = 3000;

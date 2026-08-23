@@ -1,11 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import pg from 'pg';
+import { DATABASE_URL } from './dbUrl.mjs';
 
 const ROOT = path.resolve(process.cwd());
 const WEB_POPULARITY_PATH = path.join(ROOT, 'scripts/webPopularity.json');
 const DOC_PATH = path.join(ROOT, 'docs/difficulty-pools.md');
-const DATABASE_URL = process.env.DATABASE_URL || 'postgres://tianyiba:tianyiba@127.0.0.1:5432/tianyiba';
 
 function listSection(title, rows) {
   const lines = [`## ${title}`, ''];

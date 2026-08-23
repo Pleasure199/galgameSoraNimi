@@ -1,6 +1,6 @@
 import pg from 'pg';
+import { DATABASE_URL } from './dbUrl.mjs';
 
-const DATABASE_URL = process.env.DATABASE_URL || 'postgres://tianyiba:tianyiba@127.0.0.1:5432/tianyiba';
 
 /**
  * 旧版本 normal 表示“完整版”，新版 normal 表示“普通版”。
